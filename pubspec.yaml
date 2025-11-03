@@ -1,7 +1,10 @@
 name: flutter_form_fields
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: Reusable Flutter FormFields and formatters for integer-only input.
+version: 0.1.0
+homepage: https://github.com/BaselMoustafa/flutter_form_fields
+repository: https://github.com/BaselMoustafa/flutter_form_fields
+documentation: https://github.com/BaselMoustafa/flutter_form_fields#readme
+
 
 environment:
   sdk: ^3.8.1
