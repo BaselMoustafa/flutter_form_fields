@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_form_fields/src/core/formatters/flutter_text_input_formatter.dart';
+import 'package:foo_form_field/src/core/formatters/flutter_text_input_formatter.dart';
 
 class IntegerTextInputFormatter extends FlutterTextInputFormatter {
 

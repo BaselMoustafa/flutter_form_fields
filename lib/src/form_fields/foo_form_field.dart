@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_form_fields/src/core/controllers/flutter_field_controller.dart';
-import 'package:flutter_form_fields/src/form_fields/base_flutter_form_field.dart';
+import 'package:foo_form_field/flutter_form_fields.dart';
+import 'package:foo_form_field/src/form_fields/base_flutter_form_field.dart';
 
-class FlutterFormField<T> extends FormField<T> implements BaseFlutterFormField<T> {
+
+class FlutterFormField<T> extends FormField<T> implements BaseFooFormField<T> {
 
   @override
-  final FlutterFieldController<T>? controller;
+  final FooFieldController<T>? controller;
 
   const FlutterFormField({
     super.key,

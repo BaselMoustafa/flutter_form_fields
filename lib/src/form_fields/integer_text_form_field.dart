@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_fields/src/core/formatters/integer_text_input_formatter.dart';
-import 'package:flutter_form_fields/src/form_fields/base_flutter_form_field.dart';
+import 'package:foo_form_field/flutter_form_fields.dart';
+import 'package:foo_form_field/src/form_fields/base_flutter_form_field.dart';
 
-class IntegerTextFormField extends BaseFlutterFormField<String> {
+class IntegerTextFormField extends BaseFooFormField<String> {
 
   final String? initialValue;
   final FocusNode? focusNode;

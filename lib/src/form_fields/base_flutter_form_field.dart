@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_fields/src/core/controllers/flutter_field_controller.dart';
+import 'package:foo_form_field/flutter_form_fields.dart';
 
-abstract class BaseFlutterFormField<T> extends StatefulWidget {
-  final FlutterFieldController<T>? controller;
+abstract class BaseFooFormField<T> extends StatefulWidget {
+  final FooFieldController<T>? controller;
 
-  const BaseFlutterFormField({
+  const BaseFooFormField({
     super.key,
     this.controller,
   });

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class FlutterFieldController<T> extends ChangeNotifier {
+class FooFieldController<T> extends ChangeNotifier {
   
   T? get value => _formFieldState.value;
 
