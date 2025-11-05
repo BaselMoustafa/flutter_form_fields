@@ -3,7 +3,10 @@ import 'package:foo_form_field/foo_form_field.dart';
 
 class FooFieldController<T> extends BaseFooFieldController<T> {
   
-  FooFieldController([this._initialValue]);
+  FooFieldController({
+    T? initialValue,
+    super.enabled = true,
+  }): _initialValue = initialValue;
 
   final T? _initialValue;
 

@@ -5,8 +5,8 @@ class FooFormField<T> extends StatefulWidget {
 
   const FooFormField({
     super.key,
+    required this.controller,
     required this.builder,
-    this.controller,
     this.onSaved,
     this.validator,
     this.autovalidateMode,
@@ -16,8 +16,9 @@ class FooFormField<T> extends StatefulWidget {
     this.onChanged,
   });
 
-  final FooFieldController<T>? controller;
-  final Widget Function(BuildContext context,bool enabled ,T? value , String? errorText) builder;
+  final FooFieldController<T> controller;
+  final Widget Function(BuildContext context,String? errorText) builder;
+  
   final void Function(T? value)? onSaved;
   final String? Function(T? value)? validator;
   final AutovalidateMode? autovalidateMode;
@@ -31,8 +32,6 @@ class FooFormField<T> extends StatefulWidget {
 }
 
 class _FooFormFieldState<T> extends State<FooFormField<T>> {
-  late final FooFieldController<T> controller ;
-  late bool _controllerLocallyInitialized = false;
 
   late final GlobalKey<FormFieldState<T>> _formFieldKey;
 
@@ -40,47 +39,33 @@ class _FooFormFieldState<T> extends State<FooFormField<T>> {
   void initState() {
     super.initState();
     _formFieldKey = GlobalKey<FormFieldState<T>>();
-    _initializeController();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      widget.controller.setFormFieldState(_formFieldKey.currentState!);
+      widget.controller.addListener(_notifyChangeInValue);
+    });
   }
 
   @override
   void dispose() {
-    controller.removeListener(_notifyChangeInValue);
-    if(_controllerLocallyInitialized){
-      controller.dispose();
-    }
+    widget.controller.removeListener(_notifyChangeInValue);
     super.dispose();
-  }
-
-  void _initializeController(){
-    if(widget.controller != null){
-      controller = widget.controller!;
-    } else {
-      controller = FooFieldController<T>();
-      _controllerLocallyInitialized = true;
-    }
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.setFormFieldState(_formFieldKey.currentState!);
-      controller.addListener(_notifyChangeInValue);
-    });
   }
 
   void _notifyChangeInValue(){
     setState(() {});
-    widget.onChanged?.call(controller.value);
+    widget.onChanged?.call(widget.controller.value);
   }
 
   @override
   Widget build(BuildContext context) {
     return FormField<T>(
       key: _formFieldKey,
-      builder: (field) => widget.builder(context, controller.enabled, field.value, field.errorText),
+      builder: (FormFieldState<T> field) => widget.builder(context,field.errorText),
       onSaved: widget.onSaved,
       validator: widget.validator,
       errorBuilder: widget.errorBuilder,
-      initialValue: controller.value,
-      enabled: controller.enabled,
+      initialValue: widget.controller.value,
+      enabled: widget.controller.enabled,
       autovalidateMode: widget.autovalidateMode,
       restorationId: widget.restorationId,
       forceErrorText: widget.forceErrorText,

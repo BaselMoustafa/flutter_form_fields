@@ -12,7 +12,6 @@ class FooTextFormField extends StatefulWidget {
     super.key,
     this.groupId = EditableText,
     this.controller,
-    this.initialValue,
     this.focusNode,
     this.forceErrorText,
     this.decoration,
@@ -85,7 +84,6 @@ class FooTextFormField extends StatefulWidget {
 
   final Object groupId;
   final FooFieldController<String>? controller;
-  final String? initialValue;
   final FocusNode? focusNode;
   final String? forceErrorText;
   final InputDecoration? decoration;
@@ -197,10 +195,10 @@ class _FooTextFormFieldState extends State<FooTextFormField> {
     return TextFormField(
       key: _formFieldKey,
       enabled: _controller.enabled,
+      initialValue: _controller.value,
 
       //Gives access to the TextFormField's properties
       groupId: widget.groupId,
-      initialValue: widget.initialValue,
       focusNode: widget.focusNode,
       forceErrorText: widget.forceErrorText,
       decoration: widget.decoration,

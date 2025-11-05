@@ -3,6 +3,9 @@ import 'package:foo_form_field/foo_form_field.dart';
 
 class FooRangeFieldController<T> extends BaseFooFieldController<T> {
 
+  FooRangeFieldController({
+    super.enabled = true,
+  });
   late final FormFieldState<T> _minFormFieldState;
   late final FormFieldState<T> _maxFormFieldState;
 

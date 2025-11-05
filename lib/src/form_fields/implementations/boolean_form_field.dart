@@ -4,12 +4,12 @@ import 'package:foo_form_field/src/core/widgets/field_with_error_text_widget.dar
 import 'package:foo_form_field/src/core/widgets/selection_card.dart';
 import 'package:foo_form_field/src/form_fields/base/foo_form_field.dart';
 
-class BooleanFormField extends StatefulWidget {
+class BooleanFormField extends StatelessWidget {
   const BooleanFormField({
     super.key,
+    required this.controller,
     this.yesText = "Yes",
     this.noText = "No",
-    this.controller,
     this.onSaved,
     this.validator,
     this.autovalidateMode,
@@ -23,8 +23,8 @@ class BooleanFormField extends StatefulWidget {
   final String yesText;
   final String noText;
 
-  final FooFieldController<bool>? controller;
-  final Widget Function(BuildContext context, bool enabled, bool? value)? builder;
+  final FooFieldController<bool> controller;
+  final Widget Function(BuildContext context, String? errorText)? builder;
   final void Function(bool? value)? onSaved;
   final String? Function(bool? value)? validator;
   final AutovalidateMode? autovalidateMode;
@@ -34,61 +34,33 @@ class BooleanFormField extends StatefulWidget {
   final void Function(bool? value)? onChanged;
 
   @override
-  State<BooleanFormField> createState() => _BooleanFormFieldState();
-}
-
-class _BooleanFormFieldState extends State<BooleanFormField> {
-
-  late final FooFieldController<bool> _controller;
-  bool _controllerLocallyInitialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    if(widget.controller != null){
-      _controller = widget.controller!;
-    } else {
-      _controller = FooFieldController<bool>();
-      _controllerLocallyInitialized = true;
-    }
-  }
-
-  @override
-  void dispose() {
-    if (_controllerLocallyInitialized) {
-      _controller.dispose();
-    }
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FooFormField<bool>(
-      controller: _controller,
-      onSaved: widget.onSaved,
-      validator: widget.validator,
-      autovalidateMode: widget.autovalidateMode,
-      errorBuilder: widget.errorBuilder,
-      forceErrorText: widget.forceErrorText,
-      restorationId: widget.restorationId,
-      onChanged: widget.onChanged,
+      controller: controller,
+      onSaved: onSaved,
+      validator: validator,
+      autovalidateMode: autovalidateMode,
+      errorBuilder: errorBuilder,
+      forceErrorText: forceErrorText,
+      restorationId: restorationId,
+      onChanged: onChanged,
       builder: _builder,
     );
   }
 
-  Widget _builder(BuildContext context, bool enabled, bool? value , String? errorText){
+  Widget _builder(BuildContext context, String? errorText){
     return FieldWithErrorTextWidget(
       errorText: errorText,
-      fieldWidget: widget.builder!=null? widget.builder!(context, enabled, value): Row(
+      fieldWidget: builder!=null? builder!(context,errorText): Row(
         spacing: 6,
         children: [
           _ActionButton(
-            state: this, 
+            parentWidget: this, 
             isYesButton: true,
           ),
       
           _ActionButton(
-            state: this, 
+            parentWidget: this, 
             isYesButton: false,
           ),
         ],
@@ -99,31 +71,33 @@ class _BooleanFormFieldState extends State<BooleanFormField> {
 
 class _ActionButton extends StatelessWidget {
   const _ActionButton({
-    required this.state,
+    required this.parentWidget,
     required this.isYesButton,
   });
 
-  final _BooleanFormFieldState state;
   final bool isYesButton;
+  final BooleanFormField parentWidget;
+
+  FooFieldController<bool> get _controller => parentWidget.controller;
 
   @override
   Widget build(BuildContext context) {
     return SelectionCard(
-      enabled: state._controller.enabled,
+      enabled: _controller.enabled,
       onTap: _onTap, 
-      isSelected: state._controller.value == isYesButton, 
+      isSelected: _controller.value == isYesButton, 
       child: Text(
-        isYesButton ? state.widget.yesText : state.widget.noText
+        isYesButton ? parentWidget.yesText : parentWidget.noText
       ),
     );
   }
 
   void _onTap() {
-    if(state._controller.value == isYesButton){
-      state._controller.value = null;
+    if(_controller.value == isYesButton){
+      _controller.value = null;
     } else {
-      state._controller.value = isYesButton;
+      _controller.value = isYesButton;
     }
-    state.widget.onChanged?.call(state._controller.value);
+    parentWidget.onChanged?.call(_controller.value);
   }
 }
