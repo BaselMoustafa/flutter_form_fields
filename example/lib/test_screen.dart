@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:foo_form_field/foo_form_field.dart';
@@ -33,17 +32,14 @@ class _TestScreenState extends State<TestScreen> {
                 yesText: 'Antch YesAntch YesAnt',
                 noText: 'Antch No',
                 validator: (value) {
-                  log("On Validated =====> $value");
                   if (value == null) {
                     return 'This field is required This f  ';
                   }
                   return null;
                 },
                 onSaved: (value) {
-                  log("On Saved Of Field =====> $value");
                 },
                 onChanged: (value) {
-                  log("On Changed =====> $value");
                   setState(() {
                     
                   });
