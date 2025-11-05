@@ -92,6 +92,13 @@ class _TestScreenState extends State<TestScreen> {
                 },
                 child: Text('Svae From Form')
               ),
+
+              TextButton(
+                onPressed: () {
+                  _formKey.currentState?.validate();
+                },
+                child: Text('Validate Form')
+              )
           
             ],
           ),
