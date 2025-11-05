@@ -13,7 +13,9 @@ class TestScreen extends StatefulWidget {
 
 class _TestScreenState extends State<TestScreen> {
 
-  final FooFieldController<String> _controller = FooFieldController<String>("Iniadnaskjdnajsk");
+  final FooFieldController<String> _controller = FooFieldController<String>(
+  
+  );
   final _formKey = GlobalKey<FormState>();
 
   @override

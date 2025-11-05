@@ -9,9 +9,9 @@ import 'package:foo_form_field/foo_form_field.dart';
 class FooTextFormField extends StatefulWidget {
 
   const FooTextFormField({
+    required this.controller,
     super.key,
     this.groupId = EditableText,
-    this.controller,
     this.focusNode,
     this.forceErrorText,
     this.decoration,
@@ -82,8 +82,9 @@ class FooTextFormField extends StatefulWidget {
 
   // ─── Final Fields ────────────────────────────────────────────────────────────────
 
+  final FooFieldController<String> controller;
+
   final Object groupId;
-  final FooFieldController<String>? controller;
   final FocusNode? focusNode;
   final String? forceErrorText;
   final InputDecoration? decoration;
@@ -157,45 +158,34 @@ class FooTextFormField extends StatefulWidget {
 
 class _FooTextFormFieldState extends State<FooTextFormField> {
   
-  late final FooFieldController<String> _controller;
-  bool _controllerLocallyInitialized = false;
   final GlobalKey<FormFieldState<String>> _formFieldKey = GlobalKey<FormFieldState<String>>();
 
   @override
   void initState() {
     super.initState();
-    if(widget.controller != null){
-      _controller = widget.controller!;
-    } else {
-      _controller = FooFieldController<String>();
-      _controllerLocallyInitialized = true;
-    }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _controller.setFormFieldState(_formFieldKey.currentState!);
-      _controller.addListener(_notifyChangeInValue);
+      widget.controller.setFormFieldState(_formFieldKey.currentState!);
+      widget.controller.addListener(_notifyChangeInValue);
     });
   }
 
   @override
   void dispose() {
-    _controller.removeListener(_notifyChangeInValue);
-    if(_controllerLocallyInitialized){
-      _controller.dispose();
-    }
+    widget.controller.removeListener(_notifyChangeInValue);
     super.dispose();
   }
 
   void _notifyChangeInValue(){
     setState(() {});
-    widget.onChanged?.call(_controller.value);
+    widget.onChanged?.call(widget.controller.value);
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       key: _formFieldKey,
-      enabled: _controller.enabled,
-      initialValue: _controller.value,
+      enabled: widget.controller.enabled,
+      initialValue: widget.controller.value,
 
       //Gives access to the TextFormField's properties
       groupId: widget.groupId,
