@@ -8,14 +8,14 @@ class IntegerTextInputFormatter extends FooTextInputFormatter {
 
   final String exceedMaxLengthMessage;
   final String invalidNegativeMessage;
-  final String containsNonIntegerMessage;
+  final String invalidIntegerMessage;
 
   IntegerTextInputFormatter({
     this.maxLength,
     this.allowNegative = false,
     this.exceedMaxLengthMessage = "Exceed max length",
     this.invalidNegativeMessage = "Invalid negative number",
-    this.containsNonIntegerMessage = "Must be an integer",
+    this.invalidIntegerMessage = "Invalid",
   }){
     if(maxLength!=null && maxLength! < 1){
       throw ArgumentError.value(maxLength, 'maxLength', 'Max length must be greater than 0');
@@ -30,7 +30,7 @@ class IntegerTextInputFormatter extends FooTextInputFormatter {
       allowNegative: allowNegative,
       maxLength: maxLength,
       invalidNegativeMessage: invalidNegativeMessage,
-      containsNonIntegerMessage: containsNonIntegerMessage,
+      invalidIntegerMessage: invalidIntegerMessage,
       exceedMaxLengthMessage: exceedMaxLengthMessage,
     );
   }

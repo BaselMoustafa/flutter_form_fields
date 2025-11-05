@@ -4,7 +4,7 @@ extension StringExtension on String {
     bool allowNegative = true,
     int? maxLength,
     String invalidNegativeMessage = "Invalid negative number",
-    String containsNonIntegerMessage = "Must be an integer",
+    String invalidIntegerMessage = "Invalid",
     String exceedMaxLengthMessage = "Exceed max length",
   }) {
 
@@ -25,7 +25,7 @@ extension StringExtension on String {
     }
 
     if (trim().length != length) {
-      return containsNonIntegerMessage;
+      return invalidIntegerMessage;
     }
 
     if(effectiveMaxLength(this)!=null && length > effectiveMaxLength(this)!){
@@ -42,7 +42,7 @@ extension StringExtension on String {
       }
 
       if (int.tryParse(this[i])==null) {
-        return containsNonIntegerMessage;
+        return invalidIntegerMessage;
       }
     }
     return null;
