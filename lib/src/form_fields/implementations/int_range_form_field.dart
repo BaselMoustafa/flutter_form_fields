@@ -39,6 +39,14 @@ class IntRangeFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConvertableRangeFormField<int,String>(
       controller: controller,
+      onSaved: onSaved,
+      validator: validator,
+      autovalidateMode: autovalidateMode,
+      errorBuilder: errorBuilder,
+      restorationId: restorationId,
+      onChanged: onChanged,
+      fieldBuilder: fieldBuilder,
+      layoutBuilder: layoutBuilder,
       minFieldBuilder: _minFieldBuilder,
       maxFieldBuilder: _maxFieldBuilder,
       rangeValidator: rangeValidator?? RangeValidator<int>(
