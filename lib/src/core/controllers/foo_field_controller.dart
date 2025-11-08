@@ -5,13 +5,13 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
   
   final O? initialValue;
 
-  I? get initialValueAsFieldValue => toFieldValue(initialValue);
+  I? get initialValueAsFieldValue => _toFieldValue(initialValue);
   
   bool _enabled;
 
-  final O? Function(I? i) fromFieldValue;
-  
-  final I? Function(O? o) toFieldValue;
+  final O? Function(I? i) _fromFieldValue;
+
+  final I? Function(O? o) _toFieldValue;
 
   FormFieldState<I>? _formFieldState;
 
@@ -21,9 +21,9 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     required bool? enabled,
     required String? forcedErrorText,
     required this.initialValue,
-    required this.fromFieldValue,
-    required this.toFieldValue,
-  }): _enabled = enabled?? true, _forcedErrorText = forcedErrorText;
+    required O? Function(I? i) fromFieldValue,
+    required I? Function(O? o) toFieldValue,
+  }): _enabled = enabled?? true, _forcedErrorText = forcedErrorText, _fromFieldValue = fromFieldValue, _toFieldValue = toFieldValue;
 
   void setFormFieldState(FormFieldState<I> formFieldState){
     _formFieldState = formFieldState;
@@ -42,13 +42,13 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     if (_formFieldState == null) {
       return initialValue;
     }
-    return fromFieldValue(_formFieldState!.value);
+    return _fromFieldValue(_formFieldState!.value);
   }
 
   set value(O? value){
     return _excuteAfterCheckStateExistence<void>(
       toExecute: (FormFieldState<I> formFieldState) {
-        formFieldState.didChange(toFieldValue(value));
+        formFieldState.didChange(_toFieldValue(value));
       },
     );
   }
