@@ -49,7 +49,6 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     return _excuteAfterCheckStateExistence<void>(
       toExecute: (FormFieldState<I> formFieldState) {
         formFieldState.didChange(toFieldValue(value));
-        notifyListeners();
       },
     );
   }

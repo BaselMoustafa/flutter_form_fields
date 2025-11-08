@@ -11,7 +11,6 @@ class ValueFormField<T> extends StatefulWidget {
     this.validator,
     this.autovalidateMode,
     this.errorBuilder,
-    this.forceErrorText,
     this.restorationId,
     this.onChanged,
   });
@@ -23,7 +22,6 @@ class ValueFormField<T> extends StatefulWidget {
   final String? Function(T? value)? validator;
   final AutovalidateMode? autovalidateMode;
   final FormFieldErrorBuilder? errorBuilder;
-  final String? forceErrorText;
   final String? restorationId;
   final void Function(T? value)? onChanged;
 
@@ -68,7 +66,7 @@ class _ValueFormFieldState<T> extends State<ValueFormField<T>> {
       enabled: widget.controller.enabled,
       autovalidateMode: widget.autovalidateMode,
       restorationId: widget.restorationId,
-      forceErrorText: widget.forceErrorText,
+      forceErrorText: widget.controller.forcedErrorText,
     );
   }
 }

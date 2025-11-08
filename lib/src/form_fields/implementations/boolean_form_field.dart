@@ -41,7 +41,6 @@ class BooleanFormField extends StatelessWidget {
       validator: validator,
       autovalidateMode: autovalidateMode,
       errorBuilder: errorBuilder,
-      forceErrorText: forceErrorText,
       restorationId: restorationId,
       onChanged: onChanged,
       builder: _builder,

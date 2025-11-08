@@ -141,7 +141,6 @@ class IntTextFormField extends StatelessWidget {
     return FooTextFormField<String>(
       controller: controller,
       focusNode: focusNode,
-      forceErrorText: forceErrorText,
       decoration: decoration,
       textInputAction: textInputAction,
       style: style,

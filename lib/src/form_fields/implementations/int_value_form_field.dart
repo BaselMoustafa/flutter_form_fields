@@ -147,7 +147,6 @@ class _IntValueFormFieldState extends State<IntValueFormField> {
     return FooTextFormField<int>(
       controller: widget.controller,
       focusNode: widget.focusNode,
-      forceErrorText: widget.forceErrorText,
       decoration: widget.decoration,
       textInputAction: widget.textInputAction,
       style: widget.style,

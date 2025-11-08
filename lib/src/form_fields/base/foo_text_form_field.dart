@@ -15,7 +15,6 @@ class FooTextFormField<O> extends StatefulWidget {
     super.key,
     this.groupId = EditableText,
     this.focusNode,
-    this.forceErrorText,
     this.decoration,
     this.keyboardType,
     this.textCapitalization,
@@ -90,7 +89,6 @@ class FooTextFormField<O> extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Object groupId;
   final FocusNode? focusNode;
-  final String? forceErrorText;
   final InputDecoration? decoration;
   final TextInputType? keyboardType;
   final TextCapitalization? textCapitalization;
@@ -193,7 +191,7 @@ class _FooTextFormFieldState<O> extends State<FooTextFormField<O>> {
       //Gives access to the TextFormField's properties
       groupId: widget.groupId,
       focusNode: widget.focusNode,
-      forceErrorText: widget.forceErrorText,
+      forceErrorText: widget.controller.forcedErrorText,
       decoration: widget.decoration,
       keyboardType: widget.keyboardType,
       textCapitalization: widget.textCapitalization?? TextCapitalization.none,
