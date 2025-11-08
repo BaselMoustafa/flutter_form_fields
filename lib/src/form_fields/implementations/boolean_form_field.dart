@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foo_form_field/src/core/controllers/value_field_controller.dart';
 import 'package:foo_form_field/src/core/widgets/field_with_error_text_widget.dart';
 import 'package:foo_form_field/src/core/widgets/selection_card.dart';
-import 'package:foo_form_field/src/form_fields/base/foo_form_field.dart';
+import 'package:foo_form_field/src/form_fields/base/value_form_field.dart';
 
 class BooleanFormField extends StatelessWidget {
   const BooleanFormField({

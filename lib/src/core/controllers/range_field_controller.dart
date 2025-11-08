@@ -1,7 +1,7 @@
 import 'package:foo_form_field/foo_form_field.dart';
 import 'package:foo_form_field/src/core/models/range.dart';
 
-class RangeFieldController<T> extends FooFieldController<Range<T?>, Range<T?>> {
+class RangeFieldController<T> extends ValueFieldController<Range<T?>> {
 
   late final ValueFieldController<T> _minValueController;
   late final ValueFieldController<T> _maxValueController;
@@ -17,9 +17,6 @@ class RangeFieldController<T> extends FooFieldController<Range<T?>, Range<T?>> {
   _maxValueController = ValueFieldController<T>(
     initialValue: initialValue?.max,
     enabled: enabled,
-  ),super(
-    fromFieldValue: (range) => range,
-    toFieldValue: (range) => range,
   );
   
 
