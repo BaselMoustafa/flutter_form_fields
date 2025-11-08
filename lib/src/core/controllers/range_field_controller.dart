@@ -70,7 +70,10 @@ class RangeFieldController<T> extends ValueFieldController<Range<T?>> {
   }
 
   void _onRangeChanged(){
-    if (value?.min==minValueController.value && value?.max==maxValueController.value) {
+    if (
+      value?.min==minValueController.value && 
+      value?.max==maxValueController.value
+    ) {
       return;
     }
     minValueController.value = value?.min;
