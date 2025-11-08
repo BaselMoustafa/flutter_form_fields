@@ -2,26 +2,54 @@ import 'package:flutter/widgets.dart';
 import 'package:foo_form_field/foo_form_field.dart';
 import 'package:foo_form_field/src/core/models/range.dart';
 
-class RangeFieldController<T> extends ValueFieldController<Range<T>> {
+class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>,Range<I>> {
 
-  late final ValueFieldController<T> minValueController;
-  late final ValueFieldController<T> maxValueController;
+  late final FooFieldController<O,I> minValueController;
+  late final FooFieldController<O,I> maxValueController;
 
-  RangeFieldController({
+  ConvertableRangeFieldController({
     super.enabled,
     super.initialValue,
+    super.forcedErrorText,
+    required O? Function(I? i) fromFieldValue,
+    required I? Function(O? o) toFieldValue,
   }):
-  minValueController = ValueFieldController<T>(
-    initialValue: initialValue?.min,
-    enabled: enabled,
-  ), 
-  maxValueController = ValueFieldController<T>(
-    initialValue: initialValue?.max,
-    enabled: enabled,
-  );
+    minValueController = FooFieldController<O,I>(
+      initialValue: initialValue?.min,
+      enabled: enabled,
+      fromFieldValue: fromFieldValue,
+      toFieldValue: toFieldValue,
+      forcedErrorText: null,
+    ), 
+    maxValueController = FooFieldController<O,I>(
+      initialValue: initialValue?.max,
+      enabled: enabled,
+      fromFieldValue: fromFieldValue,
+      toFieldValue: toFieldValue,
+      forcedErrorText: null,
+    ),super(
+      fromFieldValue: (Range<I>? inputRange){
+        if (inputRange == null) {
+          return null;
+        }
+        return Range<O>(
+          min: fromFieldValue(inputRange.min),
+          max: fromFieldValue(inputRange.max),
+        );
+      },
+      toFieldValue: (Range<O>? outputRange){
+        if (outputRange == null) {
+          return null;
+        }
+        return Range<I>(
+          min: toFieldValue(outputRange.min),
+          max: toFieldValue(outputRange.max),
+        );
+      },
+    );
 
   @override
-  void setFormFieldState(FormFieldState<Range<T>> formFieldState) {
+  void setFormFieldState(FormFieldState<Range<I>> formFieldState) {
     super.setFormFieldState(formFieldState);
     _invokeSyncers();
   }
@@ -36,7 +64,7 @@ class RangeFieldController<T> extends ValueFieldController<Range<T>> {
   @override
   void save() {
     return excute(
-      toExecute: (FormFieldState<Range<T?>> formFieldState) {
+      toExecute: (FormFieldState<Range<I?>> formFieldState) {
         minValueController.save();
         maxValueController.save();
         super.save();
@@ -47,7 +75,7 @@ class RangeFieldController<T> extends ValueFieldController<Range<T>> {
   @override
   bool validate() {
     return excute<bool>(
-      toExecute: (FormFieldState<Range<T?>> formFieldState) {
+      toExecute: (FormFieldState<Range<I?>> formFieldState) {
         bool isValidMin = minValueController.validate();
         bool isValidMax = maxValueController.validate();
         if (isValidMin && isValidMax) {
@@ -102,4 +130,15 @@ class RangeFieldController<T> extends ValueFieldController<Range<T>> {
     super.dispose();
   }
   
+}
+
+class RangeFieldController<T> extends ConvertableRangeFieldController<T,T> {
+  RangeFieldController({
+    super.initialValue,
+    super.enabled,
+    super.forcedErrorText,
+  }):super(
+    fromFieldValue: (T? i) => i,
+    toFieldValue: (T? o) => o,
+  );
 }

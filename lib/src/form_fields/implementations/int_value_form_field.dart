@@ -72,7 +72,7 @@ class IntValueFormField extends StatefulWidget {
     this.canRequestFocus, 
   });
 
-  final IntegerTextEditingController controller;
+  final FooFieldController<int,String> controller;
   final IntegerValueInputFormatter? formatter;
 
   final Object groupId;

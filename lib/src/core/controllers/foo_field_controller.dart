@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 ///[I] is The type which the form field accepts
 ///[O] is The type which the client wants to get or set
-abstract class FooFieldController<O,I> extends ChangeNotifier {
+class FooFieldController<O,I> extends ChangeNotifier {
   
   final O? initialValue;
 
-  I? get initialValueAsFieldValue => _toFieldValue(initialValue);
+  I? get initialValueAsFieldValue => toFieldValue(initialValue);
   
   bool _enabled;
 
-  final O? Function(I? i) _fromFieldValue;
+  final O? Function(I? i) fromFieldValue;
 
-  final I? Function(O? o) _toFieldValue;
+  final I? Function(O? o) toFieldValue;
 
   FormFieldState<I>? _formFieldState;
 
@@ -23,7 +23,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     required this.initialValue,
     required O? Function(I? i) fromFieldValue,
     required I? Function(O? o) toFieldValue,
-  }): _enabled = enabled?? true, _forcedErrorText = forcedErrorText, _fromFieldValue = fromFieldValue, _toFieldValue = toFieldValue;
+  }): _enabled = enabled?? true, _forcedErrorText = forcedErrorText, this.fromFieldValue = fromFieldValue, this.toFieldValue = toFieldValue;
 
   void setFormFieldState(FormFieldState<I> formFieldState){
     _formFieldState = formFieldState;
@@ -42,13 +42,13 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     if (_formFieldState == null) {
       return initialValue;
     }
-    return _fromFieldValue(_formFieldState!.value);
+    return fromFieldValue(_formFieldState!.value);
   }
 
   set value(O? value){
     return excute<void>(
       toExecute: (FormFieldState<I> formFieldState) {
-        formFieldState.didChange(_toFieldValue(value));
+        formFieldState.didChange(toFieldValue(value));
       },
     );
   }

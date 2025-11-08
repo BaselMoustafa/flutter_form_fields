@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foo_form_field/src/core/controllers/foo_text_editing_controller.dart';
+import 'package:foo_form_field/foo_form_field.dart';
 import 'package:foo_form_field/src/core/extentions/foo_text_input_formatter_list_extension.dart';
 import 'package:foo_form_field/src/core/formatters/foo_text_input_formatter.dart';
 
@@ -83,7 +83,7 @@ class FooTextFormField<O> extends StatefulWidget {
 
   // ─── Final Fields ────────────────────────────────────────────────────────────────
 
-  final FooTextEditingController<O> controller;
+  final FooFieldController<O,String> controller;
   final List<FooTextInputFormatter> fooInputFormatters;
 
   final List<TextInputFormatter>? inputFormatters;

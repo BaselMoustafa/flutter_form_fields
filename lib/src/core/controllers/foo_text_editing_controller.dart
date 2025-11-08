@@ -5,10 +5,9 @@ class FooTextEditingController<O> extends FooFieldController<O,String> {
     super.initialValue,
     super.enabled,
     required super.fromFieldValue,
-    String? forcedErrorText,
+    super.forcedErrorText,
     String? Function(O? value)? toFieldValue,
   }):super(
-    forcedErrorText: forcedErrorText,
     toFieldValue:toFieldValue?? (O? value) {
       return value.toString();
     },
