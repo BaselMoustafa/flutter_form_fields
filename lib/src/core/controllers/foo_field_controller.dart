@@ -114,14 +114,17 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
   R excute<R>({
     required R Function(FormFieldState<I> formFieldState) toExecute,
   }) {
+    _ensureStateExistence();
+    R result = toExecute(_formFieldState!);
+    notifyListeners();
+    return result;
+  }
+
+  void _ensureStateExistence(){
     if (_formFieldState == null) {
       throw Exception(
         "This Controller is not attached to a any Foo Form Field",
       );
     }
-
-    R result = toExecute(_formFieldState!);
-    notifyListeners();
-    return result;
   }
 }
