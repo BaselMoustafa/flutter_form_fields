@@ -256,20 +256,12 @@ class _FooTextFormFieldState<O> extends State<FooTextFormField<O>> {
       clipBehavior: widget.clipBehavior?? Clip.hardEdge,
       stylusHandwritingEnabled: widget.stylusHandwritingEnabled?? true,
       canRequestFocus: widget.canRequestFocus?? true,
-      onFieldSubmitted: (String? value) {
-        if(_validToNotifyUserBy(value)){
-          widget.onFieldSubmitted?.call(widget.controller.value);
-        }
-      },
+      onFieldSubmitted:(String? value) => widget.onFieldSubmitted?.call(widget.controller.fromFieldValue(value)),
+      onSaved: (String? value) => widget.onSaved?.call(widget.controller.fromFieldValue(value)),
       onChanged: (String? value) {
         widget.controller.value = widget.controller.fromFieldValue(value);
         if(_validToNotifyUserBy(value)){
           widget.onChanged?.call(widget.controller.value);
-        }
-      },
-      onSaved: (String? value) {
-        if(_validToNotifyUserBy(value)){
-          widget.onSaved?.call(widget.controller.value);
         }
       },
       validator: (String? value) {
