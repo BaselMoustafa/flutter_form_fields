@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -179,7 +178,6 @@ class _FooTextFormFieldState<O> extends State<FooTextFormField<O>> {
   void _notifyChangeInValue(){
     setState(() {});
     if(widget.controller.isValueChanged) {
-      log("Will Call on Changed Callback with value: ${widget.controller.value}");
       widget.onChanged?.call(widget.controller.value);
     }
   }
