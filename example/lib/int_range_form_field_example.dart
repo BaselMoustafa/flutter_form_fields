@@ -25,6 +25,10 @@ class _IntRangeValueFormFieldExampleState extends State<IntRangeValueFormFieldEx
 
   @override
   Widget build(BuildContext context) {
+    DeepValue<String> deepValue = DeepValue<String>();
+    Value<String> value = deepValue;
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Test Screen'),
@@ -111,5 +115,20 @@ class _IntRangeValueFormFieldExampleState extends State<IntRangeValueFormFieldEx
         ),
       ),
     );
+
+    
   }
+}
+
+class Foo<O,I> {
+  
+}
+
+class Value<O> extends Foo<O,String> {
+  
+}
+
+
+class DeepValue<O> extends Value<O> {
+  
 }

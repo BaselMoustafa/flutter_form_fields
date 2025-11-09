@@ -18,7 +18,7 @@ class ConvertableValueFormField<O,I> extends StatefulWidget {
   });
 
   final FooFieldController<O,I> controller;
-  final Widget Function(BuildContext context) fieldBuilder;
+  final Widget Function(BuildContext context , I? value) fieldBuilder;
 
   final Widget Function(BuildContext context,Widget fieldWidget,String? errorText)? layoutBuilder;
   final void Function(O? value)? onSaved;
@@ -73,7 +73,7 @@ class _ConvertableValueFormFieldState<O,I> extends State<ConvertableValueFormFie
       forceErrorText: widget.controller.forcedErrorText,
       builder: (_){
         final errorText = widget.controller.errorText;
-        final fieldWidget = widget.fieldBuilder(context);
+        final fieldWidget = widget.fieldBuilder(context,widget.controller.toFieldValue(widget.controller.value));
 
         if (widget.layoutBuilder!=null) {
           return widget.layoutBuilder!(context,fieldWidget,errorText);
