@@ -159,6 +159,7 @@ class FooTextFormField<O> extends StatefulWidget {
 
 class _FooTextFormFieldState<O> extends State<FooTextFormField<O>> {
   final GlobalKey<FormFieldState<String>> _formFieldKey = GlobalKey<FormFieldState<String>>();
+  late O ? _previousValue = widget.controller.value;
 
   @override
   void initState() {
@@ -177,7 +178,10 @@ class _FooTextFormFieldState<O> extends State<FooTextFormField<O>> {
 
   void _notifyChangeInValue(){
     setState(() {});
-    widget.onChanged?.call(widget.controller.value);
+    if (_previousValue != widget.controller.value) {
+      _previousValue = widget.controller.value;
+      widget.onChanged?.call(widget.controller.value);
+    }
   }
 
   @override

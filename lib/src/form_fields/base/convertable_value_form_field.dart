@@ -35,6 +35,7 @@ class ConvertableValueFormField<O,I> extends StatefulWidget {
 class _ConvertableValueFormFieldState<O,I> extends State<ConvertableValueFormField<O,I>> {
 
   late final GlobalKey<FormFieldState<I>> _formFieldKey;
+  late O ? _previousValue = widget.controller.value;
 
   @override
   void initState() {
@@ -54,7 +55,10 @@ class _ConvertableValueFormFieldState<O,I> extends State<ConvertableValueFormFie
 
   void _notifyChangeInValue(){
     setState(() {});
-    widget.onChanged?.call(widget.controller.value);
+    if (_previousValue != widget.controller.value) {
+      _previousValue = widget.controller.value;
+      widget.onChanged?.call(widget.controller.value);
+    }
   }
 
   @override

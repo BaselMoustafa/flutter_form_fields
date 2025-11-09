@@ -35,8 +35,12 @@ class FooFieldController<O,I> extends ChangeNotifier {
   bool get enabled => _enabled;
 
   set enabled(bool value) {
-    _enabled = value;
-    notifyListeners();
+    excute<void>(
+      needToNotifyListener: true,
+      toExecute: (FormFieldState<I> formFieldState) {
+        _enabled = value;
+      },
+    );
   }
 
   O? get value{
@@ -48,6 +52,7 @@ class FooFieldController<O,I> extends ChangeNotifier {
 
   set value(O? newValue){
     return excute<void>(
+      needToNotifyListener: true,
       toExecute: (FormFieldState<I> formFieldState) {
         formFieldState.didChange(toFieldValue(newValue));
       },
@@ -64,6 +69,7 @@ class FooFieldController<O,I> extends ChangeNotifier {
 
   void clear(){
     return excute<void>(
+      needToNotifyListener: true,
       toExecute: (FormFieldState<I> formFieldState) {
         formFieldState.didChange(null);
       },
@@ -83,8 +89,12 @@ class FooFieldController<O,I> extends ChangeNotifier {
   }
 
   set forcedErrorText(String? value){
-    _forcedErrorText = value;
-    notifyListeners();
+    excute<void>(
+      needToNotifyListener: true,
+      toExecute: (FormFieldState<I> formFieldState) {
+        _forcedErrorText = value;
+      },
+    );
   }
 
   String? get errorText{
@@ -112,11 +122,14 @@ class FooFieldController<O,I> extends ChangeNotifier {
 
   @protected
   R excute<R>({
+    bool needToNotifyListener = false,
     required R Function(FormFieldState<I> formFieldState) toExecute,
   }) {
     _ensureStateExistence();
     R result = toExecute(_formFieldState!);
-    notifyListeners();
+    if (needToNotifyListener) {
+      notifyListeners();
+    }
     return result;
   }
 
