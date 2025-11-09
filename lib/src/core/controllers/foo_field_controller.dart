@@ -10,6 +10,8 @@ class FooFieldController<O,I> extends ChangeNotifier {
   
   bool _enabled;
 
+  final bool Function(O x, O y) areEqual; 
+
   final O? Function(I? i) fromFieldValue;
 
   final I? Function(O? o) toFieldValue;
@@ -18,18 +20,40 @@ class FooFieldController<O,I> extends ChangeNotifier {
 
   String? _forcedErrorText;
 
+  bool _isValueChanged;
+
+  bool get isValueChanged => _isValueChanged;
+
   FooFieldController({
+    required this.areEqual,
     required bool? enabled,
     required String? forcedErrorText,
     required this.initialValue,
     required this.fromFieldValue,
     required this.toFieldValue,
-  }): _enabled = enabled?? true, _forcedErrorText = forcedErrorText;
+  }): _enabled = enabled?? true, _forcedErrorText = forcedErrorText, _isValueChanged = false;
 
   void setFormFieldState(FormFieldState<I> formFieldState){
     _formFieldState = formFieldState;
     value = initialValue;
     notifyListeners();
+  }
+
+  bool _getIsValueChanged(O? x, O? y){
+    if (x == null && y == null) {
+      return false;
+    }
+    else if (x == null && y != null) {
+      return true;
+    }
+    else if (x != null && y == null) {
+      return true;
+    }
+    else if (!areEqual(x!, y!)) {
+      return true;
+    }
+
+    return false;
   }
 
   bool get enabled => _enabled;
@@ -53,6 +77,7 @@ class FooFieldController<O,I> extends ChangeNotifier {
   set value(O? newValue){
     return excute<void>(
       needToNotifyListener: true,
+      isValueChanged: _getIsValueChanged(value, newValue),
       toExecute: (FormFieldState<I> formFieldState) {
         formFieldState.didChange(toFieldValue(newValue));
       },
@@ -67,14 +92,7 @@ class FooFieldController<O,I> extends ChangeNotifier {
     );
   }
 
-  void clear(){
-    return excute<void>(
-      needToNotifyListener: true,
-      toExecute: (FormFieldState<I> formFieldState) {
-        formFieldState.didChange(null);
-      },
-    );
-  }
+  void clear()=> value = null;
 
   void save(){
     return excute<void>(
@@ -123,10 +141,12 @@ class FooFieldController<O,I> extends ChangeNotifier {
   @protected
   R excute<R>({
     bool needToNotifyListener = false,
+    bool isValueChanged = false,
     required R Function(FormFieldState<I> formFieldState) toExecute,
   }) {
     _ensureStateExistence();
     R result = toExecute(_formFieldState!);
+    _isValueChanged = isValueChanged;
     if (needToNotifyListener) {
       notifyListeners();
     }

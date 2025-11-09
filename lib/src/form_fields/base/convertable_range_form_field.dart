@@ -44,25 +44,11 @@ class ConvertableRangeFormField<O,I> extends StatelessWidget {
       autovalidateMode: autovalidateMode,
       errorBuilder: errorBuilder,
       restorationId: restorationId,
-      onChanged: _onChanged,
+      onChanged: onChanged,
       layoutBuilder: layoutBuilder,
       validator: _validator,
       fieldBuilder: _fieldBuilder,
     );
-  }
-
-  void _onChanged(Range<O>? value){
-    throw UnimplementedError("Will be implemented later");
-    if (controller.minValueController.forcedErrorText != null) {
-      controller.minValueController.forcedErrorText =null;
-    }
-    if (controller.maxValueController.forcedErrorText != null) {
-      controller.maxValueController.forcedErrorText =null;
-    }
-    if (controller.forcedErrorText != null) {
-      controller.forcedErrorText = null;
-    }
-    onChanged?.call(value);
   }
 
   String? _validator(Range<O?>? value){
@@ -73,20 +59,17 @@ class ConvertableRangeFormField<O,I> extends StatelessWidget {
 
     String? equalityError = rangeValidator.validateEquality(value);
     if (equalityError != null) {
-      controller.forcedErrorText = equalityError;
-      return null;
+      return equalityError;
     }
 
     String? minError = rangeValidator.validateMin(value);
     if (minError != null) {
-      controller.minValueController.forcedErrorText = minError;
-      return null;
+      return minError;
     }
 
     String? maxError = rangeValidator.validateMax(value);
     if (maxError != null) {
-      controller.maxValueController.forcedErrorText = maxError;
-      return null;
+      return maxError;
     }
     return validator?.call(value);
   }

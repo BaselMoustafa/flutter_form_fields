@@ -12,6 +12,7 @@ class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>,R
     super.enabled,
     super.initialValue,
     super.forcedErrorText,
+    required bool Function(O x, O y) areEqual,
     required O? Function(I? i) fromFieldValue,
     required I? Function(O? o) toFieldValue,
   }):
@@ -21,6 +22,7 @@ class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>,R
       fromFieldValue: fromFieldValue,
       toFieldValue: toFieldValue,
       forcedErrorText: null,
+      areEqual: areEqual,
     ), 
     maxValueController = FooFieldController<O,I>(
       initialValue: initialValue?.max,
@@ -28,7 +30,29 @@ class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>,R
       fromFieldValue: fromFieldValue,
       toFieldValue: toFieldValue,
       forcedErrorText: null,
+      areEqual: areEqual,
     ),super(
+      areEqual: (Range<O> x, Range<O> y){
+        if (x.min == null && y.min == null) {
+          return true;
+        }
+        if (x.min == null && y.min != null) {
+          return false;
+        }
+        if (x.min != null && y.min == null) {
+          return false;
+        }
+        if (x.max == null && y.max == null) {
+          return true;
+        }
+        if (x.max == null && y.max != null) {
+          return false;
+        }
+        if (x.max != null && y.max == null) {
+          return false;
+        }
+        return areEqual(x.min!, y.min!) && areEqual(x.max!, y.max!);
+      },
       fromFieldValue: (Range<I>? inputRange){
         if (inputRange == null) {
           return null;
@@ -142,6 +166,7 @@ class RangeFieldController<T> extends ConvertableRangeFieldController<T,T> {
     super.initialValue,
     super.enabled,
     super.forcedErrorText,
+    required super.areEqual,
   }):super(
     fromFieldValue: (T? i) => i,
     toFieldValue: (T? o) => o,

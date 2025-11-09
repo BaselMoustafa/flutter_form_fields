@@ -12,6 +12,7 @@ class IntRangeValueFormFieldExample extends StatefulWidget {
 
 class _IntRangeValueFormFieldExampleState extends State<IntRangeValueFormFieldExample> {
   final  _controller = ConvertableRangeFieldController<int, String>(
+    areEqual: (int x, int y) => x == y,
     fromFieldValue: (value){
       var toReturn = value != null && value.isNotEmpty ? int.tryParse(value) : null;
       return toReturn;

@@ -6,6 +6,7 @@ class ValueFieldController<T> extends FooFieldController<T,T> {
     super.initialValue,
     super.enabled,
     super.forcedErrorText,
+    required super.areEqual,
   }): super(
     fromFieldValue: (i) => i,
     toFieldValue: (o) => o,

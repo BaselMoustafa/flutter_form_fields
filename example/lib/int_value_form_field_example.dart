@@ -12,7 +12,7 @@ class IntValueFormFieldExample extends StatefulWidget {
 
 class _IntValueFormFieldExampleState extends State<IntValueFormFieldExample> {
   final IntegerTextEditingController _controller = IntegerTextEditingController(
-    initialValue: 123,
+    initialValue: 160,
     enabled: false,
   );
   final _formKey = GlobalKey<FormState>();
@@ -60,6 +60,20 @@ class _IntValueFormFieldExampleState extends State<IntValueFormFieldExample> {
                   _controller.validate();
                 },
                 child: Text('Validate')
+              ),
+
+              TextButton(
+                onPressed: () {
+                  _controller.forcedErrorText = 'forced error';
+                },
+                child: Text('Force Error')
+              ),
+
+              TextButton(
+                onPressed: () {
+                  _controller.forcedErrorText = null;
+                },
+                child: Text('Clear Error')
               ),
           
               TextButton(

@@ -1,4 +1,5 @@
 
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -159,7 +160,6 @@ class FooTextFormField<O> extends StatefulWidget {
 
 class _FooTextFormFieldState<O> extends State<FooTextFormField<O>> {
   final GlobalKey<FormFieldState<String>> _formFieldKey = GlobalKey<FormFieldState<String>>();
-  late O ? _previousValue = widget.controller.value;
 
   @override
   void initState() {
@@ -178,8 +178,8 @@ class _FooTextFormFieldState<O> extends State<FooTextFormField<O>> {
 
   void _notifyChangeInValue(){
     setState(() {});
-    if (_previousValue != widget.controller.value) {
-      _previousValue = widget.controller.value;
+    if(widget.controller.isValueChanged) {
+      log("Will Call on Changed Callback with value: ${widget.controller.value}");
       widget.onChanged?.call(widget.controller.value);
     }
   }
@@ -264,8 +264,7 @@ class _FooTextFormFieldState<O> extends State<FooTextFormField<O>> {
         }
       },
       onChanged: (String? value) {
-        final newValue = widget.controller.fromFieldValue(value);
-        widget.controller.value = newValue;
+        widget.controller.value = widget.controller.fromFieldValue(value);
         if(_validToNotifyUserBy(value)){
           widget.onChanged?.call(widget.controller.value);
         }

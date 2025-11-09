@@ -8,6 +8,7 @@ class FooTextEditingController<O> extends FooFieldController<O,String> {
     super.forcedErrorText,
     String? Function(O? value)? toFieldValue,
   }):super(
+    areEqual: (O x, O y) => x.toString() == y.toString(),
     toFieldValue:toFieldValue?? (O? value) {
       if (value == null) {
         return null;
