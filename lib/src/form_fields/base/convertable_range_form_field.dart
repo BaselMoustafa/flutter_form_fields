@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foo_form_field/foo_form_field.dart';
 import 'package:foo_form_field/src/core/controllers/base/convertable_range_field_controller.dart';
 import 'package:foo_form_field/src/core/ranges/range.dart';
+import 'package:foo_form_field/src/core/widgets/field_with_error_text_widget.dart';
 import 'package:foo_form_field/src/form_fields/base/foo_form_field.dart';
 import '../../core/controllers/base/convertable_range_boundry_field_controller.dart';
 
@@ -71,16 +72,19 @@ class ConvertableRangeFormField<O,I,B extends ConvertableRangeBoundryFieldContro
     return validator?.call(value);
   }
 
-  Widget _builder(BuildContext context , Range<I>? value){
+  Widget _builder(BuildContext context , Range<I>? value , String? errorText){
     final minField = minFieldBuilder(context,controller.minValueController);
     final maxField = maxFieldBuilder(context,controller.maxValueController);
 
-    return layoutBuilder?.call(context,minField,maxField) ?? Row(
-      spacing: 6,
-      children: [
-        Expanded(child: minField),
-        Expanded(child: maxField),
-      ],
+    return FieldWithErrorTextWidget(
+      errorText: errorText,
+      fieldWidget: layoutBuilder?.call(context,minField,maxField) ?? Row(
+        spacing: 6,
+        children: [
+          Expanded(child: minField),
+          Expanded(child: maxField),
+        ],
+      ),
     );
   }
 

@@ -16,7 +16,7 @@ class FooFormField<O,I> extends StatefulWidget {
   });
 
   final FooFieldController<O,I> controller;
-  final Widget Function(BuildContext context , I? value) builder;
+  final Widget Function(BuildContext context , I? value , String? errorText) builder;
   final void Function(O? value)? onSaved;
   final String? Function(O? value)? validator;
   final AutovalidateMode? autovalidateMode;
@@ -72,7 +72,7 @@ class _FooFormFieldState<O,I> extends State<FooFormField<O,I>> {
       restorationId: widget.restorationId,
       forceErrorText: widget.controller.forcedErrorText,
       builder: (FormFieldState<I> fieldState) {
-        return widget.builder(context,fieldState.value);
+        return widget.builder(context,fieldState.value,fieldState.errorText);
       },
     );
   }
