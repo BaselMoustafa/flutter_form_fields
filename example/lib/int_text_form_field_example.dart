@@ -12,7 +12,9 @@ class IntTextFormFieldExample extends StatefulWidget {
 
 class _IntTextFormFieldExampleState extends State<IntTextFormFieldExample> {
 
-  final StringTextEditingController _controller = StringTextEditingController();
+  final StringFieldController _controller = StringFieldController(
+    initialValue: "33424234"
+  );
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -27,24 +29,26 @@ class _IntTextFormFieldExampleState extends State<IntTextFormFieldExample> {
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: [
-              IntTextFormField(
+              StringFormField.integer(
                 controller: _controller,
                 formatter: IntegerTextInputFormatter(
                   maxLength: 10,
                   allowNegative: true
                 ),
-                validator: (value) {
-                  if (value == null) {
-                    return 'This field is required This f  ';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  log("onSaved: $value");
-                },
-                onChanged: (value) {
-                  log("onChanged: $value");
-                },
+                properties: TextFormFieldProperties(
+                  validator: (value) {
+                    if (value == null) {
+                      return 'This field is required This f  ';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    log("onSaved: $value");
+                  },
+                  onChanged: (value) {
+                    log("onChanged: $value");
+                  },
+                ),
               ),
               TextButton(
                 onPressed: () {

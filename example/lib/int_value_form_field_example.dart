@@ -11,7 +11,7 @@ class IntValueFormFieldExample extends StatefulWidget {
 }
 
 class _IntValueFormFieldExampleState extends State<IntValueFormFieldExample> {
-  final IntegerTextEditingController _controller = IntegerTextEditingController(
+  final IntStringFieldController _controller = IntStringFieldController(
     initialValue: 160,
     enabled: false,
   );
@@ -43,18 +43,20 @@ class _IntValueFormFieldExampleState extends State<IntValueFormFieldExample> {
                   allowNegative: false,
                   maxValue: 150
                 ),
-                validator: (value) {
-                  if (value == null) {
-                    return 'This field is required This f  ';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  log("onSaved: $value");
-                },
-                onChanged: (value) {
-                  log("onChanged: $value");
-                },
+                properties: TextFormFieldProperties(
+                  validator: (value) {
+                    if (value == null) {
+                      return 'This field is required This f  ';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    log("onSaved: $value");
+                  },
+                  onChanged: (value) {
+                    log("onChanged: $value");
+                  },
+                ),
               ),
               TextButton(
                 onPressed: () {
