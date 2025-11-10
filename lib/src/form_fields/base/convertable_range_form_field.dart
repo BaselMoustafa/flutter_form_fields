@@ -26,7 +26,7 @@ class ConvertableRangeFormField<O,I> extends StatelessWidget {
   final Widget Function(BuildContext context,FooFieldController<O,I> minValueController) minFieldBuilder;
   final Widget Function(BuildContext context,FooFieldController<O,I> maxValueController) maxFieldBuilder;
 
-  final Widget Function(BuildContext context,Widget minField,Widget maxField)? fieldBuilder;
+  final Widget Function(BuildContext context,Range<I>? value,Widget minField,Widget maxField)? fieldBuilder;
   final Widget Function(BuildContext context,Widget fieldWidget,String? errorText)? layoutBuilder;
 
   final void Function(Range<O?>? value)? onSaved;
@@ -74,12 +74,12 @@ class ConvertableRangeFormField<O,I> extends StatelessWidget {
     return validator?.call(value);
   }
 
-  Widget _fieldBuilder(BuildContext context){
+  Widget _fieldBuilder(BuildContext context , Range<I>? value){
     final minField = minFieldBuilder(context,controller.minValueController);
     final maxField = maxFieldBuilder(context,controller.maxValueController);
 
     if (fieldBuilder!=null) {
-      return fieldBuilder!(context,minField,maxField);
+      return fieldBuilder!(context,value,minField,maxField);
     }
 
     return Row(

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:foo_form_field/foo_form_field.dart';
 
@@ -25,10 +23,6 @@ class _IntRangeValueFormFieldExampleState extends State<IntRangeValueFormFieldEx
 
   @override
   Widget build(BuildContext context) {
-    DeepValue<String> deepValue = DeepValue<String>();
-    Value<String> value = deepValue;
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Test Screen'),
@@ -39,21 +33,21 @@ class _IntRangeValueFormFieldExampleState extends State<IntRangeValueFormFieldEx
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: [
-              IntRangeFormField(
-                controller: _controller,
-                validator: (value) {
-                  if (value == null || value.min == null || value.max == null) {
-                    return 'This field is required This f  ';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  log("onSaved: $value");
-                },
-                onChanged: (value) {
-                  log("onChanged: $value");
-                },
-              ),
+              // IntRangeFormField(
+              //   controller: _controller,
+              //   validator: (value) {
+              //     if (value == null || value.min == null || value.max == null) {
+              //       return 'This field is required This f  ';
+              //     }
+              //     return null;
+              //   },
+              //   onSaved: (value) {
+              //     log("onSaved: $value");
+              //   },
+              //   onChanged: (value) {
+              //     log("onChanged: $value");
+              //   },
+              // ),
               TextButton(
                 onPressed: () {
                   _controller.clear();
@@ -118,17 +112,4 @@ class _IntRangeValueFormFieldExampleState extends State<IntRangeValueFormFieldEx
 
     
   }
-}
-
-class Foo<O,I> {
-  
-}
-
-class Value<O> extends Foo<O,String> {
-  
-}
-
-
-class DeepValue<O> extends Value<O> {
-  
 }

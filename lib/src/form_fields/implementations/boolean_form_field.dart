@@ -24,7 +24,7 @@ class BooleanFormField extends StatelessWidget {
   final String noText;
 
   final ValueFieldController<bool> controller;
-  final Widget Function(BuildContext context,)? fieldBuilder;
+  final Widget Function(BuildContext context,bool? value)? fieldBuilder;
   final Widget Function(BuildContext context,Widget fieldWidget,String? errorText)? layoutBuilder;
   
   final void Function(bool? value)? onSaved;
@@ -50,9 +50,9 @@ class BooleanFormField extends StatelessWidget {
     );
   }
 
-  Widget _fieldBuilder(BuildContext context){
+  Widget _fieldBuilder(BuildContext context , bool? value){
     if (fieldBuilder!=null) {
-      return fieldBuilder!(context);
+      return fieldBuilder!(context, value);
     }
 
     return Row(
