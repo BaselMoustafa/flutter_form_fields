@@ -7,29 +7,31 @@ class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>,R
 
   late final FooFieldController<O,I> minValueController;
   late final FooFieldController<O,I> maxValueController;
+  final bool Function(O x, O y) areEqualValues;
+  final FieldValueMapper<O,I> valueMapper;
 
   ConvertableRangeFieldController({
     super.enabled,
     super.initialValue,
     super.forcedErrorText,
-    required bool Function(O x, O y) areEqual,
-    required FieldValueMapper<O,I> valueMapper,
+    required this.valueMapper,
+    required this.areEqualValues,
   }):
     minValueController = FooFieldController<O,I>(
       initialValue: initialValue?.min,
       enabled: enabled,
       mapper: valueMapper,
       forcedErrorText: null,
-      areEqual: areEqual,
+      areEqual: areEqualValues,
     ), 
     maxValueController = FooFieldController<O,I>(
       initialValue: initialValue?.max,
       enabled: enabled,
       mapper: valueMapper,
       forcedErrorText: null,
-      areEqual: areEqual,
+      areEqual: areEqualValues,
     ),super(
-      mapper: valueMapper.toRangeMapper(areEqualOutputs: areEqual),
+      mapper: valueMapper.toRangeMapper(areEqualOutputs: areEqualValues),
       areEqual: (Range<O> x, Range<O> y)=>x==y,
     );
 
