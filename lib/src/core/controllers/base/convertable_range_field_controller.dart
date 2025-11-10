@@ -1,14 +1,27 @@
 import 'package:flutter/widgets.dart';
 import 'package:foo_form_field/foo_form_field.dart';
+import 'package:foo_form_field/src/core/controllers/base/convertable_range_boundry_field_controller.dart';
 import 'package:foo_form_field/src/core/mappers/base/field_value_mapper.dart';
 import 'package:foo_form_field/src/core/ranges/range.dart';
 
-class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>,Range<I>> {
+class ConvertableRangeFieldController<O,I,B extends ConvertableRangeBoundryFieldController<O,I> > extends FooFieldController<Range<O>,Range<I>> {
 
-  late final FooFieldController<O,I> minValueController;
-  late final FooFieldController<O,I> maxValueController;
+  B? _minValueController;
+  B? _maxValueController;
+
+  B get minValueController{
+    _minValueController ??= boundaryControllerBuilder(this);
+    return _minValueController!;
+  }
+
+  B get maxValueController{
+    _maxValueController ??= boundaryControllerBuilder(this);
+    return _maxValueController!;
+  }
+
   final bool Function(O x, O y) areEqualValues;
   final FieldValueMapper<O,I> valueMapper;
+  final B Function(ConvertableRangeFieldController<O,I,B> rangeFieldController) boundaryControllerBuilder;
 
   ConvertableRangeFieldController({
     super.enabled,
@@ -16,24 +29,11 @@ class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>,R
     super.forcedErrorText,
     required this.valueMapper,
     required this.areEqualValues,
-  }):
-    minValueController = FooFieldController<O,I>(
-      initialValue: initialValue?.min,
-      enabled: enabled,
-      mapper: valueMapper,
-      forcedErrorText: null,
-      areEqual: areEqualValues,
-    ), 
-    maxValueController = FooFieldController<O,I>(
-      initialValue: initialValue?.max,
-      enabled: enabled,
-      mapper: valueMapper,
-      forcedErrorText: null,
-      areEqual: areEqualValues,
-    ),super(
-      mapper: valueMapper.toRangeMapper(areEqualOutputs: areEqualValues),
-      areEqual: (Range<O> x, Range<O> y)=>x==y,
-    );
+    required this.boundaryControllerBuilder,
+  }):super(
+    mapper: valueMapper.toRangeMapper(areEqualOutputs: areEqualValues),
+    areEqual: (Range<O> x, Range<O> y)=>x==y,
+  );
 
   @override
   void setFormFieldState(FormFieldState<Range<I>> formFieldState) {

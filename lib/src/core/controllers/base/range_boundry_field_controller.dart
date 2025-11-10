@@ -1,15 +1,8 @@
-import 'package:foo_form_field/foo_form_field.dart';
+import 'package:foo_form_field/src/core/controllers/base/convertable_range_boundry_field_controller.dart';
 
-class RangeBoundryFieldController<T> extends ValueFieldController<T> {
+class RangeBoundryFieldController<T> extends ConvertableRangeBoundryFieldController<T,T> {
   
-  final RangeFieldController<T> rangeFieldController;
-
   RangeBoundryFieldController({
-    required this.rangeFieldController,
-  }):super(
-    forcedErrorText:null,
-    initialValue: rangeFieldController.value?.min,
-    enabled: rangeFieldController.enabled,
-    areEqual: rangeFieldController.areEqualValues,
-  );
+    required super.rangeFieldController,
+  });
 }
