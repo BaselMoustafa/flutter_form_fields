@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 extension StringExtension on String {
 
   String? canBeIntText({
@@ -7,7 +9,6 @@ extension StringExtension on String {
     String invalidIntegerMessage = "Invalid",
     String exceedMaxLengthMessage = "Exceed max length",
   }) {
-
     int? effectiveMaxLength(String value) {
       if (maxLength==null) {
         return null;
