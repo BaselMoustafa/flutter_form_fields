@@ -15,6 +15,7 @@ export 'src/core/controllers/base/range_field_controller.dart';
 export 'src/core/controllers/base/convertable_range_field_controller.dart';
 export 'src/core/controllers/base/convertable_range_boundry_field_controller.dart';
 export 'src/core/controllers/base/convertable_value_field_controller.dart';
+export 'src/core/controllers/implementations/boolean_field_controller.dart';
 
 export 'src/core/controllers/implementations/int_string_field_controller.dart';
 export 'src/core/controllers/implementations/string_field_controller.dart';

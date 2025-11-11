@@ -1,106 +1,107 @@
-// import 'package:flutter/material.dart';
-// import 'package:foo_form_field/src/core/controllers/base/value_field_controller.dart';
-// import 'package:foo_form_field/src/core/widgets/selection_card.dart';
-// import 'package:foo_form_field/src/form_fields/base/value_form_field.dart';
+import 'package:flutter/material.dart';
+import 'package:foo_form_field/src/core/controllers/base/value_field_controller.dart';
+import 'package:foo_form_field/src/core/widgets/field_with_error_text_widget.dart';
+import 'package:foo_form_field/src/core/widgets/selection_card.dart';
+import 'package:foo_form_field/src/form_fields/base/value_form_field.dart';
 
-// class BooleanFormField extends StatelessWidget {
-//   const BooleanFormField({
-//     super.key,
-//     required this.controller,
-//     this.layoutBuilder,
-//     this.yesText = "Yes",
-//     this.noText = "No",
-//     this.onSaved,
-//     this.validator,
-//     this.autovalidateMode,
-//     this.errorBuilder,
-//     this.forceErrorText,
-//     this.restorationId,
-//     this.onChanged,
-//     this.fieldBuilder,
-//   });
+class BooleanFormField extends StatelessWidget {
+  const BooleanFormField({
+    super.key,
+    required this.controller,
+    this.yesText = "Yes",
+    this.noText = "No",
+    this.onSaved,
+    this.validator,
+    this.autovalidateMode,
+    this.errorBuilder,
+    this.forceErrorText,
+    this.restorationId,
+    this.onChanged,
+    this.builder,
+  });
 
-//   final String yesText;
-//   final String noText;
+  final String yesText;
+  final String noText;
 
-//   final ValueFieldController<bool> controller;
-//   final Widget Function(BuildContext context,bool? value)? fieldBuilder;
-//   final Widget Function(BuildContext context,Widget fieldWidget,String? errorText)? layoutBuilder;
+  final ValueFieldController<bool> controller;
+  final Widget Function(BuildContext context)? builder;
   
-//   final void Function(bool? value)? onSaved;
-//   final String? Function(bool? value)? validator;
-//   final AutovalidateMode? autovalidateMode;
-//   final FormFieldErrorBuilder? errorBuilder;
-//   final String? forceErrorText;
-//   final String? restorationId;
-//   final void Function(bool? value)? onChanged;
+  final void Function(bool? value)? onSaved;
+  final String? Function(bool? value)? validator;
+  final AutovalidateMode? autovalidateMode;
+  final FormFieldErrorBuilder? errorBuilder;
+  final String? forceErrorText;
+  final String? restorationId;
+  final void Function(bool? value)? onChanged;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return ValueFormField<bool>(
-//       controller: controller,
-//       onSaved: onSaved,
-//       validator: validator,
-//       autovalidateMode: autovalidateMode,
-//       errorBuilder: errorBuilder,
-//       restorationId: restorationId,
-//       onChanged: onChanged,
-//       fieldBuilder: _fieldBuilder,
-//       layoutBuilder: layoutBuilder,
-//     );
-//   }
+  @override
+  Widget build(BuildContext context) {
+    return ValueFormField<bool>(
+      controller: controller,
+      builder: _fieldBuilder,
+      onSaved: onSaved,
+      validator: validator,
+      autovalidateMode: autovalidateMode,
+      errorBuilder: errorBuilder,
+      restorationId: restorationId,
+      onChanged: onChanged,
+    );
+  }
 
-//   Widget _fieldBuilder(BuildContext context , bool? value){
-//     if (fieldBuilder!=null) {
-//       return fieldBuilder!(context, value);
-//     }
+  Widget _fieldBuilder(BuildContext context){
+    if (builder!=null) {
+      return builder!(context);
+    }
 
-//     return Row(
-//       spacing: 6,
-//       children: [
-//         _ActionButton(
-//           parentWidget: this, 
-//           isYesButton: true,
-//         ),
-    
-//         _ActionButton(
-//           parentWidget: this, 
-//           isYesButton: false,
-//         ),
-//       ],
-//     );
-//   }
-// }
+    return FieldWithErrorTextWidget(
+      errorText: controller.errorText,
+      fieldWidget: Row(
+        spacing: 6,
+        children: [
+          _ActionButton(
+            parentWidget: this, 
+            isYesButton: true,
+          ),
+      
+          _ActionButton(
+            parentWidget: this, 
+            isYesButton: false,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-// class _ActionButton extends StatelessWidget {
-//   const _ActionButton({
-//     required this.parentWidget,
-//     required this.isYesButton,
-//   });
+class _ActionButton extends StatelessWidget {
+  const _ActionButton({
+    required this.parentWidget,
+    required this.isYesButton,
+  });
 
-//   final bool isYesButton;
-//   final BooleanFormField parentWidget;
+  final bool isYesButton;
+  final BooleanFormField parentWidget;
 
-//   ValueFieldController<bool> get _controller => parentWidget.controller;
+  ValueFieldController<bool> get _controller => parentWidget.controller;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SelectionCard(
-//       enabled: _controller.enabled,
-//       onTap: _onTap, 
-//       isSelected: _controller.value == isYesButton, 
-//       child: Text(
-//         isYesButton ? parentWidget.yesText : parentWidget.noText
-//       ),
-//     );
-//   }
+  @override
+  Widget build(BuildContext context) {
+    return SelectionCard(
+      enabled: _controller.enabled,
+      onTap: _onTap, 
+      isSelected: _controller.value == isYesButton, 
+      child: Text(
+        isYesButton ? parentWidget.yesText : parentWidget.noText
+      ),
+    );
+  }
 
-//   void _onTap() {
-//     if(_controller.value == isYesButton){
-//       _controller.value = null;
-//     } else {
-//       _controller.value = isYesButton;
-//     }
-//     parentWidget.onChanged?.call(_controller.value);
-//   }
-// }
+  void _onTap() {
+    if(_controller.value == isYesButton){
+      _controller.value = null;
+    } else {
+      _controller.value = isYesButton;
+    }
+    parentWidget.onChanged?.call(_controller.value);
+  }
+}

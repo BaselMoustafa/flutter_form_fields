@@ -1,12 +1,11 @@
 import 'package:foo_form_field/foo_form_field.dart';
 
-class StringFieldController extends ValueFieldController<String> {
-  
-  StringFieldController({
+class BooleanFieldController extends ValueFieldController<bool> {
+  BooleanFieldController({
     super.initialValue,
     super.enabled,
     super.forcedErrorText,
   }):super(
-    areEqual: (String x, String y) => x == y,
+    areEqual: (bool x, bool y) => x == y,
   );
 }

@@ -72,12 +72,12 @@ class ConvertableRangeFormField<O,I,B extends ConvertableRangeBoundryFieldContro
     return validator?.call(value);
   }
 
-  Widget _builder(BuildContext context , Range<I>? value , String? errorText){
+  Widget _builder(BuildContext context){
     final minField = minFieldBuilder(context,controller.minValueController);
     final maxField = maxFieldBuilder(context,controller.maxValueController);
 
     return FieldWithErrorTextWidget(
-      errorText: errorText,
+      errorText: controller.errorText,
       fieldWidget: layoutBuilder?.call(context,minField,maxField) ?? Row(
         spacing: 10,
         children: [

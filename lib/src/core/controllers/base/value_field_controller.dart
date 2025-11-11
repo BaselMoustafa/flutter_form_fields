@@ -7,7 +7,7 @@ class ValueFieldController<T> extends ConvertableValueFieldController<T,T> {
     super.initialValue,
     super.enabled,
     super.forcedErrorText,
-    required super.areEqual, required mapper,
+    required super.areEqual, 
   }): super(
     mapper: SameValueMapper<T>(),
   );
