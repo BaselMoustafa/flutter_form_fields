@@ -90,7 +90,9 @@ class _FooStringFormFieldState<O> extends State<FooStringFormField<O>> {
       maxLength: _properties?.maxLength,
       onTap: _properties?.onTap,
       onTapAlwaysCalled: _properties?.onTapAlwaysCalled?? false,
-      onTapOutside: _properties?.onTapOutside,
+      onTapOutside: _properties?.onTapOutside??(_){
+        FocusScope.of(context).unfocus();
+      },
       onTapUpOutside: _properties?.onTapUpOutside,
       onEditingComplete: _properties?.  onEditingComplete,
       errorBuilder: _properties?.errorBuilder,

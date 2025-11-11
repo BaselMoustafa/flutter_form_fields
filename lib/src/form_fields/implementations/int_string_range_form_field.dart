@@ -57,7 +57,7 @@ class IntStringRangeFormField extends StatelessWidget {
     if (minFieldBuilder!=null) {
       return minFieldBuilder!(context,minValueController);
     }
-    return IntStringFormField(controller: minValueController,);
+    return IntStringFormField(controller: minValueController);
   }
 
   Widget _maxFieldBuilder(BuildContext context,IntStringRangeBoundryFieldController maxValueController){

@@ -79,7 +79,7 @@ class ConvertableRangeFormField<O,I,B extends ConvertableRangeBoundryFieldContro
     return FieldWithErrorTextWidget(
       errorText: errorText,
       fieldWidget: layoutBuilder?.call(context,minField,maxField) ?? Row(
-        spacing: 6,
+        spacing: 10,
         children: [
           Expanded(child: minField),
           Expanded(child: maxField),

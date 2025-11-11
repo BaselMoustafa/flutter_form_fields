@@ -16,6 +16,11 @@ class MyApp extends StatelessWidget {
         disabledColor: Colors.brown,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.transparent,primary: Colors.blueAccent,secondary:  Colors.black),
         inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            gapPadding: 2
+          ),
+           
           errorStyle: TextStyle(
             color: Colors.red,
             fontSize: 24
