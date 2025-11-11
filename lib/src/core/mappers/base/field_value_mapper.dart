@@ -17,11 +17,13 @@ class FieldValueMapper<O,I> {
         if (inputRange == null) {
           return null;
         }
-        return Range<O>(
+
+        var toReturn = Range<O>(
           min: toClientType(inputRange.min),
           max: toClientType(inputRange.max),
           areEqual: areEqualOutputs,
         );
+        return toReturn;
       },
       toFieldType: (Range<O>? outputRange){
         if (outputRange == null) {
@@ -42,7 +44,7 @@ class FieldValueMapper<O,I> {
             if (firstValue != null && secondValue == null) {
               return false;
             }
-            return areEqualOutputs(firstValue!, secondValue!);
+            return areEqualOutputs(firstValue as O, secondValue as O);
           },
         );
       },

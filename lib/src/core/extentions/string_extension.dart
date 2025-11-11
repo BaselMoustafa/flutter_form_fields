@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 extension StringExtension on String {
 
   String? canBeIntText({

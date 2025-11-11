@@ -39,24 +39,21 @@ class Range<T> {
     }
     return areEqual(min!, other.min!) && areEqual(max!, other.max!);
   }
-  
-  Range<T> copyWith({
-    T? min,
-    T? max,
-  }){
+
+  Range<T> changeMin(T? newMin){
     return Range<T>(
-      min: min ?? this.min,
-      max: max ?? this.max,
+      min: newMin,
+      max: max,
       areEqual: areEqual,
     );
   }
 
-  Range<T> changeMin(T? min){
-    return copyWith(min: min);
-  }
-
-  Range<T> changeMax(T? max){
-    return copyWith(max: max);
+  Range<T> changeMax(T? newMax){
+    return Range<T>(
+      min: min,
+      max: newMax,
+      areEqual: areEqual,
+    );
   }
 
   @override

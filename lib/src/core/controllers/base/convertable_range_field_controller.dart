@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:foo_form_field/foo_form_field.dart';
-import 'package:foo_form_field/src/core/controllers/base/convertable_range_boundry_field_controller.dart';
 import 'package:foo_form_field/src/core/mappers/base/field_value_mapper.dart';
-import 'package:foo_form_field/src/core/ranges/range.dart';
 
 class ConvertableRangeFieldController<O,I,B extends ConvertableRangeBoundryFieldController<O,I> > extends FooFieldController<Range<O>,Range<I>> {
 
@@ -99,7 +97,7 @@ class ConvertableRangeFieldController<O,I,B extends ConvertableRangeBoundryField
     if (value?.min==minValueController.value) {
       return;
     }
-    final newRange = value?.copyWith(min: minValueController.value);
+    final newRange = value?.changeMin(minValueController.value);
     value = newRange;
   }
 
@@ -107,7 +105,7 @@ class ConvertableRangeFieldController<O,I,B extends ConvertableRangeBoundryField
     if (value?.max==maxValueController.value) {
       return;
     }
-    final newRange = value?.copyWith(max: maxValueController.value);
+    final newRange = value?.changeMax(maxValueController.value);
     value = newRange;
   }
 
