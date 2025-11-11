@@ -5,7 +5,8 @@ import 'package:foo_form_field/src/core/mappers/base/same_value_mapper.dart';
 class RangeFieldController<T> extends ConvertableRangeFieldController<T,T,RangeBoundryFieldController<T>> {
   RangeFieldController({
     required super.areEqualValues,
-    required super.boundaryControllerBuilder,
+    required super.minBoundryControllerBuilder,
+    required super.maxBoundryControllerBuilder,
     super.initialValue,
     super.enabled,
     super.forcedErrorText,

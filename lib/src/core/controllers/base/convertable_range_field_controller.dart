@@ -10,18 +10,19 @@ class ConvertableRangeFieldController<O,I,B extends ConvertableRangeBoundryField
   B? _maxValueController;
 
   B get minValueController{
-    _minValueController ??= boundaryControllerBuilder(this);
+    _minValueController ??= minBoundryControllerBuilder(this);
     return _minValueController!;
   }
 
   B get maxValueController{
-    _maxValueController ??= boundaryControllerBuilder(this);
+    _maxValueController ??= maxBoundryControllerBuilder(this);
     return _maxValueController!;
   }
 
   final bool Function(O x, O y) areEqualValues;
   final FieldValueMapper<O,I> valueMapper;
-  final B Function(ConvertableRangeFieldController<O,I,B> rangeFieldController) boundaryControllerBuilder;
+  final B Function(ConvertableRangeFieldController<O,I,B> rangeFieldController) minBoundryControllerBuilder;
+  final B Function(ConvertableRangeFieldController<O,I,B> rangeFieldController) maxBoundryControllerBuilder;
 
   ConvertableRangeFieldController({
     super.enabled,
@@ -29,7 +30,8 @@ class ConvertableRangeFieldController<O,I,B extends ConvertableRangeBoundryField
     super.forcedErrorText,
     required this.valueMapper,
     required this.areEqualValues,
-    required this.boundaryControllerBuilder,
+    required this.minBoundryControllerBuilder,
+    required this.maxBoundryControllerBuilder,
   }):super(
     mapper: valueMapper.toRangeMapper(areEqualOutputs: areEqualValues),
     areEqual: (Range<O> x, Range<O> y)=>x==y,
@@ -37,8 +39,8 @@ class ConvertableRangeFieldController<O,I,B extends ConvertableRangeBoundryField
 
   @override
   void setFormFieldState(FormFieldState<Range<I>> formFieldState) {
-    _invokeSyncers();
     super.setFormFieldState(formFieldState);
+    _invokeSyncers();
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:foo_form_field/src/core/controllers/base/convertable_range_bound
 class RangeBoundryFieldController<T> extends ConvertableRangeBoundryFieldController<T,T> {
   
   RangeBoundryFieldController({
+    required super.isMin,
     required super.rangeFieldController,
   });
 }

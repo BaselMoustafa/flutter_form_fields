@@ -50,7 +50,7 @@ class ConvertableRangeFormField<O,I,B extends ConvertableRangeBoundryFieldContro
     );
   }
 
-  String? _validator(Range<O?>? value){
+  String? _validator(Range<O>? value){
     if (value == null) {
       return validator?.call(value);
     }

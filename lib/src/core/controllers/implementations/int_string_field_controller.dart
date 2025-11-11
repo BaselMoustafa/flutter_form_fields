@@ -17,6 +17,7 @@ class IntStringFieldController extends ConvertableValueFieldController<int,Strin
 
 class IntStringRangeBoundryFieldController extends ConvertableRangeBoundryFieldController<int,String> {
   IntStringRangeBoundryFieldController({
+    required super.isMin,
     required super.rangeFieldController,
   });
 }
@@ -29,7 +30,12 @@ class IntStringRangeFieldController extends ConvertableRangeFieldController<int,
   }):super(
     valueMapper: IntStringMapper(),
     areEqualValues: (int x, int y) => x == y,
-    boundaryControllerBuilder: (rangeController) => IntStringRangeBoundryFieldController(
+    minBoundryControllerBuilder: (rangeController) => IntStringRangeBoundryFieldController(
+      isMin: true,
+      rangeFieldController: rangeController
+    ),
+    maxBoundryControllerBuilder: (rangeController) => IntStringRangeBoundryFieldController(
+      isMin: false,
       rangeFieldController: rangeController
     ),
   );

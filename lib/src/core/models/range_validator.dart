@@ -40,7 +40,7 @@ class RangeValidator<T> {
     return null;
   }
 
-  String? validateEquality(Range<T?> value){
+  String? validateEquality(Range<T> value){
     if (allowEqual || value.min == null || value.max == null) {
       return null;
     }

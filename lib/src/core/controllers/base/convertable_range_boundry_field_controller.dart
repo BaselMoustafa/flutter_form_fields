@@ -3,12 +3,13 @@ import 'package:foo_form_field/src/core/controllers/base/convertable_value_field
 
 class ConvertableRangeBoundryFieldController<O,I> extends ConvertableValueFieldController<O,I> {
   ConvertableRangeBoundryFieldController({
+    required bool isMin,
     required ConvertableRangeFieldController<O,I,ConvertableRangeBoundryFieldController<O,I>> rangeFieldController,
   }):super(
     forcedErrorText: null,
     areEqual: rangeFieldController.areEqualValues,
     enabled: rangeFieldController.enabled,
-    initialValue: rangeFieldController.value?.min,
+    initialValue: isMin ? rangeFieldController.value?.min : rangeFieldController.value?.max,
     mapper: rangeFieldController.valueMapper,
   );
 }
