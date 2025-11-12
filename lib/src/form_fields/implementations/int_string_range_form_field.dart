@@ -18,13 +18,27 @@ class IntStringRangeFormField extends StatelessWidget {
 
   /// Validator applied to ensure min/max relationships.
   final RangeValidator<int>? rangeValidator;
+
   /// Shared controller orchestrating the bound controllers.
   final IntStringRangeFieldController controller;
+
   /// Builder for the minimum bound field; defaults to `IntStringFormField`.
-  final Widget Function(BuildContext context,IntStringRangeBoundryFieldController minValueController,String? value)? minFieldBuilder;
+  final Widget Function(
+    BuildContext context,
+    IntStringRangeBoundryFieldController minValueController,
+    String? value,
+  )?
+  minFieldBuilder;
+
   /// Builder for the maximum bound field; defaults to `IntStringFormField`.
-  final Widget Function(BuildContext context,IntStringRangeBoundryFieldController maxValueController,String? value)? maxFieldBuilder;
-  final Widget Function(BuildContext context,Widget minField,Widget maxField)? layoutBuilder;
+  final Widget Function(
+    BuildContext context,
+    IntStringRangeBoundryFieldController maxValueController,
+    String? value,
+  )?
+  maxFieldBuilder;
+  final Widget Function(BuildContext context, Widget minField, Widget maxField)?
+  layoutBuilder;
   final void Function(Range<int?>? value)? onSaved;
   final String? Function(Range<int?>? value)? validator;
   final AutovalidateMode? autovalidateMode;
@@ -41,26 +55,36 @@ class IntStringRangeFormField extends StatelessWidget {
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
       onChanged: onChanged,
-      rangeValidator: rangeValidator?? RangeValidator<int>(
-        firstIsBiggerThanSecond: (int first, int second) => first > second,
-      ),
+      rangeValidator:
+          rangeValidator ??
+          RangeValidator<int>(
+            firstIsBiggerThanSecond: (int first, int second) => first > second,
+          ),
       minFieldBuilder: _minFieldBuilder,
       maxFieldBuilder: _maxFieldBuilder,
     );
   }
 
   /// Standard builder falling back to a numeric form field for the minimum bound.
-  Widget _minFieldBuilder(BuildContext context,IntStringRangeBoundryFieldController minValueController,String? value){
-    if (minFieldBuilder!=null) {
-      return minFieldBuilder!(context,minValueController,value);
+  Widget _minFieldBuilder(
+    BuildContext context,
+    IntStringRangeBoundryFieldController minValueController,
+    String? value,
+  ) {
+    if (minFieldBuilder != null) {
+      return minFieldBuilder!(context, minValueController, value);
     }
     return IntStringFormField(controller: minValueController);
   }
 
   /// Standard builder falling back to a numeric form field for the maximum bound.
-  Widget _maxFieldBuilder(BuildContext context,IntStringRangeBoundryFieldController maxValueController,String? value){
-    if (maxFieldBuilder!=null) {
-      return maxFieldBuilder!(context,maxValueController,value);
+  Widget _maxFieldBuilder(
+    BuildContext context,
+    IntStringRangeBoundryFieldController maxValueController,
+    String? value,
+  ) {
+    if (maxFieldBuilder != null) {
+      return maxFieldBuilder!(context, maxValueController, value);
     }
     return IntStringFormField(controller: maxValueController);
   }

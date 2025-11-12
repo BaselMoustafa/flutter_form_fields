@@ -6,7 +6,5 @@ class BooleanFieldController extends ValueFieldController<bool> {
     super.initialValue,
     super.enabled,
     super.forcedErrorText,
-  }):super(
-    areEqual: (bool x, bool y) => x == y,
-  );
+  }) : super(areEqual: (bool x, bool y) => x == y);
 }

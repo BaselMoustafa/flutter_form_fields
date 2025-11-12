@@ -1,19 +1,16 @@
 part of '../exporter.dart';
 
-class FieldValueMapper<O,I> {
+class FieldValueMapper<O, I> {
   final O? Function(I? i) toClientType;
   final I? Function(O? o) toFieldType;
 
-  FieldValueMapper({
-    required this.toClientType,
-    required this.toFieldType,
-  });
+  FieldValueMapper({required this.toClientType, required this.toFieldType});
 
-  FieldValueMapper<Range<O>,Range<I>> toRangeMapper({
+  FieldValueMapper<Range<O>, Range<I>> toRangeMapper({
     required bool Function(O x, O y) areEqualOutputs,
-  }){
-    return FieldValueMapper<Range<O>,Range<I>>(
-      toClientType: (Range<I>? inputRange){
+  }) {
+    return FieldValueMapper<Range<O>, Range<I>>(
+      toClientType: (Range<I>? inputRange) {
         if (inputRange == null) {
           return null;
         }
@@ -25,14 +22,14 @@ class FieldValueMapper<O,I> {
         );
         return toReturn;
       },
-      toFieldType: (Range<O>? outputRange){
+      toFieldType: (Range<O>? outputRange) {
         if (outputRange == null) {
           return null;
         }
         return Range<I>(
           min: toFieldType(outputRange.min),
           max: toFieldType(outputRange.max),
-          areEqual:(I x, I y){
+          areEqual: (I x, I y) {
             final firstValue = toClientType(x);
             final secondValue = toClientType(y);
             if (firstValue == null && secondValue == null) {
@@ -50,5 +47,4 @@ class FieldValueMapper<O,I> {
       },
     );
   }
-
 }

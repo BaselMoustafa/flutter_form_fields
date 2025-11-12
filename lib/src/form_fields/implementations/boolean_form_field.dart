@@ -19,14 +19,16 @@ class BooleanFormField extends StatelessWidget {
 
   /// Text displayed for the affirmative option.
   final String yesText;
+
   /// Text displayed for the negative option.
   final String noText;
 
   /// Controller supplying the boolean value and state.
   final ValueFieldController<bool> controller;
+
   /// Optional custom builder replacing the default button layout.
   final Widget Function(BuildContext context)? builder;
-  
+
   final void Function(bool? value)? onSaved;
   final String? Function(bool? value)? validator;
   final AutovalidateMode? autovalidateMode;
@@ -50,8 +52,8 @@ class BooleanFormField extends StatelessWidget {
   }
 
   /// Builds the default toggle presentation using the controller value.
-  Widget _fieldBuilder(BuildContext context,bool? value){
-    if (builder!=null) {
+  Widget _fieldBuilder(BuildContext context, bool? value) {
+    if (builder != null) {
       return builder!(context);
     }
 
@@ -60,15 +62,9 @@ class BooleanFormField extends StatelessWidget {
       fieldWidget: Row(
         spacing: 6,
         children: [
-          _ActionButton(
-            parentWidget: this, 
-            isYesButton: true,
-          ),
-      
-          _ActionButton(
-            parentWidget: this, 
-            isYesButton: false,
-          ),
+          _ActionButton(parentWidget: this, isYesButton: true),
+
+          _ActionButton(parentWidget: this, isYesButton: false),
         ],
       ),
     );
@@ -77,10 +73,7 @@ class BooleanFormField extends StatelessWidget {
 
 /// Single option button toggling the boolean controller value.
 class _ActionButton extends StatelessWidget {
-  const _ActionButton({
-    required this.parentWidget,
-    required this.isYesButton,
-  });
+  const _ActionButton({required this.parentWidget, required this.isYesButton});
 
   final bool isYesButton;
   final BooleanFormField parentWidget;
@@ -91,17 +84,15 @@ class _ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SelectionCard(
       enabled: _controller.enabled,
-      onTap: _onTap, 
-      isSelected: _controller.value == isYesButton, 
-      child: Text(
-        isYesButton ? parentWidget.yesText : parentWidget.noText
-      ),
+      onTap: _onTap,
+      isSelected: _controller.value == isYesButton,
+      child: Text(isYesButton ? parentWidget.yesText : parentWidget.noText),
     );
   }
 
   /// Toggles the controller value and notifies the parent callback.
   void _onTap() {
-    if(_controller.value == isYesButton){
+    if (_controller.value == isYesButton) {
       _controller.value = null;
     } else {
       _controller.value = isYesButton;

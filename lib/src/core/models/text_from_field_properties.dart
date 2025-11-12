@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TextFormFieldProperties<O> {
-  
   final List<TextInputFormatter>? inputFormatters;
   final Object groupId;
   final FocusNode? focusNode;
@@ -71,7 +70,6 @@ class TextFormFieldProperties<O> {
   final bool? stylusHandwritingEnabled;
   final bool? canRequestFocus;
 
-
   TextFormFieldProperties({
     this.groupId = EditableText,
     this.focusNode,
@@ -91,7 +89,7 @@ class TextFormFieldProperties<O> {
     this.autocorrect,
     this.smartDashesType,
     this.smartQuotesType,
-    this.enableSuggestions, 
+    this.enableSuggestions,
     this.maxLengthEnforcement,
     this.maxLines,
     this.minLines,
@@ -109,7 +107,7 @@ class TextFormFieldProperties<O> {
     this.errorBuilder,
     this.inputFormatters,
     this.ignorePointers,
-    this.cursorWidth ,
+    this.cursorWidth,
     this.cursorHeight,
     this.cursorRadius,
     this.cursorColor,

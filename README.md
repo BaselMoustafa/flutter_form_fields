@@ -3,7 +3,7 @@
 Custom, simple form-field widgets for Flutter — integer-only fields and helpers.
 
 **Author:** Basel Moustafa  
-**Repository:** https://github.com/BaselMoustafa/flutter_form_fields
+**Repository:** https://github.com/BaselMoustafa/foo_form_field
 
 ## Features
 - Integer-only TextFormField widgets
@@ -16,4 +16,4 @@ Add to `pubspec.yaml`:
 dependencies:
   flutter_form_fields:
     git:
-      url: https://github.com/BaselMoustafa/flutter_form_fields
+      url: https://github.com/BaselMoustafa/foo_form_field

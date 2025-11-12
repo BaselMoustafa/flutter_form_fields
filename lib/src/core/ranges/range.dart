@@ -1,17 +1,12 @@
 part of 'exporter.dart';
 
 class Range<T> {
-  
   final T? min;
   final T? max;
 
   final bool Function(T x, T y) areEqual;
 
-  const Range({
-    required this.min,
-    required this.max,
-    required this.areEqual,
-  });
+  const Range({required this.min, required this.max, required this.areEqual});
 
   @override
   int get hashCode => min.hashCode ^ max.hashCode;
@@ -39,9 +34,10 @@ class Range<T> {
     if (max != null && other.max == null) {
       return false;
     }
-    return areEqual(min as T, other.min as T) && areEqual(max as T, other.max as T);
+    return areEqual(min as T, other.min as T) &&
+        areEqual(max as T, other.max as T);
   }
-  
+
   @override
   String toString() {
     return "Range(min: $min, max: $max)";
@@ -49,7 +45,6 @@ class Range<T> {
 }
 
 class RangeValidator<T> {
-
   final bool Function(T x, T y) firstIsBiggerThanSecond;
   final bool allowEqual;
   final String minBiggerThanMaxMessage;
@@ -62,7 +57,7 @@ class RangeValidator<T> {
     this.equalMinAndMaxMessage = "Min is equal to max value",
   });
 
-  String? validateMin(Range<T?> value){
+  String? validateMin(Range<T?> value) {
     if (value.min == null || value.max == null) {
       return null;
     }
@@ -74,7 +69,7 @@ class RangeValidator<T> {
     return null;
   }
 
-  String? validateEquality(Range<T> value){
+  String? validateEquality(Range<T> value) {
     if (allowEqual || value.min == null || value.max == null) {
       return null;
     }
@@ -84,5 +79,4 @@ class RangeValidator<T> {
 
     return null;
   }
-
 }

@@ -17,12 +17,8 @@ class FieldWithErrorTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         fieldWidget,
-        ErrorTextWidget(
-          errorText: errorText, 
-          style: errorTextStyle,
-        ),
+        ErrorTextWidget(errorText: errorText, style: errorTextStyle),
       ],
     );
   }

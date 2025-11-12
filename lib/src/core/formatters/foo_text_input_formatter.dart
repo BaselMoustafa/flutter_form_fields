@@ -1,9 +1,6 @@
 part of 'exporter.dart';
 
-
-
 abstract class FooTextInputFormatter extends TextInputFormatter {
-
   const FooTextInputFormatter();
 
   String? validate(String value);
@@ -11,7 +8,10 @@ abstract class FooTextInputFormatter extends TextInputFormatter {
   String? canWrite(String value);
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     if (canWrite(newValue.text) == null) {
       return newValue;
     }

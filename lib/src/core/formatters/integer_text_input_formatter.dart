@@ -1,7 +1,6 @@
 part of 'exporter.dart';
 
 class IntegerTextInputFormatter extends FooTextInputFormatter {
-
   late final int? maxLength;
   final bool allowNegative;
 
@@ -15,13 +14,15 @@ class IntegerTextInputFormatter extends FooTextInputFormatter {
     this.exceedMaxLengthMessage = "Exceed max length",
     this.invalidNegativeMessage = "Invalid negative number",
     this.invalidIntegerMessage = "Invalid",
-  }){
-    if(maxLength!=null && maxLength! < 1){
-      throw ArgumentError.value(maxLength, 'maxLength', 'Max length must be greater than 0');
+  }) {
+    if (maxLength != null && maxLength! < 1) {
+      throw ArgumentError.value(
+        maxLength,
+        'maxLength',
+        'Max length must be greater than 0',
+      );
     }
   }
-
-  
 
   @override
   String? canWrite(String value) {
@@ -41,12 +42,10 @@ class IntegerTextInputFormatter extends FooTextInputFormatter {
       return canWriteResult;
     }
 
-    if (value=="-") {
+    if (value == "-") {
       return invalidNegativeMessage;
     }
 
     return null;
   }
-
-  
 }

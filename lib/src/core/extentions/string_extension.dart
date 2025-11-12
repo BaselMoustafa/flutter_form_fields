@@ -1,5 +1,4 @@
 extension StringExtension on String {
-
   String? canBeIntText({
     bool allowNegative = true,
     int? maxLength,
@@ -8,16 +7,16 @@ extension StringExtension on String {
     String exceedMaxLengthMessage = "Exceed max length",
   }) {
     int? effectiveMaxLength(String value) {
-      if (maxLength==null) {
+      if (maxLength == null) {
         return null;
       }
 
-      if (! allowNegative) {
+      if (!allowNegative) {
         return maxLength;
       }
 
-      if (value.isNotEmpty && value[0]=='-') {
-        return maxLength+1;
+      if (value.isNotEmpty && value[0] == '-') {
+        return maxLength + 1;
       }
 
       return maxLength;
@@ -27,46 +26,44 @@ extension StringExtension on String {
       return invalidIntegerMessage;
     }
 
-    if(effectiveMaxLength(this)!=null && length > effectiveMaxLength(this)!){
+    if (effectiveMaxLength(this) != null &&
+        length > effectiveMaxLength(this)!) {
       return exceedMaxLengthMessage;
     }
 
     for (var i = 0; i < length; i++) {
-      if (i==0 && this[i]=='-') {
-        if(!allowNegative) {
+      if (i == 0 && this[i] == '-') {
+        if (!allowNegative) {
           return invalidNegativeMessage;
         }
-        
-        continue ;
+
+        continue;
       }
 
-      if (int.tryParse(this[i])==null) {
+      if (int.tryParse(this[i]) == null) {
         return invalidIntegerMessage;
       }
     }
     return null;
   }
 
-  String formatAsIntValue({
-    bool allowNegative = true,
-  }){
+  String formatAsIntValue({bool allowNegative = true}) {
     String toReturn = this;
-    
-    if (! allowNegative) {
+
+    if (!allowNegative) {
       toReturn = toReturn.replaceAll('-', '');
     }
 
-    if(toReturn.isEmpty) {
+    if (toReturn.isEmpty) {
       return toReturn;
     }
-    
-    for (var i = toReturn[0]=='-'? 1: 0; i < toReturn.length; i++) {
-      if (int.tryParse(toReturn[i])==null) {
-        toReturn = toReturn.replaceRange(i, i+1, '');
+
+    for (var i = toReturn[0] == '-' ? 1 : 0; i < toReturn.length; i++) {
+      if (int.tryParse(toReturn[i]) == null) {
+        toReturn = toReturn.replaceRange(i, i + 1, '');
         i--;
       }
     }
     return toReturn;
   }
-
 }

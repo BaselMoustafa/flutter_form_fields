@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import '../style/package_colors.dart';
 
 class SelectionCard extends StatelessWidget {
-
   const SelectionCard({
-    super.key, 
-    required this.onTap, 
-    required this.isSelected, 
-    required this.child, 
-    this.padding, 
-    this.borderRadius, 
-    this.border, 
-    this.color, 
-    this.height, 
-    this.width, 
+    super.key,
+    required this.onTap,
+    required this.isSelected,
+    required this.child,
+    this.padding,
+    this.borderRadius,
+    this.border,
+    this.color,
+    this.height,
+    this.width,
     this.defaultTextStyle,
     this.enabled = true,
   });
@@ -33,23 +32,28 @@ class SelectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: defaultTextStyle?? TextStyle(
-        color: isSelected ? Colors.white : _effectiveColor(context),
-      ),
+      style:
+          defaultTextStyle ??
+          TextStyle(
+            color: isSelected ? Colors.white : _effectiveColor(context),
+          ),
       child: GestureDetector(
-        onTap: enabled? onTap: null,
+        onTap: enabled ? onTap : null,
         child: AnimatedContainer(
           duration: Duration(milliseconds: 300),
           alignment: Alignment.center,
           height: height,
           width: width,
-          padding: padding?? EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding:
+              padding ?? EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           decoration: BoxDecoration(
-            borderRadius: borderRadius?? BorderRadius.circular(10),
-            color: color?? (isSelected ? _effectiveColor(context) : PackageColors.transparent),
-            border: border?? Border.all(
-              color: _effectiveColor(context),
-            ),
+            borderRadius: borderRadius ?? BorderRadius.circular(10),
+            color:
+                color ??
+                (isSelected
+                    ? _effectiveColor(context)
+                    : PackageColors.transparent),
+            border: border ?? Border.all(color: _effectiveColor(context)),
           ),
           child: child,
         ),
@@ -57,5 +61,7 @@ class SelectionCard extends StatelessWidget {
     );
   }
 
-  Color _effectiveColor(BuildContext context) => enabled? (color??PackageColors.primary(context)) : PackageColors.disabled(context);
+  Color _effectiveColor(BuildContext context) => enabled
+      ? (color ?? PackageColors.primary(context))
+      : PackageColors.disabled(context);
 }

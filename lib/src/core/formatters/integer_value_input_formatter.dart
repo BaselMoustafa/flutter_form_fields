@@ -1,8 +1,6 @@
 part of 'exporter.dart';
 
 class IntegerValueInputFormatter extends FooTextInputFormatter {
-
-
   final bool allowNegative;
   final int? maxValue;
 
@@ -25,17 +23,17 @@ class IntegerValueInputFormatter extends FooTextInputFormatter {
       invalidNegativeMessage: invalidNegativeMessage,
       invalidIntegerMessage: invalidIntegerMessage,
     );
-    
+
     if (validationResult != null) {
       return validationResult;
     }
 
-    if (value.isEmpty || value=="-") {
+    if (value.isEmpty || value == "-") {
       return null;
     }
 
     int? parsedValue = int.tryParse(
-      value.formatAsIntValue(allowNegative: allowNegative)
+      value.formatAsIntValue(allowNegative: allowNegative),
     );
 
     if (parsedValue == null) {
@@ -56,11 +54,10 @@ class IntegerValueInputFormatter extends FooTextInputFormatter {
       return canWriteResult;
     }
 
-    if (value=="-") {
+    if (value == "-") {
       return invalidNegativeMessage;
     }
 
     return null;
   }
-  
 }
