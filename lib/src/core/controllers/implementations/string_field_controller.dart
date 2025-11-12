@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Controller for string fields relying on simple equality comparison.
 class StringFieldController extends ValueFieldController<String> {
   
   StringFieldController({

@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Controller for single date fields with customizable equality.
 class DateFieldController extends ValueFieldController<DateTime> {
   DateFieldController({
     super.initialValue,
@@ -11,6 +12,7 @@ class DateFieldController extends ValueFieldController<DateTime> {
   );
 }
 
+/// Range bound controller specialized for `DateTime`.
 class DateRangeBoundryFieldController extends RangeBoundryFieldController<DateTime> {
   DateRangeBoundryFieldController({
     required super.isMin,
@@ -18,6 +20,7 @@ class DateRangeBoundryFieldController extends RangeBoundryFieldController<DateTi
   });
 }
 
+/// Controller for date ranges, wiring min/max bound controllers and equality.
 class DateRangeFieldController extends RangeFieldController<DateTime,DateRangeBoundryFieldController> {
   DateRangeFieldController({
     super.initialValue,

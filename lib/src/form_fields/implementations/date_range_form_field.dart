@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Preconfigured form field for selecting a date range using `DateFormField` builders.
 class DateRangeFormField extends RangeFormField<DateTime,DateRangeBoundryFieldController> {
 
   DateRangeFormField({

@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Form field for picking a single date with optional custom rendering and formatter.
 class DateFormField extends StatelessWidget{
 
   const DateFormField({
@@ -20,9 +21,13 @@ class DateFormField extends StatelessWidget{
     this.decoration,
   });
 
+  /// Controller managing the selected date.
   final FooFieldController<DateTime,DateTime> controller;
+  /// Formats the current date when using the default builder.
   final String? Function(DateTime? date)? dateFormatter;
+  /// Custom widget builder overriding the decorated default.
   final Widget Function(BuildContext context,DateTime? value)? builder;
+  /// Optional tap handler; when omitted a date picker is presented.
   final void Function(BuildContext context)? onTap;
   final DateTime? firstDate;
   final DateTime? lastDate;
@@ -61,6 +66,7 @@ class DateFormField extends StatelessWidget{
     );
   }
 
+  /// Handles tap by delegating to custom handler or default date picker.
   void _onTap(BuildContext context) async{
     if (onTap!=null) {
       onTap?.call(context);
@@ -79,6 +85,7 @@ class DateFormField extends StatelessWidget{
     }
   }
 
+  /// Applies default icons to the provided decoration if missing.
   InputDecoration get _effectiveDecoration {
     if(decoration==null) {
       return InputDecoration(
@@ -105,6 +112,7 @@ class DateFormField extends StatelessWidget{
   }
 }
 
+/// Button that clears the selected date.
 class _ClearButton extends StatelessWidget {
   const _ClearButton({required this.controller});
   final FooFieldController<DateTime,DateTime> controller;

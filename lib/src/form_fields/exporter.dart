@@ -7,6 +7,7 @@ import '../core/extentions/foo_text_input_formatter_list_extension.dart';
 import '../core/widgets/field_with_error_text_widget.dart';
 import '../core/widgets/selection_card.dart';
 
+/// Aggregates all form field base classes and ready-to-use implementations.
 part 'base/convertable_range_form_field.dart';
 part 'base/decorated_value_form_field.dart';
 part 'base/foo_form_field.dart';

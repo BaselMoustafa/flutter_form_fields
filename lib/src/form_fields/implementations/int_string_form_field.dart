@@ -1,4 +1,5 @@
 part of '../exporter.dart';
+/// Numeric form field that stores numbers as strings while exposing `int` values.
 class IntStringFormField extends FooStringFormField<int> {
   
   IntStringFormField({
