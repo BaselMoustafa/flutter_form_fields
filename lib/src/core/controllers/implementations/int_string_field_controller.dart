@@ -1,6 +1,6 @@
 part of '../exporter.dart';
 
-class IntStringFieldController extends ConvertableValueFieldController<int,String> {
+class IntStringFieldController extends FooFieldController<int,String> {
   
   IntStringFieldController({
     super.initialValue,

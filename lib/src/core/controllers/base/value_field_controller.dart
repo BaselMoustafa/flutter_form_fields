@@ -1,6 +1,6 @@
 part of '../exporter.dart';
 
-class ValueFieldController<T> extends ConvertableValueFieldController<T,T> {
+class ValueFieldController<T> extends FooFieldController<T,T> {
 
   ValueFieldController({
     super.initialValue,
