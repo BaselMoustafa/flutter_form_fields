@@ -1,3 +1,6 @@
+## 1.0.0-beta.1
+    * Add Formatting
+
 ## 0.2.0
 
 * Add `BooleanFormField`

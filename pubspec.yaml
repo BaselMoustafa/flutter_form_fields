@@ -1,6 +1,6 @@
 name: foo_form_field
 description: Reusable Flutter FormFields and formatters for integer-only input.
-version: 0.2.0
+version: 1.0.0-beta.1
 homepage: https://github.com/BaselMoustafa/foo_form_field
 repository: https://github.com/BaselMoustafa/foo_form_field
 documentation: https://github.com/BaselMoustafa/foo_form_field#readme
