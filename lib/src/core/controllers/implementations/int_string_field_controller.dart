@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Controller bridging `int` client values with `String` form field values.
 class IntStringFieldController extends FooFieldController<int,String> {
   
   IntStringFieldController({
@@ -12,6 +13,7 @@ class IntStringFieldController extends FooFieldController<int,String> {
   );
 }
 
+/// Bound controller for integer ranges backed by string field values.
 class IntStringRangeBoundryFieldController extends ConvertableRangeBoundryFieldController<int,String> {
   IntStringRangeBoundryFieldController({
     required super.isMin,
@@ -19,6 +21,7 @@ class IntStringRangeBoundryFieldController extends ConvertableRangeBoundryFieldC
   });
 }
 
+/// Range controller handling integer values stored as strings in the form field.
 class IntStringRangeFieldController extends ConvertableRangeFieldController<int,String,IntStringRangeBoundryFieldController> {
   IntStringRangeFieldController({
     super.initialValue,

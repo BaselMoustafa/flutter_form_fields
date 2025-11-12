@@ -1,10 +1,12 @@
 part of '../exporter.dart';
-///[I] is The type which the form field accepts
-///[O] is The type which the client wants to get or set
+/// Generic field controller bridging UI field values (`I`) and client values (`O`).
+///
+/// `I` represents the raw value handled by `FormFieldState`, while `O` is what consumers expect.
 abstract class FooFieldController<O,I> extends ChangeNotifier {
   
   final O? initialValue;
 
+  /// Maps the client initial value to the form-field representation.
   I? get initialValueAsFieldValue => mapper.toFieldType(initialValue);
   
   bool _enabled;
@@ -19,8 +21,10 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
 
   bool _isValueChanged;
 
+  /// Tracks whether the last assignment changed the stored value.
   bool get isValueChanged => _isValueChanged;
 
+  /// Configures the controller with equality, mapper, and optional defaults.
   FooFieldController({
     required this.areEqual,
     required bool? enabled,
@@ -35,6 +39,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Computes if two values should be considered different based on nullability/equality.
   bool _getIsValueChanged(O? x, O? y){
     if (x == null && y == null) {
       return false;
@@ -52,8 +57,10 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     return false;
   }
 
+  /// Current enabled state of the field.
   bool get enabled => _enabled;
 
+  /// Updates the enabled state and notifies listeners.
   set enabled(bool value) {
     excute<void>(
       needToNotifyListener: true,
@@ -63,6 +70,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     );
   }
 
+  /// Current value exposed to consumers (mapped from the form state).
   O? get value{
     if (_formFieldState == null) {
       return initialValue;
@@ -70,6 +78,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     return mapper.toClientType(_formFieldState!.value);
   }
 
+  /// Assigns a new value by updating the underlying form field state.
   set value(O? newValue){
     return excute<void>(
       needToNotifyListener: true,
@@ -80,6 +89,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     );
   }
 
+  /// Validates the field, mutating the form state to reflect the result.
   bool validate(){
     return excute<bool>(
       toExecute: (FormFieldState<I> formFieldState) {
@@ -88,8 +98,10 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     );
   }
 
+  /// Resets the field value to `null`.
   void clear()=> value = null;
 
+  /// Triggers the form-field `onSaved` callback if provided.
   void save(){
     return excute<void>(
       toExecute: (FormFieldState<I> formFieldState) {
@@ -98,10 +110,12 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     );
   }
 
+  /// Explicit error text overriding validator output when set.
   String? get forcedErrorText{
     return _forcedErrorText;
   }
 
+  /// Overrides current error text with a forced value and notifies listeners.
   set forcedErrorText(String? value){
     excute<void>(
       needToNotifyListener: true,
@@ -111,6 +125,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     );
   }
 
+  /// Current error message from the form state (if attached).
   String? get errorText{
     if (_formFieldState == null) {
       return null;
@@ -118,6 +133,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     return _formFieldState!.errorText;
   }
 
+  /// Indicates whether the field currently has an error without mutating state.
   bool get hasError{
     return excute<bool>(
       toExecute: (FormFieldState<I> formFieldState) {
@@ -126,6 +142,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     );
   }
 
+  /// Indicates whether the field is valid without mutating state.
   bool get isValid{
     return excute<bool>(
       toExecute: (FormFieldState<I> formFieldState) {
@@ -134,6 +151,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     );
   }
 
+  /// Executes logic requiring an attached `FormFieldState`, handling notifications.
   @protected
   R excute<R>({
     bool needToNotifyListener = false,
@@ -149,6 +167,7 @@ abstract class FooFieldController<O,I> extends ChangeNotifier {
     return result;
   }
 
+  /// Ensures the controller is attached to a field before executing operations.
   void _ensureStateExistence(){
     if (_formFieldState == null) {
       throw Exception(

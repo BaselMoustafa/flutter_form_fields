@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Text form field wired to a `StringFieldController` with optional formatters.
 class StringFormField extends FooStringFormField<String> {
   
   const StringFormField({
@@ -10,6 +11,7 @@ class StringFormField extends FooStringFormField<String> {
     super.keyboardType
   });
 
+  /// Convenience constructor configured for integer-only input.
   StringFormField.integer({
     Key?key,
     required StringFieldController controller,

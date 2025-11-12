@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Form field that wraps a value widget with `InputDecoration` styling and tap handling.
 class DecoratedValueFormField<T> extends FooFormField<T,T> {
   DecoratedValueFormField({
     super.key,

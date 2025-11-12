@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Range form field that maps integer values to string-backed inputs.
 class IntStringRangeFormField extends StatelessWidget {
   const IntStringRangeFormField({
     super.key,
@@ -15,9 +16,13 @@ class IntStringRangeFormField extends StatelessWidget {
     this.onChanged,
   });
 
+  /// Validator applied to ensure min/max relationships.
   final RangeValidator<int>? rangeValidator;
+  /// Shared controller orchestrating the bound controllers.
   final IntStringRangeFieldController controller;
+  /// Builder for the minimum bound field; defaults to `IntStringFormField`.
   final Widget Function(BuildContext context,IntStringRangeBoundryFieldController minValueController,String? value)? minFieldBuilder;
+  /// Builder for the maximum bound field; defaults to `IntStringFormField`.
   final Widget Function(BuildContext context,IntStringRangeBoundryFieldController maxValueController,String? value)? maxFieldBuilder;
   final Widget Function(BuildContext context,Widget minField,Widget maxField)? layoutBuilder;
   final void Function(Range<int?>? value)? onSaved;
@@ -44,6 +49,7 @@ class IntStringRangeFormField extends StatelessWidget {
     );
   }
 
+  /// Standard builder falling back to a numeric form field for the minimum bound.
   Widget _minFieldBuilder(BuildContext context,IntStringRangeBoundryFieldController minValueController,String? value){
     if (minFieldBuilder!=null) {
       return minFieldBuilder!(context,minValueController,value);
@@ -51,6 +57,7 @@ class IntStringRangeFormField extends StatelessWidget {
     return IntStringFormField(controller: minValueController);
   }
 
+  /// Standard builder falling back to a numeric form field for the maximum bound.
   Widget _maxFieldBuilder(BuildContext context,IntStringRangeBoundryFieldController maxValueController,String? value){
     if (maxFieldBuilder!=null) {
       return maxFieldBuilder!(context,maxValueController,value);

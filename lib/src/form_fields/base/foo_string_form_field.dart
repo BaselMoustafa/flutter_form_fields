@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Specialized form field that binds a string-based controller to `TextFormField`.
 class FooStringFormField<O> extends StatefulWidget {
 
   const FooStringFormField({
@@ -10,9 +11,12 @@ class FooStringFormField<O> extends StatefulWidget {
     this.properties,
   });
 
+  /// Controller that provides the value mapping between string input and client type.
   final FooFieldController<O,String> controller;
+  /// Additional formatters applied after the standard `TextFormField` formatters.
   final List<FooTextInputFormatter>? fooInputFormatters;
   final TextInputType? keyboardType;
+  /// Optional helper carrying the configuration for the inner `TextFormField`.
   final TextFormFieldProperties<O>? properties;
 
   @override
@@ -20,6 +24,7 @@ class FooStringFormField<O> extends StatefulWidget {
 }
 
 class _FooStringFormFieldState<O> extends State<FooStringFormField<O>> {
+  /// Key that exposes the inner `FormFieldState` for the controller.
   final GlobalKey<FormFieldState<String>> _formFieldKey = GlobalKey<FormFieldState<String>>();
 
   TextFormFieldProperties<O>? get _properties => widget.properties;
@@ -39,6 +44,7 @@ class _FooStringFormFieldState<O> extends State<FooStringFormField<O>> {
     super.dispose();
   }
 
+  /// Propagates controller updates to the widget tree and optional callbacks.
   void _notifyChangeInValue(){
     setState(() {});
     if(widget.controller.isValueChanged) {
@@ -143,6 +149,7 @@ class _FooStringFormFieldState<O> extends State<FooStringFormField<O>> {
     );
   }
 
+  /// Ensures custom formatters approve the value before raising `onChanged`.
   bool _validToNotifyUserBy(String? value){
     if(value==null){
       return true;

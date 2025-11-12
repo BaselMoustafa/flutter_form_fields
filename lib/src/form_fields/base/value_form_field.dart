@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Simplified form field when the input and client value types match.
 class ValueFormField<T> extends FooFormField<T,T> {
 
   const ValueFormField({

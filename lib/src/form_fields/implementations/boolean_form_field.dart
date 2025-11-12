@@ -1,5 +1,6 @@
 part of '../exporter.dart';
 
+/// Form field that renders a binary yes/no selector backed by a boolean controller.
 class BooleanFormField extends StatelessWidget {
   const BooleanFormField({
     super.key,
@@ -16,10 +17,14 @@ class BooleanFormField extends StatelessWidget {
     this.builder,
   });
 
+  /// Text displayed for the affirmative option.
   final String yesText;
+  /// Text displayed for the negative option.
   final String noText;
 
+  /// Controller supplying the boolean value and state.
   final ValueFieldController<bool> controller;
+  /// Optional custom builder replacing the default button layout.
   final Widget Function(BuildContext context)? builder;
   
   final void Function(bool? value)? onSaved;
@@ -44,6 +49,7 @@ class BooleanFormField extends StatelessWidget {
     );
   }
 
+  /// Builds the default toggle presentation using the controller value.
   Widget _fieldBuilder(BuildContext context,bool? value){
     if (builder!=null) {
       return builder!(context);
@@ -69,6 +75,7 @@ class BooleanFormField extends StatelessWidget {
   }
 }
 
+/// Single option button toggling the boolean controller value.
 class _ActionButton extends StatelessWidget {
   const _ActionButton({
     required this.parentWidget,
@@ -92,6 +99,7 @@ class _ActionButton extends StatelessWidget {
     );
   }
 
+  /// Toggles the controller value and notifies the parent callback.
   void _onTap() {
     if(_controller.value == isYesButton){
       _controller.value = null;
