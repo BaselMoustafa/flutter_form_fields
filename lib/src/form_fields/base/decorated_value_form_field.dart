@@ -27,6 +27,7 @@ class DecoratedValueFormField<T> extends FooFormField<T,T> {
         child: GestureDetector(
           onTap:() => onTap?.call(context),
           child: InputDecorator(
+            textAlignVertical: TextAlignVertical.center,
             isEmpty: controller.value == null,
             decoration: effectiveDecoration,
             child:controller.value != null? builder(context,value) : null,

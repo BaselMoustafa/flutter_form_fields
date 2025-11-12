@@ -1,8 +1,8 @@
 import 'package:example/bool_form_field_example.dart';
-import 'package:example/date_form_field_example.dart';
-import 'package:example/date_range_form_field_example.dart';
+import 'package:example/form_field_examples/date_form_field_example_screen.dart';
+import 'package:example/form_field_examples/date_range_form_field_example_screen.dart';
+import 'package:example/form_field_examples/int_string_range_form_field_example_screen.dart';
 import 'package:example/int_value_form_field_example.dart';
-import 'package:example/int_range_form_field_example.dart';
 import 'package:flutter/material.dart';
 import 'int_text_form_field_example.dart';
 class HomeScreen extends StatelessWidget {
@@ -12,36 +12,50 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Example Screen'),
+        title: Text('Form Fields Examples'),
+        centerTitle: true,
       ),
-      body: Column(
-
-        children: [
-          _GoToExampleScreenButton(
-            title: 'Date Range Form Field', 
-            screen: DateRangeValueFormFieldExample()
-          ),
-          _GoToExampleScreenButton(
-            title: 'Date Form Field', 
-            screen: DateFormFieldExample()
-          ),
-          _GoToExampleScreenButton(
-            title: 'Bool Form Field', 
-            screen: BoolFormFieldExample()
-          ),
-          _GoToExampleScreenButton(
-            title: 'Int Range Form Field', 
-            screen: IntRangeValueFormFieldExample()
-          ),
-          _GoToExampleScreenButton(
-            title: 'Int Value Form Field', 
-            screen: IntValueFormFieldExample()
-          ),
-          _GoToExampleScreenButton(
-            title: 'Int Text Form Field', 
-            screen: IntTextFormFieldExample()
-          ),
-        ],
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 10,
+          children: [
+            Text(
+              "Range Form Fields",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            _GoToExampleScreenButton(
+              title: 'Date Range Form Field', 
+              screen: DateRangeFormFieldExampleScreen()
+            ),
+            _GoToExampleScreenButton(
+              title: 'Int Range Form Field', 
+              screen: IntStringRangeFormFieldExampleScreen()
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Value Form Fields",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            _GoToExampleScreenButton(
+              title: 'Date Form Field', 
+              screen: DateFormFieldExampleScreen()
+            ),
+            _GoToExampleScreenButton(
+              title: 'Bool Form Field', 
+              screen: BoolFormFieldExample()
+            ),
+            _GoToExampleScreenButton(
+              title: 'Int Value Form Field', 
+              screen: IntValueFormFieldExample()
+            ),
+            _GoToExampleScreenButton(
+              title: 'Int Text Form Field', 
+              screen: IntTextFormFieldExample()
+            ),
+          ],
+        ),
       ),
     );
   }

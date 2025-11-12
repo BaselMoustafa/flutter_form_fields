@@ -50,9 +50,11 @@ class DateFormField extends StatelessWidget{
       builder: builder?? (BuildContext context,DateTime? value) {
         final value = controller.value;
         return FittedBox(
+          alignment: AlignmentDirectional.centerStart,
           fit: BoxFit.scaleDown,
           child: Text(
             dateFormatter?.call(value)?? "${value?.year}-${value?.month}-${value?.day}",
+            textAlign: TextAlign.start,
           ),
         );
       },
