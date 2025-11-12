@@ -13,7 +13,6 @@ class DateRangeFormField extends RangeFormField<DateTime,DateRangeBoundryFieldCo
     super.onSaved,
     super.validator,
     super.autovalidateMode,
-    super.errorBuilder,
     super.restorationId,
     super.onChanged,
   }):super(

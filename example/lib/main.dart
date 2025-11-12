@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
            
           errorStyle: TextStyle(
             color: Colors.red,
-            fontSize: 24
           ),
         )
       ),

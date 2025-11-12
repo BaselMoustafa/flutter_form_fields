@@ -13,7 +13,6 @@ class ConvertableRangeFormField<O,I,B extends ConvertableRangeBoundryFieldContro
     this.onSaved,
     this.validator,
     this.autovalidateMode,
-    this.errorBuilder,
     this.restorationId,
     this.onChanged,
   });
@@ -28,7 +27,6 @@ class ConvertableRangeFormField<O,I,B extends ConvertableRangeBoundryFieldContro
   final void Function(Range<O?>? value)? onSaved;
   final String? Function(Range<O?>? value)? validator;
   final AutovalidateMode? autovalidateMode;
-  final FormFieldErrorBuilder? errorBuilder;
   final String? restorationId;
   final void Function(Range<O?>? value)? onChanged;
 
@@ -39,7 +37,6 @@ class ConvertableRangeFormField<O,I,B extends ConvertableRangeBoundryFieldContro
       controller: controller, 
       onSaved: onSaved,
       autovalidateMode: autovalidateMode,
-      errorBuilder: errorBuilder,
       restorationId: restorationId,
       onChanged: onChanged,
       validator: _validator,
@@ -61,10 +58,6 @@ class ConvertableRangeFormField<O,I,B extends ConvertableRangeBoundryFieldContro
       return minError;
     }
 
-    String? maxError = rangeValidator.validateMax(value);
-    if (maxError != null) {
-      return maxError;
-    }
     return validator?.call(value);
   }
 

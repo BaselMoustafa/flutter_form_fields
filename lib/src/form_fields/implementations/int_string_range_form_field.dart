@@ -14,7 +14,6 @@ class IntStringRangeFormField extends StatelessWidget {
     this.onSaved,
     this.validator,
     this.autovalidateMode,
-    this.errorBuilder,
     this.restorationId,
     this.onChanged,
   });
@@ -27,7 +26,6 @@ class IntStringRangeFormField extends StatelessWidget {
   final void Function(Range<int?>? value)? onSaved;
   final String? Function(Range<int?>? value)? validator;
   final AutovalidateMode? autovalidateMode;
-  final FormFieldErrorBuilder? errorBuilder;
   final String? restorationId;
   final void Function(Range<int?>? value)? onChanged;
 
@@ -39,7 +37,6 @@ class IntStringRangeFormField extends StatelessWidget {
       onSaved: onSaved,
       validator: validator,
       autovalidateMode: autovalidateMode,
-      errorBuilder: errorBuilder,
       restorationId: restorationId,
       onChanged: onChanged,
       rangeValidator: rangeValidator?? RangeValidator<int>(

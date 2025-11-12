@@ -32,6 +32,15 @@ class _DateRangeValueFormFieldExampleState extends State<DateRangeValueFormField
               DateRangeFormField(
                 
                 controller: _controller,
+                rangeValidator: RangeValidator(
+                  firstIsBiggerThanSecond: (x, y) {
+                    return x.year > y.year || x.month > y.month || x.day > y.day;
+                  },
+                  //allowEqual: true,
+                  minBiggerThanMaxMessage: "Min Date is bigger than max date",
+                  equalMinAndMaxMessage: "Min Date is equal to max date",
+
+                ),
                 validator: (value) {
                   if (value == null || value.min == null || value.max == null) {
                     return 'This field is required This f  ';
