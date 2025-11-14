@@ -315,10 +315,15 @@ Additionally, it provides a ` void Function(O? value)?onChanged` callback that f
 
 > 🚨 **Important**
 >
-> If you use this widget to create a custom form field, you are responsible for handling its **visual and interactive behavior**, including cases such as:  
-> - No value (empty state)  
-> - Error state  
-> - Enabled / disabled state  
+> If you use this widget to create a custom form field, you are responsible for handling its **visual and interactive behavior**, such as :  No value (empty state), error state, enabled/disabled state, etc.  
 >
 > All of these states can be accessed through the **`FooFieldController`** provided to the widget.
 
+## ValueFormField < T >
+This is a simplified version of the `FooFormField` widget.  
+The **client type (`O`) and field type (`I`) are the same**, so no value conversion is needed.
+
+This widget takes all the same attributes as `FooFormField`.  
+The only differences are:  
+- The controller must be `FooFieldController<T, T>` (or a subclass like `ValueFieldController<T>`).  
+- The `validator`, `onSaved`, and `onChanged` callbacks receive the value as type `T`.
