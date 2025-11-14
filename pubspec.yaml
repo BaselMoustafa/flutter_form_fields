@@ -7,25 +7,10 @@ documentation: https://github.com/BaselMoustafa/foo_form_field#readme
 issue_tracker: https://github.com/BaselMoustafa/foo_form_field/issues
 topics:
   - form
-  - validation
-  - input
   - fields
-  - widgets
-  - form
   - validation
-  - input
-  - fields
-  - widgets
   - form fields
-  - form validation
   - form input
-  - form widgets
-  - form controller
-  - form fields
-  - form validation
-  - form input
-  - form widgets
-  - form controller
 
 
 environment:
