@@ -74,7 +74,9 @@ For example, if you have a number picker implemented using a TextFormField, then
 This class internally extends [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html), which means you can attach listeners to it.
 Whenever the controller updates its value, it notifies all registered listeners so your UI can react accordingly.
 
-
+>### 🚨 **Important**
+> Be sure to ***dispose*** it when it is no longer needed to free resources.  
+> Also, ***remove any listeners*** you have added to the controller to prevent memory leaks or unexpected behavior.
 
 ### Constructor:
   ```dart
@@ -252,12 +254,12 @@ Implements `==` operator to compare two `Range<T>` instances based on `min`and `
 
 ```dart
 ConvertableRangeFieldController({
-    required bool? enabled,
-    required O? initialValue,
-    required String? forcedErrorText,
-    required FieldValueMapper<O, I> valueMapper,
-    required bool Function(O x, O y) areEqualValues,
-  });
+  required bool? enabled,
+  required O? initialValue,
+  required String? forcedErrorText,
+  required FieldValueMapper<O, I> valueMapper,
+  required bool Function(O x, O y) areEqualValues,
+});
 ```
 
 ## RangeFieldController < T >
