@@ -35,16 +35,17 @@ class FooFieldController<O, I> extends ChangeNotifier {
        _forcedErrorText = forcedErrorText,
        _isValueChanged = false;
 
-  static FooFieldController<O,I> fromRangeController<O,I>({
+  static FooFieldController<O, I> fromRangeController<O, I>({
     required bool isMin,
-    required ConvertableRangeFieldController<O,I> rangeController,
+    required ConvertableRangeFieldController<O, I> rangeController,
   }) {
-
-    return FooFieldController<O,I>(
+    return FooFieldController<O, I>(
       forcedErrorText: null,
       areEqual: rangeController.areEqualValues,
       mapper: rangeController.valueMapper,
-      initialValue: isMin ? rangeController.value?.min : rangeController.value?.max,
+      initialValue: isMin
+          ? rangeController.value?.min
+          : rangeController.value?.max,
       enabled: rangeController.enabled,
     );
   }

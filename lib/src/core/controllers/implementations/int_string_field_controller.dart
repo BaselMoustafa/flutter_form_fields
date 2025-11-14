@@ -9,13 +9,14 @@ class IntStringFieldController extends FooFieldController<int, String> {
   }) : super(areEqual: (int x, int y) => x == y, mapper: IntStringMapper());
 }
 
-class IntStringRangeFieldController extends ConvertableRangeFieldController<int, String> {
+class IntStringRangeFieldController
+    extends ConvertableRangeFieldController<int, String> {
   IntStringRangeFieldController({
     super.initialValue,
     super.enabled,
     super.forcedErrorText,
   }) : super(
-    valueMapper: IntStringMapper(),
-    areEqualValues: (int x, int y) => x == y,
-  );
+         valueMapper: IntStringMapper(),
+         areEqualValues: (int x, int y) => x == y,
+       );
 }

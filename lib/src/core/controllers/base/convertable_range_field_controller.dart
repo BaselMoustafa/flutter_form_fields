@@ -4,15 +4,16 @@ part of '../exporter.dart';
 ///
 /// Uses `BoundryController` builders to create bound controllers on demand
 /// and wires listeners so that changes propagate between the range and its bounds.
-class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>, Range<I>> {
+class ConvertableRangeFieldController<O, I>
+    extends FooFieldController<Range<O>, Range<I>> {
   @protected
-  FooFieldController<O,I>? minController;
+  FooFieldController<O, I>? minController;
   @protected
-  FooFieldController<O,I>? maxController;
+  FooFieldController<O, I>? maxController;
 
   /// Returns the minimum bound controller, creating it lazily when first accessed.
-  FooFieldController<O,I> get minValueController {
-    minController ??= FooFieldController.fromRangeController<O,I>(
+  FooFieldController<O, I> get minValueController {
+    minController ??= FooFieldController.fromRangeController<O, I>(
       isMin: true,
       rangeController: this,
     );
@@ -20,8 +21,8 @@ class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>, 
   }
 
   /// Returns the maximum bound controller, creating it lazily when first accessed.
-  FooFieldController<O,I> get maxValueController {
-    maxController ??= FooFieldController.fromRangeController<O,I>(
+  FooFieldController<O, I> get maxValueController {
+    maxController ??= FooFieldController.fromRangeController<O, I>(
       isMin: false,
       rangeController: this,
     );
@@ -39,9 +40,9 @@ class ConvertableRangeFieldController<O,I> extends FooFieldController<Range<O>, 
     required this.valueMapper,
     required this.areEqualValues,
   }) : super(
-    mapper: valueMapper.toRangeMapper(areEqualOutputs: areEqualValues),
-    areEqual: (Range<O> x, Range<O> y) => x == y,
-  );
+         mapper: valueMapper.toRangeMapper(areEqualOutputs: areEqualValues),
+         areEqual: (Range<O> x, Range<O> y) => x == y,
+       );
 
   @override
   /// Attaches the form field state and ensures sync listeners are wired.

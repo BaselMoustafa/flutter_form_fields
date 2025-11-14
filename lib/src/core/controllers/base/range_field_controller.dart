@@ -11,7 +11,7 @@ class RangeFieldController<T> extends ConvertableRangeFieldController<T, T> {
   }) : super(valueMapper: SameValueMapper<T>());
 
   @override
-  ValueFieldController<T> get minValueController{
+  ValueFieldController<T> get minValueController {
     minController ??= ValueFieldController.fromRangeController<T>(
       isMin: true,
       rangeController: this,
@@ -20,7 +20,7 @@ class RangeFieldController<T> extends ConvertableRangeFieldController<T, T> {
   }
 
   @override
-  ValueFieldController<T> get maxValueController{
+  ValueFieldController<T> get maxValueController {
     maxController ??= ValueFieldController.fromRangeController<T>(
       isMin: false,
       rangeController: this,

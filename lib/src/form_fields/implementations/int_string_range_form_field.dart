@@ -23,18 +23,10 @@ class IntStringRangeFormField extends StatelessWidget {
   final IntStringRangeFieldController controller;
 
   /// Builder for the minimum bound field; defaults to `IntStringFormField`.
-  final Widget Function(
-    BuildContext context,
-    String? value,
-  )?
-  minFieldBuilder;
+  final Widget Function(BuildContext context, String? value)? minFieldBuilder;
 
   /// Builder for the maximum bound field; defaults to `IntStringFormField`.
-  final Widget Function(
-    BuildContext context,
-    String? value,
-  )?
-  maxFieldBuilder;
+  final Widget Function(BuildContext context, String? value)? maxFieldBuilder;
   final Widget Function(BuildContext context, Widget minField, Widget maxField)?
   layoutBuilder;
   final void Function(Range<int?>? value)? onSaved;
@@ -64,10 +56,7 @@ class IntStringRangeFormField extends StatelessWidget {
   }
 
   /// Standard builder falling back to a numeric form field for the minimum bound.
-  Widget _minFieldBuilder(
-    BuildContext context,
-    String? value,
-  ) {
+  Widget _minFieldBuilder(BuildContext context, String? value) {
     if (minFieldBuilder != null) {
       return minFieldBuilder!(context, value);
     }
@@ -75,10 +64,7 @@ class IntStringRangeFormField extends StatelessWidget {
   }
 
   /// Standard builder falling back to a numeric form field for the maximum bound.
-  Widget _maxFieldBuilder(
-    BuildContext context,
-    String? value,
-  ) {
+  Widget _maxFieldBuilder(BuildContext context, String? value) {
     if (maxFieldBuilder != null) {
       return maxFieldBuilder!(context, value);
     }

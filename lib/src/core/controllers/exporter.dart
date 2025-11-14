@@ -8,7 +8,6 @@ part 'base/value_field_controller.dart';
 part 'base/range_field_controller.dart';
 part 'base/convertable_range_field_controller.dart';
 
-
 part 'implementations/boolean_field_controller.dart';
 part 'implementations/date_time_range_field_controller.dart';
 part 'implementations/int_string_field_controller.dart';

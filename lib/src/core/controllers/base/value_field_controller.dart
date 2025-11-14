@@ -17,7 +17,9 @@ class ValueFieldController<T> extends FooFieldController<T, T> {
     return ValueFieldController<T>(
       forcedErrorText: null,
       areEqual: rangeController.areEqualValues,
-      initialValue: isMin ? rangeController.value?.min : rangeController.value?.max ,
+      initialValue: isMin
+          ? rangeController.value?.min
+          : rangeController.value?.max,
       enabled: rangeController.enabled,
     );
   }

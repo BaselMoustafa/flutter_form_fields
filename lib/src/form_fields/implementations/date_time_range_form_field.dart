@@ -5,14 +5,8 @@ class DateTimeRangeFormField extends RangeFormField<DateTime> {
   DateTimeRangeFormField({
     super.key,
     required DateTimeRangeFieldController super.controller,
-    Widget Function(
-      BuildContext context,
-      DateTime? value,
-    )? minFieldBuilder,
-    Widget Function(
-      BuildContext context,
-      DateTime? value,
-    )? maxFieldBuilder,
+    Widget Function(BuildContext context, DateTime? value)? minFieldBuilder,
+    Widget Function(BuildContext context, DateTime? value)? maxFieldBuilder,
     RangeValidator<DateTime>? rangeValidator,
     super.layoutBuilder,
     super.onSaved,
@@ -33,7 +27,6 @@ class DateTimeRangeFormField extends RangeFormField<DateTime> {
                controller: controller.maxValueController,
                decoration: InputDecoration(hintText: "To"),
              ),
-         rangeValidator:
-             rangeValidator ??DateTimeRangeValidator(),
+         rangeValidator: rangeValidator ?? DateTimeRangeValidator(),
        );
 }
