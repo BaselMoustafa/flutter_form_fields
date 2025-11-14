@@ -209,3 +209,68 @@ ValueFieldController({
   required super.areEqual,
 }) : super(mapper: SameValueMapper<T>());
 ```
+
+## ConvertableRangeFieldController < O , I >
+
+`ConvertableRangeFieldController<O, I>` is a subclass of `FooFieldController<Range<O>,Range<I>>` that is designed to manage **range-type fields**, It takes values of type `Range<O>` from your code and provides the corresponding form field value as type `Range<I>`.
+
+### About Range class 
+`Range<T>` represents a generic range with minimum and maximum values and provides equality comparison.
+
+- `min` (`T?`)  
+  The minimum value of the range. Can be `null`.
+
+- `max` (`T?`)  
+  The maximum value of the range. Can be `null`.
+
+- `areEqual` (`bool Function(T x, T y)`)  
+  A callback used to determine equality between two values of type `T`.
+  
+Implements `==` operator to compare two `Range<T>` instances based on `min`and `max` values
+
+> ### **🔥 Tip** 
+    > In most cases, you won’t need to create a range manually, because the package provides ready-made ranges for the types it natively supports.
+
+### Features
+- **Inheritance & Internal Controllers**
+
+  Inherits all functionalities from `FooFieldController` and internally creates two controllers for the intended form field to pick minimum and maximum values, Both `minValueController` and `maxValueController` expose all the features of `FooFieldController` 
+
+
+- **Automatic Syncing**
+
+  Changes in the main range value automatically update the min/max controllers, and vice versa, keeping the range and its boundaries in sync
+
+### Constructor
+
+
+- This constructor is identical to the FooFieldController constructor, with the same core parameters (enabled, initialValue, forcedErrorText).
+
+- The valueMapper and areEqualValues callbacks only apply to the range boundaries (min and max), not the overall range value.
+
+- The controller internally manages the range’s mapper and equality logic automatically, so you don’t need to provide them for the main range value.
+
+```dart
+ConvertableRangeFieldController({
+    required bool? enabled,
+    required O? initialValue,
+    required String? forcedErrorText,
+    required FieldValueMapper<O, I> valueMapper,
+    required bool Function(O x, O y) areEqualValues,
+  });
+```
+
+## RangeFieldController < T >
+`RangeFieldController<T>` is a subclass of `ConvertableRangeFieldController<T>` where the **client type (`O`) and the field type (`I`) are identical** (`T`).  
+Unlike `ConvertableRangeFieldController`, this controller **does not require a `mapper`**, because it automatically uses `SameValueMapper<T>()`, which simply returns the same value without any conversion.
+
+### Constructor
+
+```dart
+RangeFieldController({
+  required super.areEqualValues,
+  super.initialValue,
+  super.enabled,
+  super.forcedErrorText,
+}) : super(valueMapper: SameValueMapper<T>());
+```
