@@ -1,4 +1,4 @@
-part of '../exporter.dart';
+part of '../../exporter.dart';
 
 /// Base widget that binds a `FooFieldController` to a `FormField`.
 class FooFormField<O, I> extends StatefulWidget {
@@ -69,10 +69,10 @@ class _FooFormFieldState<O, I> extends State<FooFormField<O, I>> {
     return FormField<I>(
       key: _formFieldKey,
       onSaved: (I? inputValue) => widget.onSaved?.call(
-        widget.controller.mapper.toClientType(inputValue),
+        widget.controller.mapper.toValue(inputValue),
       ),
       validator: (I? inputValue) => widget.validator?.call(
-        widget.controller.mapper.toClientType(inputValue),
+        widget.controller.mapper.toValue(inputValue),
       ),
       errorBuilder: widget.errorBuilder,
       initialValue: widget.controller.initialValueAsFieldValue,

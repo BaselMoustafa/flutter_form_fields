@@ -138,13 +138,13 @@ class _FooStringFormFieldState<O> extends State<FooStringFormField<O>> {
       stylusHandwritingEnabled: _properties?.stylusHandwritingEnabled ?? true,
       canRequestFocus: _properties?.canRequestFocus ?? true,
       onFieldSubmitted: (String? value) => _properties?.onFieldSubmitted?.call(
-        widget.controller.mapper.toClientType(value),
+        widget.controller.mapper.toValue(value),
       ),
       onSaved: (String? value) => _properties?.onSaved?.call(
-        widget.controller.mapper.toClientType(value),
+        widget.controller.mapper.toValue(value),
       ),
       onChanged: (String? value) {
-        widget.controller.value = widget.controller.mapper.toClientType(value);
+        widget.controller.value = widget.controller.mapper.toValue(value);
         if (_validToNotifyUserBy(value)) {
           _properties?.onChanged?.call(widget.controller.value);
         }

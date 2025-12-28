@@ -1,4 +1,4 @@
-part of 'exporter.dart';
+part of '../ranges/exporter.dart';
 
 class Range<T> {
   final T? min;

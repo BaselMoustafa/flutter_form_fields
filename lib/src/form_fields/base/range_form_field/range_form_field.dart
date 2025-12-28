@@ -1,4 +1,4 @@
-part of '../exporter.dart';
+part of '../../exporter.dart';
 
 /// Convenience wrapper when the range field has matching input/output types.
 class RangeFormField<T> extends ConvertableRangeFormField<T, T> {

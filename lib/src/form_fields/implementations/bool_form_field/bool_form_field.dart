@@ -1,4 +1,4 @@
-part of '../exporter.dart';
+part of '../../exporter.dart';
 
 /// Form field that renders a binary yes/no selector backed by a boolean controller.
 class BooleanFormField extends StatelessWidget {

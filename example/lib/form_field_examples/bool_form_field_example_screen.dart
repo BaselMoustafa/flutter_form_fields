@@ -15,7 +15,7 @@ class BoolFormFieldExampleScreen extends StatefulWidget {
 }
 
 class _BoolFormFieldExampleScreenState extends State<BoolFormFieldExampleScreen> {
-  final _controller = BooleanFieldController(
+  final _controller = BoolFieldController(
     initialValue: false,
     enabled: false,
   );

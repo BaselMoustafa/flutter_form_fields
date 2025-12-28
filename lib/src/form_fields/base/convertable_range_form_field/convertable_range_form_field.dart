@@ -1,4 +1,4 @@
-part of '../exporter.dart';
+part of '../../exporter.dart';
 
 /// Generic range form field that renders min/max inputs backed by a convertible controller.
 class ConvertableRangeFormField<O, I> extends StatelessWidget {

@@ -1,8 +1,8 @@
-part of '../exporter.dart';
+part of '../../../core/controllers/exporter.dart';
 
 /// Controller for boolean fields with direct equality comparison.
-class BooleanFieldController extends ValueFieldController<bool> {
-  BooleanFieldController({
+class BoolFieldController extends ValueFieldController<bool> {
+  BoolFieldController({
     super.initialValue,
     super.enabled,
     super.forcedErrorText,
