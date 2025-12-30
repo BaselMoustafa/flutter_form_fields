@@ -1,4 +1,6 @@
 
+
+
 import 'package:flutter/services.dart';
 abstract class FooTextFormatterErrorMessages {
   final String invalidValueMessage;

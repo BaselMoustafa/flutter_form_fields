@@ -5,13 +5,11 @@ import 'foo_text_formatter.dart';
 class IntegerValueInputFormatter extends FooTextFormatter<IntegerStringTextFormatterErrorMessages> {
   
   final bool allowNegative;
-  final int? minDigits;
   final int? maxDigits;
 
   const IntegerValueInputFormatter({
     IntegerStringTextFormatterErrorMessages? messages,
     this.allowNegative = false,
-    this.minDigits,
     this.maxDigits,
   }):super(
     messages: messages ?? const IntegerStringTextFormatterErrorMessages(),
@@ -36,10 +34,6 @@ class IntegerValueInputFormatter extends FooTextFormatter<IntegerStringTextForma
       return messages.invalidNegativeMessage;
     }
 
-    if (minDigits != null && value.length < minDigits!) {
-      return messages.lessThanMinDigitsMessage;
-    }
-
     if (maxDigits != null && value.length > maxDigits!) {
       return messages.greaterThanMaxDigitsMessage;
     }
@@ -50,13 +44,11 @@ class IntegerValueInputFormatter extends FooTextFormatter<IntegerStringTextForma
 
 class IntegerStringTextFormatterErrorMessages extends FooTextFormatterErrorMessages {
   final String invalidNegativeMessage;
-  final String lessThanMinDigitsMessage;
   final String greaterThanMaxDigitsMessage;
 
   const IntegerStringTextFormatterErrorMessages({
     super.invalidValueMessage = "Invalid",
     this.invalidNegativeMessage = "Invalid negative number",
-    this.lessThanMinDigitsMessage = "Less than min digits",
     this.greaterThanMaxDigitsMessage = "Greater than max digits",
   });
 }

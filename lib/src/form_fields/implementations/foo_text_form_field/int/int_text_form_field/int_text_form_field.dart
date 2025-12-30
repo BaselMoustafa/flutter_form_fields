@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../foo_form_field.dart';
 import '../../../../../core/formatters/int_text_formatter.dart';
+import '../../../../../core/models/text_from_field_properties.dart';
 import '../../foo_text_form_field.dart';
 import 'int_text_editing_controller.dart';
 

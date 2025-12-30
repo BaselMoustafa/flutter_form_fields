@@ -14,7 +14,7 @@ class IntStringFormFieldExampleScreen extends StatefulWidget {
 }
 
 class _IntStringFormFieldExampleScreenState extends State<IntStringFormFieldExampleScreen> {
-  final _controller = IntStringFieldController(
+  final _controller = IntTextEditingController(
     initialValue: 160,
     enabled: false,
   );
@@ -23,7 +23,7 @@ class _IntStringFormFieldExampleScreenState extends State<IntStringFormFieldExam
   Widget build(BuildContext context) {
     return ExampleScreen(
       title: "Int String Form Field",
-      fieldBuilder: () => IntStringFormField(
+      fieldBuilder: () => IntTextFormField(
         controller: _controller,
         properties: TextFormFieldProperties(
           onSaved: (value) => log("Int String Saved: $value"),

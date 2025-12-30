@@ -14,65 +14,67 @@ class IntStringRangeFormFieldExampleScreen extends StatefulWidget {
 
 class _IntStringRangeFormFieldExampleScreenState extends State<IntStringRangeFormFieldExampleScreen> {
 
-  final _controller = IntStringRangeFieldController(
-    initialValue: IntRange(min: 0, max: 100),
-    enabled: false,
+  final _controller = IntRangeTextEditingController(
+    minController: IntTextEditingController(
+      initialValue: 50,
+      enabled: false,
+    ),
+    maxController: IntTextEditingController(
+      initialValue: 100,
+    ),
   );
   
   @override
   Widget build(BuildContext context) {
     return ExampleScreen(
       title: "Int String Range Form Field",
-      fieldBuilder: ()=>IntStringRangeFormField(
+      fieldBuilder: ()=>IntRangeTextFormField(
           controller: _controller,
-          onChanged: (value) => log("Range Changed To: $value"),
-          onSaved: (value) => log("Range Saved: $value"),
-          rangeValidator: IntRangeValidator(),
-          validator: (value) {
-            if (value == null || value.min == null || value.max == null) {
-              return 'This field is required';
-            }
-            return null;
-          },
-          minFieldBuilder: (context,initialValue) => IntStringFormField(
-            controller: _controller.minValueController,
-            properties: TextFormFieldProperties(
-              validator: (value) {
-                if (value == null) {
-                  return 'Min Required';
-                }
-                return null;
-              },
-              onSaved: (value) => log("Min Saved: $value"),
-              onChanged: (value) => log("Min Changed: $value"),
-            ),
+          minFieldFormatter: IntTextFormatter(
+            allowNegative: true,
+            maxValue: 18
           ),
-          maxFieldBuilder: (context, initialValue) => IntStringFormField(
-            controller: _controller.maxValueController,
-            properties: TextFormFieldProperties(
-              validator: (value) {
-                if (value == null) {
-                  return 'Max Required';
-                }
-                return null;
-              },
-              onSaved: (value) => log("Max Saved: $value"),
-              onChanged: (value) => log("Max Changed: $value"),
-            ),
+          maxFieldFormatter: IntTextFormatter(
+            allowNegative: true,
+            maxValue: 60
+          ),
+          properties: FooFormFieldProperties(
+            onSaved: (value) => log("Range Saved: $value"),
+            onChanged: (value) => log("Range Changed To: $value"),
+            
+            validator: (value) {
+              if (value == null ) {
+                return 'This field is required';
+              }
+              return null;
+            },
+          ),
+          minFieldProperties: TextFormFieldProperties(
+            validator: (value) {
+              if (value == null) {
+                return 'Min Required';
+              }
+              return null;
+            },
+            onSaved: (value) => log("Min Saved: $value"),
+            onChanged: (value) => log("Min Changed: $value"),
+            
+          ),
+          maxFieldProperties: TextFormFieldProperties(
+            validator: (value) {
+              if (value == null) {
+                return 'Max Required';
+              }
+              return null;
+            },
+            onSaved: (value) => log("Max Saved: $value"),
+            onChanged: (value) => log("Max Changed: $value"),
           ),
         ),
       children: [
         ControllerTestButtons(
-          title: "Range Controller Test Buttons",
-          controller: _controller,
-          firstDummyValue: IntRange(min: 0, max: 100),
-          secondDummyValue: IntRange(min: 100, max: 200),
-          valueToString: (value) => "(${value.min} To ${value.max})",
-        ),
-
-        ControllerTestButtons(
           title: "Min Controller Test Buttons",
-          controller: _controller.minValueController,
+          controller: _controller.minController,
           firstDummyValue: 0,
           secondDummyValue: 100,
           valueToString: (value) => "$value",
@@ -80,7 +82,7 @@ class _IntStringRangeFormFieldExampleScreenState extends State<IntStringRangeFor
 
         ControllerTestButtons(
           title: "Max Controller Test Buttons",
-          controller: _controller.maxValueController,
+          controller: _controller.maxController,
           firstDummyValue: 100,
           secondDummyValue: 200,
           valueToString: (value) => "$value",

@@ -18,7 +18,7 @@ class FooFieldController<Value, FieldValue> extends ChangeNotifier {
 
   String? _forcedErrorText;
 
-  bool _isValueChanged;
+  bool _isValueChanged = false;
 
   bool get isValueChanged => _isValueChanged;
 
@@ -29,8 +29,7 @@ class FooFieldController<Value, FieldValue> extends ChangeNotifier {
     required this.initialValue,
     required this.mapper,
   }) : _enabled = enabled ?? true,
-       _forcedErrorText = forcedErrorText,
-       _isValueChanged = false;
+       _forcedErrorText = forcedErrorText;
 
   void setFormFieldState(FormFieldState<FieldValue> formFieldState) {
     _formFieldState = formFieldState;

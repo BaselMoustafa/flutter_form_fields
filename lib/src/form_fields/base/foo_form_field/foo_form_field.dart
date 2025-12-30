@@ -44,7 +44,6 @@ class _FooFormFieldState<O, I> extends State<FooFormField<O, I>> {
     super.dispose();
   }
 
-
   void _onEvent() {
     setState(() {});
     if (widget.controller.isValueChanged) {

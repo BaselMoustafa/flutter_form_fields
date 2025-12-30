@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../foo_form_field.dart';
 import '../../../core/extentions/foo_text_formatter_list_extension.dart';
-import '../../../core/formatters/foo_text_formatter.dart';
-import 'foo_text_editing_controller.dart';
 
 class FooTextFormField<Value> extends StatefulWidget {
   const FooTextFormField({
@@ -36,6 +34,8 @@ class _FooTextFormFieldState<Value> extends State<FooTextFormField<Value>> {
 
   TextFormFieldProperties<Value>? get _properties => widget.properties;
 
+  Value? _latestValue;
+  
   @override
   void initState() {
     super.initState();
@@ -59,9 +59,12 @@ class _FooTextFormFieldState<Value> extends State<FooTextFormField<Value>> {
   void _notifyChangeInValue() {
     setState(() {});
     if (widget.controller.isValueChanged) {
-      widget.properties?.onChanged?.call(widget.controller.value);
+      final value = widget.controller.value;
+      _latestValue = value;
+      widget.properties?.onChanged?.call(value);
     }
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -73,16 +76,18 @@ class _FooTextFormFieldState<Value> extends State<FooTextFormField<Value>> {
       forceErrorText: widget.controller.forcedErrorText,
 
       //Gives access to the TextFormField's properties
+      onChanged: (_){
+        if(_shouldNotifyUser){
+          widget.controller.value = widget.controller.value;
+        }
+        _latestValue = widget.controller.value;
+      },
       onFieldSubmitted: (String? value) => _properties?.onFieldSubmitted?.call(
         widget.controller.mapper.toValue(value),
       ),
       onSaved: (String? value) => _properties?.onSaved?.call(
         widget.controller.mapper.toValue(value),
       ),
-      onChanged: (String? value) {
-        widget.controller.value = widget.controller.mapper.toValue(value);
-        _properties?.onChanged?.call(widget.controller.value);
-      },
       validator: (String? value) {
         if (value != null && widget.fooTextFormatters.validate(value) != null) {
           return widget.fooTextFormatters.validate(value);
@@ -92,8 +97,8 @@ class _FooTextFormFieldState<Value> extends State<FooTextFormField<Value>> {
       onTapOutside: _properties?.onTapOutside ??
         (_) => FocusScope.of(context).unfocus(),
       inputFormatters: [
-        ...?_properties?.inputFormatters,
         ...widget.fooTextFormatters,
+        ...?_properties?.inputFormatters,
       ],
       groupId: _properties?.groupId ?? EditableText,
       focusNode: _properties?.focusNode,
@@ -154,6 +159,24 @@ class _FooTextFormFieldState<Value> extends State<FooTextFormField<Value>> {
       clipBehavior: _properties?.clipBehavior ?? Clip.hardEdge,
       stylusHandwritingEnabled: _properties?.stylusHandwritingEnabled ?? true,
       canRequestFocus: _properties?.canRequestFocus ?? true,
+    );
+  }
+
+  bool get _shouldNotifyUser {
+    final value = widget.controller.value;
+
+    if(value == null && _latestValue == null){
+      return false;
+    }
+    if(value == null && _latestValue != null){
+      return true;
+    }
+    if(value != null && _latestValue == null){
+      return true;
+    }
+    return ! widget.controller.areEqual(
+      value as Value, 
+      _latestValue as Value,
     );
   }
 }
