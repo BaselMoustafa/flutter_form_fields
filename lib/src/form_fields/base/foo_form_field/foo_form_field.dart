@@ -28,6 +28,8 @@ class _FooFormFieldState<O, I> extends State<FooFormField<O, I>> {
 
   late final GlobalKey<FormFieldState<I>> _formFieldKey;
 
+  O? _latestValue;
+
   @override
   void initState() {
     super.initState();
@@ -46,9 +48,27 @@ class _FooFormFieldState<O, I> extends State<FooFormField<O, I>> {
 
   void _onEvent() {
     setState(() {});
-    if (widget.controller.isValueChanged) {
+    if (_shouldNotifyUser) {
       widget.properties?.onChanged?.call(widget.controller.value);
+      _latestValue = widget.controller.value;
     }
+  }
+
+  bool get _shouldNotifyUser {
+    final value = widget.controller.value;
+    if(value == null && _latestValue == null){
+      return false;
+    }
+    if(value == null && _latestValue != null){
+      return true;
+    }
+    if(value != null && _latestValue == null){
+      return true;
+    }
+    return ! widget.controller.areEqual(
+      value as O, 
+      _latestValue as O,
+    );
   }
 
   @override

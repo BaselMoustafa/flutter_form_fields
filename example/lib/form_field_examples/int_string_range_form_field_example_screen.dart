@@ -23,6 +23,25 @@ class _IntStringRangeFormFieldExampleScreenState extends State<IntStringRangeFor
       initialValue: 100,
     ),
   );
+
+  @override
+  void initState() {
+    super.initState();
+    _valueDebguer(controller: _controller);
+    _valueDebguer(controller: _controller.minController);
+    _valueDebguer(controller: _controller.maxController);
+  }
+
+  void _valueDebguer({
+    required FooFieldController controller,
+  }) {
+    controller.addListener(
+      () {
+        log("${controller.runtimeType} Value: ${controller.value}");
+        
+      }
+    );
+  }
   
   @override
   Widget build(BuildContext context) {

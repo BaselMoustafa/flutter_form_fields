@@ -18,10 +18,6 @@ class FooFieldController<Value, FieldValue> extends ChangeNotifier {
 
   String? _forcedErrorText;
 
-  bool _isValueChanged = false;
-
-  bool get isValueChanged => _isValueChanged;
-
   FooFieldController({
     required this.areEqual,
     required bool? enabled,
@@ -35,20 +31,6 @@ class FooFieldController<Value, FieldValue> extends ChangeNotifier {
     _formFieldState = formFieldState;
     value = initialValue;
     notifyListeners();
-  }
-
-  bool _getIsValueChanged(Value? x, Value? y) {
-    if (x == null && y == null) {
-      return false;
-    } else if (x == null && y != null) {
-      return true;
-    } else if (x != null && y == null) {
-      return true;
-    } else if (!areEqual(x as Value, y as Value)) {
-      return true;
-    }
-
-    return false;
   }
 
   bool get enabled => _enabled;
@@ -72,7 +54,6 @@ class FooFieldController<Value, FieldValue> extends ChangeNotifier {
   set value(Value? newValue) {
     return excute<void>(
       needToNotifyListener: true,
-      isValueChanged: _getIsValueChanged(value, newValue),
       toExecute: (FormFieldState<FieldValue> formFieldState) {
         formFieldState.didChange(mapper.toFieldValue(newValue));
       },
@@ -136,12 +117,10 @@ class FooFieldController<Value, FieldValue> extends ChangeNotifier {
   @protected
   R excute<R>({
     bool needToNotifyListener = false,
-    bool isValueChanged = false,
     required R Function(FormFieldState<FieldValue> formFieldState) toExecute,
   }) {
     _ensureStateExistence();
     R result = toExecute(_formFieldState!);
-    _isValueChanged = isValueChanged;
     if (needToNotifyListener) {
       notifyListeners();
     }

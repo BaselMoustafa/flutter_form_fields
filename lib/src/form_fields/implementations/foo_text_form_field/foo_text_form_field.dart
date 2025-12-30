@@ -58,13 +58,27 @@ class _FooTextFormFieldState<Value> extends State<FooTextFormField<Value>> {
   /// Propagates controller updates to the widget tree and optional callbacks.
   void _notifyChangeInValue() {
     setState(() {});
-    if (widget.controller.isValueChanged) {
-      final value = widget.controller.value;
-      _latestValue = value;
-      widget.properties?.onChanged?.call(value);
+    if (_shouldNotifyUser) {
+      widget.properties?.onChanged?.call(widget.controller.value);
+      _latestValue = widget.controller.value;
     }
   }
-  
+
+  bool get _shouldNotifyUser {
+    final value = widget.controller.value;
+    if(value == null && _latestValue == null){
+      return false;
+    }
+    if(value == null && _latestValue != null){
+      return true;
+    }
+    if(value != null && _latestValue == null){
+      return true;
+    }
+    return ! widget.controller.areEqual(
+      value as Value, _latestValue as Value,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,24 +173,6 @@ class _FooTextFormFieldState<Value> extends State<FooTextFormField<Value>> {
       clipBehavior: _properties?.clipBehavior ?? Clip.hardEdge,
       stylusHandwritingEnabled: _properties?.stylusHandwritingEnabled ?? true,
       canRequestFocus: _properties?.canRequestFocus ?? true,
-    );
-  }
-
-  bool get _shouldNotifyUser {
-    final value = widget.controller.value;
-
-    if(value == null && _latestValue == null){
-      return false;
-    }
-    if(value == null && _latestValue != null){
-      return true;
-    }
-    if(value != null && _latestValue == null){
-      return true;
-    }
-    return ! widget.controller.areEqual(
-      value as Value, 
-      _latestValue as Value,
     );
   }
 }
