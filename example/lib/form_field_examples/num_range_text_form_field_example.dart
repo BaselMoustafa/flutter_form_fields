@@ -5,22 +5,22 @@ import '../widgets/example_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:foo_form_field/foo_form_field.dart';
 
-class IntStringRangeFormFieldExampleScreen extends StatefulWidget {
-  const IntStringRangeFormFieldExampleScreen({super.key});
+class NumRangeTextFormFieldExampleScreen extends StatefulWidget {
+  const NumRangeTextFormFieldExampleScreen({super.key});
 
   @override
-  State<IntStringRangeFormFieldExampleScreen> createState() => _IntStringRangeFormFieldExampleScreenState();
+  State<NumRangeTextFormFieldExampleScreen> createState() => _NumRangeTextFormFieldExampleScreenState();
 }
 
-class _IntStringRangeFormFieldExampleScreenState extends State<IntStringRangeFormFieldExampleScreen> {
+class _NumRangeTextFormFieldExampleScreenState extends State<NumRangeTextFormFieldExampleScreen> {
 
-  final _controller = IntRangeTextEditingController(
-    minController: IntTextEditingController(
-      initialValue: 50,
+  final _controller = NumRangeTextEditingController(
+    minController: NumTextEditingController(
+      initialValue: 50.5,
       enabled: false,
     ),
-    maxController: IntTextEditingController(
-      initialValue: 100,
+    maxController: NumTextEditingController(
+      initialValue: 100.75,
     ),
   );
 
@@ -46,16 +46,16 @@ class _IntStringRangeFormFieldExampleScreenState extends State<IntStringRangeFor
   @override
   Widget build(BuildContext context) {
     return ExampleScreen(
-      title: "Int String Range Form Field",
-      fieldBuilder: ()=>IntRangeTextFormField(
+      title: "Num String Range Form Field",
+      fieldBuilder: ()=>NumRangeTextFormField(
           controller: _controller,
-          minFieldFormatter: IntTextFormatter(
+          minFieldFormatter: NumTextFormatter(
             allowNegative: true,
-            maxValue: 18
+            maxValue: 18.5
           ),
-          maxFieldFormatter: IntTextFormatter(
+          maxFieldFormatter: NumTextFormatter(
             allowNegative: true,
-            maxValue: 60
+            maxValue: 60.75
           ),
           properties: FooFormFieldProperties(
             onSaved: (value) => log("Range Saved: $value"),
@@ -94,19 +94,20 @@ class _IntStringRangeFormFieldExampleScreenState extends State<IntStringRangeFor
         ControllerTestButtons(
           title: "Min Controller Test Buttons",
           controller: _controller.minController,
-          firstDummyValue: 0,
-          secondDummyValue: 100,
+          firstDummyValue: 0.5,
+          secondDummyValue: 100.25,
           valueToString: (value) => "$value",
         ),
 
         ControllerTestButtons(
           title: "Max Controller Test Buttons",
           controller: _controller.maxController,
-          firstDummyValue: 100,
-          secondDummyValue: 200,
+          firstDummyValue: 100.5,
+          secondDummyValue: 200.75,
           valueToString: (value) => "$value",
         ),
       ],
     );
   }
 }
+
