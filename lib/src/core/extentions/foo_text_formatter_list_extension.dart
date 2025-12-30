@@ -1,6 +1,7 @@
-import '../formatters/exporter.dart';
 
-extension FooTextInputFormatterListExtension on List<FooTextInputFormatter> {
+import '../formatters/foo_text_formatter.dart';
+
+extension FooTextInputFormatterListExtension on List<FooTextFormatter> {
   String? validate(String value) {
     for (var formatter in this) {
       String? validationResult = formatter.validate(value);
