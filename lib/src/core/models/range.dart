@@ -49,7 +49,7 @@ class RangeValidator<T> {
   final String minBiggerThanMaxMessage;
   final String equalMinAndMaxMessage;
 
-  RangeValidator({
+  const RangeValidator({
     required this.firstIsBiggerThanSecond,
     this.allowEqual = false,
     this.minBiggerThanMaxMessage = "Min value is bigger than max value",

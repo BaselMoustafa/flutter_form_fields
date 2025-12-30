@@ -2,7 +2,7 @@ class Mapper<Value, FieldValue> {
   final Value? Function(FieldValue? i) toValue;
   final FieldValue? Function(Value? o) toFieldValue;
 
-  Mapper({
+  const Mapper({
     required this.toValue,
     required this.toFieldValue,
   });

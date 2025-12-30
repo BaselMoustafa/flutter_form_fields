@@ -10,10 +10,6 @@ class RangeFormField<T, BoundryController extends ValueFieldController<T>> exten
     required super.maxFieldBuilder,
     required super.rangeValidator,
     super.layoutBuilder,
-    super.onSaved,
-    super.validator,
-    super.autovalidateMode,
-    super.restorationId,
-    super.onChanged,
+    super.properties,
   });
 }

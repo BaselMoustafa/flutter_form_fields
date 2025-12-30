@@ -1,19 +1,19 @@
 import '../string_validators.dart';
 import 'foo_text_formatter.dart';
 
-class IntegerTextFormatter extends FooTextFormatter<IntegerTextFormatterErrorMessages>{
+class IntTextFormatter extends FooTextFormatter<IntTextFormatterErrorMessages>{
 
   final int? minValue;
   final int? maxValue;
   final bool allowNegative;
   
-  IntegerTextFormatter({
-    IntegerTextFormatterErrorMessages? messages,
+  IntTextFormatter({
+    IntTextFormatterErrorMessages? messages,
     this.allowNegative = false,
     this.minValue,
     this.maxValue,
   }):super(
-    messages: messages ?? IntegerTextFormatterErrorMessages(),
+    messages: messages ?? IntTextFormatterErrorMessages(),
   );
 
   @override
@@ -53,13 +53,13 @@ class IntegerTextFormatter extends FooTextFormatter<IntegerTextFormatterErrorMes
   }
 }
 
-class IntegerTextFormatterErrorMessages extends FooTextFormatterErrorMessages {
+class IntTextFormatterErrorMessages extends FooTextFormatterErrorMessages {
   
   final String lessThanMinValueMessage;
   final String greaterThanMaxValueMessage;
   final String invalidNegativeMessage;
 
-  IntegerTextFormatterErrorMessages({
+  IntTextFormatterErrorMessages({
     this.lessThanMinValueMessage = "Less than min value",
     this.greaterThanMaxValueMessage = "Greater than max value",
     this.invalidNegativeMessage = "Invalid negative number",

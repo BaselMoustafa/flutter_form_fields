@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import '../../../core/models/foo_form_field_properties.dart';
 import '../../../core/models/range.dart';
 import '../../../core/widgets/field_with_error_text_widget.dart';
 import '../foo_form_field/foo_field_controller.dart';
@@ -15,60 +16,44 @@ class ConvertableRangeFormField<O, I, BoundryController extends FooFieldControll
     required this.minFieldBuilder,
     required this.maxFieldBuilder,
     this.layoutBuilder,
-    this.onSaved,
-    this.validator,
-    this.autovalidateMode,
-    this.restorationId,
-    this.onChanged,
+    this.properties
   });
 
-  /// Shared controller keeping the min/max widgets in sync.
   final ConvertableRangeFieldController<O, I, BoundryController> controller;
 
-  /// Validates the relationship between the min and max values.
   final RangeValidator<O> rangeValidator;
 
-  /// Builder for the minimum value widget, given its controller and field value.
   final Widget Function(BuildContext context, I? value) minFieldBuilder;
-
-  /// Builder for the maximum value widget, given its controller and field value.
+  
   final Widget Function(BuildContext context, I? value) maxFieldBuilder;
 
-  /// Optional layout wrapper around the min/max widgets.
-  final Widget Function(BuildContext context, Widget minField, Widget maxField)?
-  layoutBuilder;
+  final Widget Function(BuildContext context, Widget minField, Widget maxField)? layoutBuilder;
 
-  /// Called when the form saves with the composed range value.
-  final void Function(Range<O?>? value)? onSaved;
+  final FooFormFieldProperties<Range<O>>? properties;
 
-  /// Additional validation applied after range-specific checks.
-  final String? Function(Range<O?>? value)? validator;
-  final AutovalidateMode? autovalidateMode;
-  final String? restorationId;
-
-  /// Notifies listeners when the composed range changes.
-  final void Function(Range<O?>? value)? onChanged;
+  FooFormFieldProperties<Range<O>> get _properties{
+    return properties ?? FooFormFieldProperties<Range<O>>();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FooFormField<Range<O>, Range<I>>(
       builder: _builder,
       controller: controller,
-      onSaved: onSaved,
-      autovalidateMode: autovalidateMode,
-      restorationId: restorationId,
-      onChanged: onChanged,
-      validator: _validator,
+      properties: _properties.copyWith(
+        validator: _validator
+      ),
     );
   }
 
   /// Runs equality and min validations before delegating to the optional validator.
   String? _validator(Range<O>? value) {
     if (value == null) {
-      return validator?.call(value);
+      return properties?.validator?.call(value);
     }
 
     String? equalityError = rangeValidator.validateEquality(value);
+
     if (equalityError != null) {
       return equalityError;
     }
@@ -78,7 +63,7 @@ class ConvertableRangeFormField<O, I, BoundryController extends FooFieldControll
       return minError;
     }
 
-    return validator?.call(value);
+    return properties?.validator?.call(value);
   }
 
   /// Builds the inner field layout, wrapping it with error presentation.

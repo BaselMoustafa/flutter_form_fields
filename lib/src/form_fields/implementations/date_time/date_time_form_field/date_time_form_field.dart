@@ -50,12 +50,12 @@ class DateTimeFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedValueFormField<DateTime>(
       controller: controller,
-      onSaved: onSaved,
-      validator: validator,
-      autovalidateMode: autovalidateMode,
-      errorBuilder: errorBuilder,
-      restorationId: restorationId,
-      onChanged: onChanged,
+      // onSaved: onSaved,
+      // validator: validator,
+      // autovalidateMode: autovalidateMode,
+      // errorBuilder: errorBuilder,
+      // restorationId: restorationId,
+      // onChanged: onChanged,
       decoration: _effectiveDecoration,
       onTap: _onTap,
       builder:

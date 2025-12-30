@@ -1,36 +1,27 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../core/models/foo_form_field_properties.dart';
 import 'foo_field_controller.dart';
 
-class FooFormField<O, I> extends StatefulWidget {
+class FooFormField<Value, FieldValue> extends StatefulWidget {
   const FooFormField({
     super.key,
     required this.controller,
     required this.builder,
-    this.onSaved,
-    this.validator,
-    this.autovalidateMode,
-    this.errorBuilder,
-    this.restorationId,
-    this.onChanged,
+    this.properties,
   });
 
-  final FooFieldController<O, I> controller;
+  final FooFieldController<Value, FieldValue> controller;
 
-  final Widget Function(BuildContext context, I? value) builder;
+  final Widget Function(BuildContext context, FieldValue? value) builder;
 
-  final void Function(O? value)? onSaved;
 
-  final String? Function(O? value)? validator;
-  final AutovalidateMode? autovalidateMode;
-  final FormFieldErrorBuilder? errorBuilder;
-  final String? restorationId;
-
-  final void Function(O? value)? onChanged;
+  final FooFormFieldProperties<Value>? properties;
+  
 
   @override
-  State<FooFormField<O, I>> createState() => _FooFormFieldState<O, I>();
+  State<FooFormField<Value, FieldValue>> createState() => _FooFormFieldState<Value, FieldValue>();
 }
 
 class _FooFormFieldState<O, I> extends State<FooFormField<O, I>> {
@@ -57,7 +48,7 @@ class _FooFormFieldState<O, I> extends State<FooFormField<O, I>> {
   void _onEvent() {
     setState(() {});
     if (widget.controller.isValueChanged) {
-      widget.onChanged?.call(widget.controller.value);
+      widget.properties?.onChanged?.call(widget.controller.value);
     }
   }
 
@@ -65,17 +56,17 @@ class _FooFormFieldState<O, I> extends State<FooFormField<O, I>> {
   Widget build(BuildContext context) {
     return FormField<I>(
       key: _formFieldKey,
-      onSaved: (I? inputValue) => widget.onSaved?.call(
+      onSaved: (I? inputValue) => widget.properties?.onSaved?.call(
         widget.controller.mapper.toValue(inputValue),
       ),
-      validator: (I? inputValue) => widget.validator?.call(
+      validator: (I? inputValue) => widget.properties?.validator?.call(
         widget.controller.mapper.toValue(inputValue),
       ),
-      errorBuilder: widget.errorBuilder,
+      errorBuilder: widget.properties?.errorBuilder,
       initialValue: widget.controller.initialValueAsFieldValue,
       enabled: widget.controller.enabled,
-      autovalidateMode: widget.autovalidateMode,
-      restorationId: widget.restorationId,
+      autovalidateMode: widget.properties?.autovalidateMode,
+      restorationId: widget.properties?.restorationId,
       forceErrorText: widget.controller.forcedErrorText,
       builder: (FormFieldState<I> fieldState) {
         return widget.builder(context, fieldState.value);
