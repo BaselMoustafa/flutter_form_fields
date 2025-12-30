@@ -1,5 +1,4 @@
 import '../../../foo_form_field.dart';
-import '../base/foo_field_controller.dart';
 
 class FooTextEditingController<Value> extends FooFieldController<Value, String> {
   FooTextEditingController({

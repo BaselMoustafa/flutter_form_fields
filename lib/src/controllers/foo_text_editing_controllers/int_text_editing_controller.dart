@@ -1,5 +1,4 @@
 import '../../../foo_form_field.dart';
-import '../../common/mappers/range_mappers.dart';
 
 class IntTextEditingController extends FooTextEditingController<int> {
 

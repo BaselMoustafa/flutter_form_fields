@@ -1,6 +1,5 @@
 
 import '../../../foo_form_field.dart';
-import 'value_field_controller.dart';
 
 class RangeFieldController<
   Value,
