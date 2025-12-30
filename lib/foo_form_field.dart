@@ -32,6 +32,7 @@ export 'src/controllers/foo_text_editing_controllers/int_text_editing_controller
 export 'src/controllers/foo_text_editing_controllers/num_text_editing_controller.dart';
 
 export 'src/controllers/bool_field_controller.dart';
+export 'src/controllers/date_time_field_controller.dart';
 
 
 

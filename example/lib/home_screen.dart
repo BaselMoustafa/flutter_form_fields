@@ -1,4 +1,5 @@
 import 'form_field_examples/bool_form_field_example.dart';
+import 'form_field_examples/date_form_field_example_screen.dart';
 import 'form_field_examples/int_range_text_form_field_example.dart';
 import 'form_field_examples/int_text_form_field_example.dart';
 import 'form_field_examples/num_range_text_form_field_example.dart';
@@ -41,10 +42,10 @@ class HomeScreen extends StatelessWidget {
               "Value Form Fields",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            // _GoToExampleScreenButton(
-            //   title: 'Date Form Field', 
-            //   screen: DateFormFieldExampleScreen()
-            // ),
+            _GoToExampleScreenButton(
+              title: 'Date Form Field', 
+              screen: DateFormFieldExample()
+            ),
             _GoToExampleScreenButton(
               title: 'Bool Form Field', 
               screen: BoolFormFieldExample()

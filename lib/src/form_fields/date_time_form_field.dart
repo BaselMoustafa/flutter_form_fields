@@ -1,31 +1,22 @@
-
 import 'package:flutter/material.dart';
-
-import '../controllers/base/foo_field_controller.dart';
-import '../controllers/base/value_field_controller.dart';
-import 'base/decorated_value_form_field.dart';
+import '../../foo_form_field.dart';
+import '../controllers/date_time_field_controller.dart';
 
 class DateTimeFormField extends StatelessWidget {
   const DateTimeFormField({
     super.key,
     required this.controller,
-    this.onSaved,
-    this.validator,
-    this.autovalidateMode,
-    this.errorBuilder,
-    this.restorationId,
-    this.onChanged,
+    this.properties,
     this.dateFormatter,
     this.builder,
     this.onTap,
     this.firstDate,
     this.lastDate,
-    this.initialDate,
     this.decoration,
   });
 
   /// Controller managing the selected date.
-  final ValueFieldController<DateTime> controller;
+  final DateTimeFieldController controller;
 
   /// Formats the current date when using the default builder.
   final String? Function(DateTime? date)? dateFormatter;
@@ -37,41 +28,34 @@ class DateTimeFormField extends StatelessWidget {
   final void Function(BuildContext context)? onTap;
   final DateTime? firstDate;
   final DateTime? lastDate;
-  final DateTime? initialDate;
   final InputDecoration? decoration;
-  final void Function(DateTime? value)? onSaved;
-  final String? Function(DateTime? value)? validator;
-  final AutovalidateMode? autovalidateMode;
-  final FormFieldErrorBuilder? errorBuilder;
-  final String? restorationId;
-  final void Function(DateTime? value)? onChanged;
+  final FooFormFieldProperties<DateTime>? properties;
 
   @override
   Widget build(BuildContext context) {
     return DecoratedValueFormField<DateTime>(
       controller: controller,
-      // onSaved: onSaved,
-      // validator: validator,
-      // autovalidateMode: autovalidateMode,
-      // errorBuilder: errorBuilder,
-      // restorationId: restorationId,
-      // onChanged: onChanged,
+      properties: properties,
       decoration: _effectiveDecoration,
       onTap: _onTap,
-      builder:
-          builder ??
-          (BuildContext context, DateTime? value) {
-            final value = controller.value;
-            return FittedBox(
-              alignment: AlignmentDirectional.centerStart,
-              fit: BoxFit.scaleDown,
-              child: Text(
-                dateFormatter?.call(value) ??
-                    "${value?.year}-${value?.month}-${value?.day}",
-                textAlign: TextAlign.start,
-              ),
-            );
-          },
+      builder: _builder,
+    );
+  }
+
+  Widget _builder(BuildContext context, DateTime? value) {
+    
+    if(builder != null) {
+      return builder!(context, value);
+    }
+
+    return FittedBox(
+      alignment: AlignmentDirectional.centerStart,
+      fit: BoxFit.scaleDown,
+      child: Text(
+        dateFormatter?.call(value) ??
+            "${value?.year}-${value?.month}-${value?.day}",
+        textAlign: TextAlign.start,
+      ),
     );
   }
 
