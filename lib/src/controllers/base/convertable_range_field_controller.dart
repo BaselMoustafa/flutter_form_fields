@@ -14,13 +14,10 @@ class ConvertableRangeFieldController<
   
   final BoundryController maxController;
 
-  final bool Function(Value x, Value y) areEqualValues;
-
   ConvertableRangeFieldController({
     required super.mapper,
     required this.minController,
     required this.maxController,
-    required this.areEqualValues,
     super.enabled,
     super.forcedErrorText,
   }) : super(

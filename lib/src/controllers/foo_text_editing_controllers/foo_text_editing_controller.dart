@@ -23,7 +23,6 @@ class FooRangeTextEditingController<
   FooRangeTextEditingController({
     required super.minController,
     required super.maxController,
-    required super.areEqualValues,
     required super.mapper,
     super.enabled,
     super.forcedErrorText,

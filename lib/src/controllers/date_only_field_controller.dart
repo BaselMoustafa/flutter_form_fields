@@ -1,4 +1,5 @@
 import '../../foo_form_field.dart';
+import '../common/extentions/comparable_extension.dart';
 
 class DateOnlyFieldController extends ValueFieldController<DateOnly> {
   
@@ -7,7 +8,7 @@ class DateOnlyFieldController extends ValueFieldController<DateOnly> {
     super.enabled,
     super.forcedErrorText,
   }):super(
-    areEqual: (DateOnly x, DateOnly y) => x == y,
+    areEqual: (DateOnly x, DateOnly y) => x.isEqualTo(y),
   );
 }
 
@@ -17,8 +18,6 @@ class DateOnlyRangeFieldController extends RangeFieldController<DateOnly,DateOnl
     required super.maxController,
     super.enabled,
     super.forcedErrorText,
-  }):super(
-    areEqualValues: (DateOnly x, DateOnly y) => x == y,
-  );
+  });
 }
 

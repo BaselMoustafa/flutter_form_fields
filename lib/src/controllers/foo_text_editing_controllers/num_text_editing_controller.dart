@@ -21,6 +21,5 @@ class NumRangeTextEditingController extends FooRangeTextEditingController<num, N
     super.forcedErrorText,
   }):super(
     mapper: NumRangeToStringRangeMapper(),
-    areEqualValues: (num x, num y) => x == y,
   );
 }

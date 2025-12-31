@@ -21,6 +21,5 @@ class IntRangeTextEditingController extends FooRangeTextEditingController<int, I
     super.forcedErrorText,
   }):super(
     mapper: IntRangeToStringRangeMapper(),
-    areEqualValues: (int x, int y) => x == y,
   );
 }

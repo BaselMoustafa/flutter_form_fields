@@ -9,7 +9,6 @@ class RangeFieldController<
   RangeFieldController({
     required super.minController,
     required super.maxController,
-    required super.areEqualValues,
     super.enabled,
     super.forcedErrorText,
   }) : super(

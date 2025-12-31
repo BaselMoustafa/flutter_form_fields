@@ -58,8 +58,8 @@ class _DateRangeFormFieldExampleState extends State<DateRangeFormFieldExample> {
         ControllerTestButtons(
           title: "Range Controller Test Buttons",
           controller: _controller,
-          firstDummyValue: DateTimeRange(min: DateTime(2025, 3, 11), max: DateTime(2025, 11, 12)),
-          secondDummyValue: DateTimeRange(min: DateTime(2025, 5, 2), max: DateTime(2025, 7, 4)),
+          firstDummyValue: Range(min: DateTime(2025, 3, 11), max: DateTime(2025, 11, 12)),
+          secondDummyValue: Range(min: DateTime(2025, 5, 2), max: DateTime(2025, 7, 4)),
           valueToString: (value) => "(${value.min?.year}/${value.min?.month}/${value.min?.day} To ${value.max?.year}/${value.max?.month}/${value.max?.day})",
         ),
 
