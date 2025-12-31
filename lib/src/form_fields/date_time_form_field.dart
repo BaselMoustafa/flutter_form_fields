@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../foo_form_field.dart';
-import '../controllers/date_time_field_controller.dart';
 
 class DateTimeFormField extends StatelessWidget {
   const DateTimeFormField({
@@ -68,7 +67,7 @@ class DateTimeFormField extends StatelessWidget {
 
     final selectedDate = await showDatePicker(
       context: context,
-      initialDate: controller.value ?? DateTime.now(),
+      initialDate: controller.value,
       firstDate: firstDate ?? DateTime(1900),
       lastDate: lastDate ?? DateTime(2100),
     );
