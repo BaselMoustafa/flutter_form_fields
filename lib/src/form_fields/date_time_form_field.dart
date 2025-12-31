@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../foo_form_field.dart';
+import '../common/extentions/date_time_extension.dart';
 
 class DateTimeFormField extends StatelessWidget {
   const DateTimeFormField({
@@ -72,16 +73,35 @@ class DateTimeFormField extends StatelessWidget {
       lastDate: lastDate ?? DateTime(2100),
     );
 
-    if (selectedDate != null) {
-      controller.value = selectedDate;
+    if(selectedDate == null) {
+      return;
     }
+
+    final selectedTime = await showTimePicker(
+      // ignore: use_build_context_synchronously
+      context: context, 
+      initialTime: controller.value?.timeOfDay ?? TimeOfDay.now(),
+      
+    );
+
+    if (selectedTime == null) {
+      return;
+    }
+
+    controller.value = DateTime(
+      selectedDate.year,
+      selectedDate.month,
+      selectedDate.day,
+      selectedTime.hour,
+      selectedTime.minute,
+    );
   }
 
   /// Applies default icons to the provided decoration if missing.
   InputDecoration get _effectiveDecoration {
     if (decoration == null) {
       return InputDecoration(
-        prefixIcon: Icon(Icons.calendar_today),
+        prefixIcon: Icon(Icons.timer),
         suffixIcon: controller.value != null
             ? _ClearButton(controller: controller)
             : null,
@@ -91,7 +111,7 @@ class DateTimeFormField extends StatelessWidget {
     InputDecoration toReturn = decoration!;
 
     if (toReturn.prefixIcon == null) {
-      toReturn = toReturn.copyWith(prefixIcon: Icon(Icons.calendar_today));
+      toReturn = toReturn.copyWith(prefixIcon: Icon(Icons.time_to_leave));
     }
 
     if (toReturn.suffixIcon == null) {
