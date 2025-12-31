@@ -5,8 +5,8 @@ import '../../common/ranges/ranges.dart';
 import 'foo_field_controller.dart';
 
 class ConvertableRangeFieldController<
-  Value, 
-  FieldValue,
+  Value extends Comparable, 
+  FieldValue extends Comparable,
   BoundryController extends FooFieldController<Value, FieldValue>
 > extends FooFieldController<Range<Value>, Range<FieldValue>> {
   
@@ -28,7 +28,6 @@ class ConvertableRangeFieldController<
       initialValue: Range<Value>(
         min: minController.value,
         max: maxController.value,
-        areEqual: areEqualValues,
       )
     );
 
@@ -51,7 +50,7 @@ class ConvertableRangeFieldController<
   /// Saves the bounds first, then persists the overall range value.
   void save() {
     return excute(
-      toExecute: (FormFieldState<Range<FieldValue?>> formFieldState) {
+      toExecute: (FormFieldState<Range<FieldValue>> formFieldState) {
         minController.save();
         maxController.save();
         super.save();
@@ -63,7 +62,7 @@ class ConvertableRangeFieldController<
   /// Validates the bound controllers before validating the range itself.
   bool validate() {
     return excute<bool>(
-      toExecute: (FormFieldState<Range<FieldValue?>> formFieldState) {
+      toExecute: (FormFieldState<Range<FieldValue>> formFieldState) {
         bool isValidMin = minController.validate();
         bool isValidMax = maxController.validate();
         if (isValidMin && isValidMax) {
@@ -106,7 +105,6 @@ class ConvertableRangeFieldController<
     value = Range<Value>(
       min: minController.value,
       max: value?.max,
-      areEqual: areEqualValues,
     );
   }
 
@@ -118,7 +116,6 @@ class ConvertableRangeFieldController<
     value = Range<Value>(
       min: value?.min,
       max: maxController.value,
-      areEqual: areEqualValues,
     );
   }
 

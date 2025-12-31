@@ -16,7 +16,7 @@ class FooTextEditingController<Value> extends FooFieldController<Value, String> 
 }
 
 class FooRangeTextEditingController<
-  Value,
+  Value extends Comparable,
   BoundryController extends FooTextEditingController<Value>
 > extends ConvertableRangeFieldController<Value, String,BoundryController> {
 

@@ -2,7 +2,7 @@
 import '../../../foo_form_field.dart';
 
 class RangeFieldController<
-  Value,
+  Value extends Comparable,
   BoundryController extends ValueFieldController<Value>
 > extends ConvertableRangeFieldController<Value, Value, BoundryController> {
 
