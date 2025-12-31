@@ -14,10 +14,8 @@ export 'src/common/models/text_from_field_properties.dart';
 
 //Formatters exports
 export 'src/common/formatters/foo_text_formatter.dart';
-export 'src/common/formatters/int_text_formatter.dart';
 export 'src/common/formatters/string_text_formatter.dart';
-export 'src/common/formatters/num_text_formatter.dart';
-
+export 'src/common/formatters/numeric_text_formatter.dart';
 
 
 

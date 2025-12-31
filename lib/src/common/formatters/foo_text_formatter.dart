@@ -1,14 +1,5 @@
-
 import 'package:flutter/services.dart';
-abstract class TextFormatterErrorMessages {
-  final String invalidValueMessage;
 
-  const TextFormatterErrorMessages({
-    this.invalidValueMessage = "Invalid value",
-  });
-}
-
-  
 abstract class FooTextFormatter<Messages extends TextFormatterErrorMessages> extends TextInputFormatter {
 
   final Messages messages;
@@ -44,20 +35,10 @@ abstract class FooTextFormatter<Messages extends TextFormatterErrorMessages> ext
   }
 }
 
-abstract class NumericTextFormatter<Messages extends TextFormatterErrorMessages> extends FooTextFormatter<Messages> {
-  
+abstract class TextFormatterErrorMessages {
+  final String invalidValueMessage;
 
-  const NumericTextFormatter({
-    required super.messages,
+  const TextFormatterErrorMessages({
+    this.invalidValueMessage = "Invalid value",
   });
-
-  List<String> get notValidButCanBeWrittenValues;
-
-  @override
-  String? canWrite(String value) {
-    if (notValidButCanBeWrittenValues.contains(value)) {
-      return null;
-    }
-    return super.canWrite(value);
-  }
 }
