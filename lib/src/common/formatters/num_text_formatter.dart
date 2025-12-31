@@ -1,7 +1,7 @@
 import '../string_validators.dart';
 import 'foo_text_formatter.dart';
 
-class NumTextFormatter extends FooTextFormatter<NumTextFormatterErrorMessages>{
+class NumTextFormatter extends NumericTextFormatter<NumTextFormatterErrorMessages>{
 
   final num? maxValue;
   final bool allowNegative;
@@ -45,7 +45,7 @@ class NumTextFormatter extends FooTextFormatter<NumTextFormatterErrorMessages>{
   }
 }
 
-class NumTextFormatterErrorMessages extends FooTextFormatterErrorMessages {
+class NumTextFormatterErrorMessages extends TextFormatterErrorMessages {
   
   final String greaterThanMaxValueMessage;
   final String invalidNegativeMessage;

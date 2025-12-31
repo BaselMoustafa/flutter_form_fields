@@ -15,7 +15,7 @@ export 'src/common/models/text_from_field_properties.dart';
 //Formatters exports
 export 'src/common/formatters/foo_text_formatter.dart';
 export 'src/common/formatters/int_text_formatter.dart';
-export 'src/common/formatters/int_string_text_formatter.dart';
+export 'src/common/formatters/string_text_formatter.dart';
 export 'src/common/formatters/num_text_formatter.dart';
 
 
@@ -30,6 +30,7 @@ export "src/controllers/base/range_field_controller.dart";
 export 'src/controllers/foo_text_editing_controllers/foo_text_editing_controller.dart';
 export 'src/controllers/foo_text_editing_controllers/int_text_editing_controller.dart';
 export 'src/controllers/foo_text_editing_controllers/num_text_editing_controller.dart';
+export 'src/controllers/foo_text_editing_controllers/string_text_editing_controller.dart';
 
 export 'src/controllers/bool_field_controller.dart';
 export 'src/controllers/date_time_field_controller.dart';
@@ -49,6 +50,7 @@ export 'src/form_fields/foo_text_form_fields/int_text_form_field.dart';
 export 'src/form_fields/foo_text_form_fields/int_range_text_form_field.dart';
 export 'src/form_fields/foo_text_form_fields/num_text_form_field.dart';
 export 'src/form_fields/foo_text_form_fields/num_range_text_form_field.dart';
+export 'src/form_fields/foo_text_form_fields/string_text_form_field.dart';
 
 
 export 'src/form_fields/bool_form_field.dart';

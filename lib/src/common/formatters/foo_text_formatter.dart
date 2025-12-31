@@ -1,31 +1,26 @@
 
 import 'package:flutter/services.dart';
-abstract class FooTextFormatterErrorMessages {
+abstract class TextFormatterErrorMessages {
   final String invalidValueMessage;
 
-  const FooTextFormatterErrorMessages({
+  const TextFormatterErrorMessages({
     required this.invalidValueMessage,
   });
 }
 
+  
+abstract class FooTextFormatter<Messages extends TextFormatterErrorMessages> extends TextInputFormatter {
 
-abstract class FooTextFormatter<Messages extends FooTextFormatterErrorMessages> extends TextInputFormatter {
-  
   final Messages messages;
-  
+
   const FooTextFormatter({
     required this.messages,
   });
-
-  List<String> get notValidButCanBeWrittenValues;
-
+  
   String? validate(String value);
 
-  String? _canWrite(String value){
+  String? canWrite(String value){
     if(value.isEmpty){
-      return null;
-    }
-    if (notValidButCanBeWrittenValues.contains(value)) {
       return null;
     }
     return validate(value);
@@ -37,14 +32,32 @@ abstract class FooTextFormatter<Messages extends FooTextFormatterErrorMessages> 
     TextEditingValue newValue,
   ) {
 
-    if (_canWrite(newValue.text) == null) {
+    if (canWrite(newValue.text) == null) {
       return newValue;
     }
 
-    if (_canWrite(oldValue.text) != null) {
+    if (canWrite(oldValue.text) != null) {
       return newValue;
     }
 
     return oldValue;
+  }
+}
+
+abstract class NumericTextFormatter<Messages extends TextFormatterErrorMessages> extends FooTextFormatter<Messages> {
+  
+
+  const NumericTextFormatter({
+    required super.messages,
+  });
+
+  List<String> get notValidButCanBeWrittenValues;
+
+  @override
+  String? canWrite(String value) {
+    if (notValidButCanBeWrittenValues.contains(value)) {
+      return null;
+    }
+    return super.canWrite(value);
   }
 }
