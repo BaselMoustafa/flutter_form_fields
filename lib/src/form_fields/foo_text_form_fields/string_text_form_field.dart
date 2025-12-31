@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../foo_form_field.dart';
-import '../../controllers/foo_text_editing_controllers/string_text_editing_controller.dart';
 
 class StringTextFormField extends StatelessWidget {
   const StringTextFormField({
@@ -20,21 +19,20 @@ class StringTextFormField extends StatelessWidget {
   factory StringTextFormField.integer({
     required StringTextEditingController controller,
     int? maxLength,
-    allowNegative = false,
+    StringTextFormatterErrorMessages? messages,
     TextFormFieldProperties<String>? properties,
   }) {
     return StringTextFormField(
       controller: controller,
       properties: properties,
       keyboardType:TextInputType.numberWithOptions(
-        signed: allowNegative,
+        signed: false,
         decimal: false,
       ),
       formatter: StringTextFormatter(
         maxLength: maxLength, 
-        regExpression: RegExp(
-          allowNegative ? r'^-?\d+$' : r'^\d+$'
-        ),  
+        regExpression: RegExp( r'^\d+$'),  
+        messages: messages
       ),
     );
   }

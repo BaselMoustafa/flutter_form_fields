@@ -4,7 +4,7 @@ abstract class TextFormatterErrorMessages {
   final String invalidValueMessage;
 
   const TextFormatterErrorMessages({
-    required this.invalidValueMessage,
+    this.invalidValueMessage = "Invalid value",
   });
 }
 
