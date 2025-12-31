@@ -53,7 +53,7 @@ class DateTimeFormField extends StatelessWidget {
       fit: BoxFit.scaleDown,
       child: Text(
         dateFormatter?.call(value) ??
-            "${value?.year}-${value?.month}-${value?.day}",
+            "${value?.hour}:${value?.minute} / ${value?.year}-${value?.month}-${value?.day}",
         textAlign: TextAlign.start,
       ),
     );
@@ -111,7 +111,7 @@ class DateTimeFormField extends StatelessWidget {
     InputDecoration toReturn = decoration!;
 
     if (toReturn.prefixIcon == null) {
-      toReturn = toReturn.copyWith(prefixIcon: Icon(Icons.time_to_leave));
+      toReturn = toReturn.copyWith(prefixIcon: Icon(Icons.timer));
     }
 
     if (toReturn.suffixIcon == null) {

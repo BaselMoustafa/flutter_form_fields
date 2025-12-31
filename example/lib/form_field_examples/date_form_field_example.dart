@@ -32,9 +32,6 @@ class _DateFormFieldExampleState extends State<DateFormFieldExample> {
       title: "Date Form Field",
       fieldBuilder: () => DateTimeFormField(
         controller: _controller,
-        dateFormatter: (DateTime? date){
-          return "${date?.year}/${date?.month}/${date?.day}";
-        },
         decoration: InputDecoration(
           label: Text("Date"),
         ),
