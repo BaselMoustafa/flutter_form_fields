@@ -1,6 +1,7 @@
 import 'form_field_examples/bool_form_field_example.dart';
 import 'form_field_examples/date_form_field_example.dart';
 import 'form_field_examples/date_range_form_field_example.dart';
+import 'form_field_examples/int_only_string_form_field_example_screen.dart';
 import 'form_field_examples/int_range_text_form_field_example.dart';
 import 'form_field_examples/int_text_form_field_example.dart';
 import 'form_field_examples/num_range_text_form_field_example.dart';
@@ -59,10 +60,10 @@ class HomeScreen extends StatelessWidget {
               title: 'Num String Form Field', 
               screen: NumTextFormFormFieldExample()
             ),
-            // _GoToExampleScreenButton(
-            //   title: 'String Form Field (Integer Only)', 
-            //   screen: IntOnlyStringFormFieldExampleScreen()
-            // ),
+            _GoToExampleScreenButton(
+              title: 'String Form Field (Integer Only)', 
+              screen: IntOnlyStringFormFieldExample()
+            ),
           ],
         ),
       ),

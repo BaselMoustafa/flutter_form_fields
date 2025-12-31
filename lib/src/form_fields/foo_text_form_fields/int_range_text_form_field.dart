@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 
+import '../../common/formatters/numeric_text_formatter.dart';
 import '../../common/ranges/range_validators.dart';
 import '../../controllers/foo_text_editing_controllers/int_text_editing_controller.dart';
-import '../../common/formatters/int_text_formatter.dart';
 import '../../common/models/foo_form_field_properties.dart';
 import '../../common/ranges/ranges.dart';
 import '../../common/models/text_from_field_properties.dart';
