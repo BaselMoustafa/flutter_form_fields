@@ -10,7 +10,6 @@ class IntRangeToStringRangeMapper extends Mapper<Range<int>, Range<String>> {
       return Range<int>(
         min: int.tryParse(range.min ?? ''),
         max: int.tryParse(range.max ?? ''),
-        areEqual: (int x, int y) => x == y,
       );
     },
     toFieldValue: (Range<int>? range){
@@ -20,7 +19,6 @@ class IntRangeToStringRangeMapper extends Mapper<Range<int>, Range<String>> {
       return Range<String>(
         min: range.min?.toString(),
         max: range.max?.toString(),
-        areEqual: (String x, String y) => x == y,
       );
     },
   );
@@ -36,7 +34,6 @@ class NumRangeToStringRangeMapper extends Mapper<Range<num>, Range<String>> {
       return Range<num>(
         min: num.tryParse(range.min ?? ''),
         max: num.tryParse(range.max ?? ''),
-        areEqual: (num x, num y) => x == y,
       );
     },
     toFieldValue: (Range<num>? range){
@@ -46,7 +43,6 @@ class NumRangeToStringRangeMapper extends Mapper<Range<num>, Range<String>> {
       return Range<String>(
         min: range.min?.toString(),
         max: range.max?.toString(),
-        areEqual: (String x, String y) => x == y,
       );
     },
   );

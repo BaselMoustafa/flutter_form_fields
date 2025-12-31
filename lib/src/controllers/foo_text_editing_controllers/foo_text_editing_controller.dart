@@ -16,14 +16,13 @@ class FooTextEditingController<Value> extends FooFieldController<Value, String> 
 }
 
 class FooRangeTextEditingController<
-  Value,
+  Value extends Comparable,
   BoundryController extends FooTextEditingController<Value>
 > extends ConvertableRangeFieldController<Value, String,BoundryController> {
 
   FooRangeTextEditingController({
     required super.minController,
     required super.maxController,
-    required super.areEqualValues,
     required super.mapper,
     super.enabled,
     super.forcedErrorText,

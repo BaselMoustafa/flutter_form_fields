@@ -1,4 +1,5 @@
 import '../../foo_form_field.dart';
+import '../common/extentions/comparable_extension.dart';
 
 class DateTimeFieldController extends ValueFieldController<DateTime> {
   
@@ -6,15 +7,8 @@ class DateTimeFieldController extends ValueFieldController<DateTime> {
     super.initialValue,
     super.enabled,
     super.forcedErrorText,
-    bool Function(DateTime x, DateTime y)? areEqual,
   }):super(
-    areEqual: areEqual ?? ( DateTime x, DateTime y){
-      return x.year == y.year 
-        && x.month == y.month 
-        && x.day == y.day
-        && x.hour==y.hour
-        && x.minute==y.minute;
-    },
+    areEqual: (DateTime x, DateTime y) =>x.isEqualTo(y),
   );
 }
 
@@ -24,14 +18,5 @@ class DateTimeRangeFieldController extends RangeFieldController<DateTime,DateTim
     required super.maxController,
     super.enabled,
     super.forcedErrorText,
-    bool Function(DateTime x, DateTime y)? areEqual,
-  }):super(
-    areEqualValues: areEqual ?? ( DateTime x, DateTime y){
-      return x.year == y.year 
-        && x.month == y.month 
-        && x.day == y.day
-        && x.hour==y.hour
-        && x.minute==y.minute;
-    },
-  );
+  });
 }

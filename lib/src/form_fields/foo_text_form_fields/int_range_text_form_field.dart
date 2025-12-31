@@ -30,7 +30,7 @@ class IntRangeTextFormField extends StatelessWidget {
   final IntTextFormatter? minFieldFormatter;
   final IntTextFormatter? maxFieldFormatter;
   final FooFormFieldProperties<Range<int>>? properties;
-  final IntRangeValidator? rangeValidator;
+  final RangeValidator? rangeValidator;
   final Widget Function(BuildContext context, Widget minField, Widget maxField)? layoutBuilder;
 
   @override
@@ -39,7 +39,7 @@ class IntRangeTextFormField extends StatelessWidget {
       controller: controller,
       layoutBuilder: layoutBuilder,
       properties: properties,
-      rangeValidator: rangeValidator ?? IntRangeValidator(),
+      rangeValidator: rangeValidator,
       minFieldBuilder: _minFieldBuilder,
       maxFieldBuilder: _maxFieldBuilder,
     );

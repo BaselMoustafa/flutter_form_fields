@@ -49,7 +49,7 @@ class _NumRangeTextFormFieldExampleScreenState extends State<NumRangeTextFormFie
       title: "Num String Range Form Field",
       fieldBuilder: ()=>NumRangeTextFormField(
           controller: _controller,
-          rangeValidator: NumRangeValidator(
+          rangeValidator: RangeValidator(
             equalMinAndMaxMessage: "متساويين يا مدير"
           ),
           minFieldFormatter: NumTextFormatter(

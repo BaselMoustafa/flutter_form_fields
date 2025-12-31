@@ -30,7 +30,7 @@ class NumRangeTextFormField extends StatelessWidget {
   final NumTextFormatter? minFieldFormatter;
   final NumTextFormatter? maxFieldFormatter;
   final FooFormFieldProperties<Range<num>>? properties;
-  final NumRangeValidator? rangeValidator;
+  final RangeValidator? rangeValidator;
   final Widget Function(BuildContext context, Widget minField, Widget maxField)? layoutBuilder;
 
   @override
@@ -39,7 +39,7 @@ class NumRangeTextFormField extends StatelessWidget {
       controller: controller,
       layoutBuilder: layoutBuilder,
       properties: properties,
-      rangeValidator: rangeValidator ?? NumRangeValidator(),
+      rangeValidator: rangeValidator,
       minFieldBuilder: _minFieldBuilder,
       maxFieldBuilder: _maxFieldBuilder,
     );

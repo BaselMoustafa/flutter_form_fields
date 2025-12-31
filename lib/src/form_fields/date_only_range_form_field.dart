@@ -22,7 +22,7 @@ class DateOnlyRangeFormField extends StatelessWidget {
 
   final DateOnlyRangeFieldController controller;
   final String? Function(DateOnly? date)? dateFormatter;
-  final DateOnlyRangeValidator? rangeValidator;
+  final RangeValidator? rangeValidator;
   final FooFormFieldProperties<Range<DateOnly>>? properties;
 
   final DateOnly? minDate;
@@ -45,7 +45,7 @@ class DateOnlyRangeFormField extends StatelessWidget {
       controller: controller, 
       minFieldBuilder: _minFieldBuilder,
       maxFieldBuilder: _maxFieldBuilder, 
-      rangeValidator: rangeValidator ?? DateOnlyRangeValidator(),
+      rangeValidator: rangeValidator,
       properties: properties,
       layoutBuilder: layoutBuilder,
     );

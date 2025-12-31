@@ -58,8 +58,8 @@ class _DateOnlyRangeFormFieldExampleState extends State<DateOnlyRangeFormFieldEx
         ControllerTestButtons(
           title: "Range Controller Test Buttons",
           controller: _controller,
-          firstDummyValue: DateOnlyRange(min: DateOnly(year: 2025, month: 3, day: 11), max: DateOnly(year: 2025, month: 11, day: 12)),
-          secondDummyValue: DateOnlyRange(min: DateOnly(year: 2025, month: 5, day: 2), max: DateOnly(year: 2025, month: 7, day: 4)),
+          firstDummyValue: Range(min: DateOnly(year: 2025, month: 3, day: 11), max: DateOnly(year: 2025, month: 11, day: 12)),
+          secondDummyValue: Range(min: DateOnly(year: 2025, month: 5, day: 2), max: DateOnly(year: 2025, month: 7, day: 4)),
           valueToString: (value) => "(${value.min?.year}/${value.min?.month}/${value.min?.day} To ${value.max?.year}/${value.max?.month}/${value.max?.day})",
         ),
 

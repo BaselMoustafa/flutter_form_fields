@@ -9,36 +9,40 @@ import 'foo_form_field.dart';
 import '../../controllers/base/convertable_range_field_controller.dart';
 
 /// Generic range form field that renders min/max inputs backed by a convertible controller.
-class ConvertableRangeFormField<O, I, BoundryController extends FooFieldController<O, I>> extends StatelessWidget {
+class ConvertableRangeFormField<
+  Value extends Comparable, 
+  FieldValue extends Comparable, 
+  BoundryController extends FooFieldController<Value, FieldValue>
+> extends StatelessWidget {
   const ConvertableRangeFormField({
     super.key,
     required this.controller,
-    required this.rangeValidator,
+    RangeValidator? rangeValidator,
     required this.minFieldBuilder,
     required this.maxFieldBuilder,
     this.layoutBuilder,
     this.properties
-  });
+  }):rangeValidator = rangeValidator ?? const RangeValidator();
 
-  final ConvertableRangeFieldController<O, I, BoundryController> controller;
+  final ConvertableRangeFieldController<Value, FieldValue, BoundryController> controller;
 
-  final RangeValidator<O> rangeValidator;
+  final RangeValidator rangeValidator;
 
-  final Widget Function(BuildContext context, I? value) minFieldBuilder;
+  final Widget Function(BuildContext context, FieldValue? value) minFieldBuilder;
   
-  final Widget Function(BuildContext context, I? value) maxFieldBuilder;
+  final Widget Function(BuildContext context, FieldValue? value) maxFieldBuilder;
 
   final Widget Function(BuildContext context, Widget minField, Widget maxField)? layoutBuilder;
 
-  final FooFormFieldProperties<Range<O>>? properties;
+  final FooFormFieldProperties<Range<Value>>? properties;
 
-  FooFormFieldProperties<Range<O>> get _properties{
-    return properties ?? FooFormFieldProperties<Range<O>>();
+  FooFormFieldProperties<Range<Value>> get _properties{
+    return properties ?? FooFormFieldProperties<Range<Value>>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FooFormField<Range<O>, Range<I>>(
+    return FooFormField<Range<Value>, Range<FieldValue>>(
       builder: _builder,
       controller: controller,
       properties: _properties.copyWith(
@@ -48,7 +52,7 @@ class ConvertableRangeFormField<O, I, BoundryController extends FooFieldControll
   }
 
   /// Runs equality and min validations before delegating to the optional validator.
-  String? _validator(Range<O>? value) {
+  String? _validator(Range<Value>? value) {
     if (value == null) {
       return properties?.validator?.call(value);
     }
@@ -68,7 +72,7 @@ class ConvertableRangeFormField<O, I, BoundryController extends FooFieldControll
   }
 
   /// Builds the inner field layout, wrapping it with error presentation.
-  Widget _builder(BuildContext context, Range<I>? value) {
+  Widget _builder(BuildContext context, Range<FieldValue>? value) {
     final minField = minFieldBuilder(context, value?.min);
     final maxField = maxFieldBuilder(context, value?.max);
 
