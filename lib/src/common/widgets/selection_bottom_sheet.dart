@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../foo_form_field.dart';
 import '../../controllers/selection_field_controller.dart';
+import 'custom_button.dart';
 
 class SelectionBottomSheet<Entity> extends StatelessWidget {
 
@@ -32,13 +33,13 @@ class SelectionBottomSheet<Entity> extends StatelessWidget {
     }
 
     return BottomSheet(
-      enableDrag: true,
+      enableDrag: false,
       onClosing: (){},
       builder: (BuildContext context) {
         return Column(
-          spacing: 10,
+          spacing: 5,
           children: [
-            SizedBox(height: 15),
+            SizedBox(height: 20),
             Container(
               height: 5,
               width: 100,
@@ -50,12 +51,19 @@ class SelectionBottomSheet<Entity> extends StatelessWidget {
             Expanded(
               child: selectionListView,
             ),
-            TextButton(
-              onPressed: () {
-                controller.commit();
-                Navigator.pop(context);
-              },
-              child: Text("Confirm"),
+            Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(context).padding.bottom,
+              ),
+              child: CustomButton(
+                onTap: () {
+                  controller.commit();
+                  Navigator.pop(context);
+                },
+                child: Text("Confirm"),
+              ),
             ),
           ],
         );
