@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import '../../foo_form_field.dart';
@@ -46,7 +44,6 @@ abstract class SelectionFieldController<SelectedValue,Entity> extends ValueField
 
   /// Initializes the selection by resetting the selected value to null.
   void initForSelection() {
-    log("initForSelection: $value");
     excute<void>(
       needToNotifyListener: true,
       toExecute: (FormFieldState<SelectedValue> formFieldState) {

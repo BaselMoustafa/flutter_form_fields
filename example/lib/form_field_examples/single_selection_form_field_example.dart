@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:foo_form_field/foo_form_field.dart';
 
@@ -7,6 +9,19 @@ enum SellingOrderStatus {
   pending,
   approved,
   rejected,
+  cancelled,
+  completed,
+  refunded,
+  returned,
+  lost,
+  damaged,
+  other,  
+  pendingPayment,
+  pendingApproval,
+  pendingFulfillment,
+  pendingShipment,
+  pendingDelivery,
+  pendingConfirmation,
 }
 
 
@@ -28,7 +43,7 @@ class _SingleSelectionFormFieldExampleState extends State<SingleSelectionFormFie
   Widget build(BuildContext context) {
     return ExampleScreen(
       title: "Single Selection Form Field",
-      fieldBuilder: () => SingleSelectionFormField(
+      fieldBuilder: () => SingleSelectionFormField<SellingOrderStatus>(
         itemBuilder: (item) => Text(item.name),
         controller: _controller,
         onTap: (context) {
@@ -43,6 +58,11 @@ class _SingleSelectionFormFieldExampleState extends State<SingleSelectionFormFie
             ),
           );
         },
+        properties: FooFormFieldProperties(
+          validator: (value) => value == null ? "Value is required" : null,
+          onChanged: (value) => log("Value Changed To: $value"),
+          onSaved: (value) => log("Value Saved: $value"),
+        ),
       ),
       children: [
         ControllerTestButtons(

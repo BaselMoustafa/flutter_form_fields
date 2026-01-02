@@ -39,10 +39,13 @@ class SelectionBottomSheet<Entity> extends StatelessWidget {
         return Column(
           spacing: 5,
           children: [
-            SizedBox(height: 20),
             Container(
               height: 5,
               width: 100,
+              margin: EdgeInsets.only(
+                top: 20,
+                bottom: 10,
+              ),
               decoration: BoxDecoration(
                 color: Colors.grey.shade500,
                 borderRadius: BorderRadius.circular(10),
@@ -55,6 +58,7 @@ class SelectionBottomSheet<Entity> extends StatelessWidget {
               padding: EdgeInsets.only(
                 left: 20,
                 right: 20,
+                top: 10,
                 bottom: MediaQuery.of(context).padding.bottom,
               ),
               child: CustomButton(
