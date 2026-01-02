@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../../controllers/single_selection_field_controller.dart';
 import '../models/selection_list_view_properties.dart';
@@ -127,13 +128,39 @@ class SingleSelectionListView<Value> extends StatelessWidget {
       getMore: getMore, 
       itemBuilder: itemBuilder, 
       selectionButtonBuilder: _selectionButtonBuilder, 
-      itemLayoutBuilder: itemLayoutBuilder, 
+      itemLayoutBuilder: _itemLayoutBuilder, 
       separatorBuilder: separatorBuilder, 
       emptyListWidget: emptyListWidget, 
       loadingWidgetBuilder: loadingWidgetBuilder, 
       paginationIndicatorWidget: paginationIndicatorWidget, 
       errorWidgetBuilder: errorWidgetBuilder, 
       properties: properties, 
+    );
+  }
+
+  Widget _itemLayoutBuilder(BuildContext context, int index, Widget selectionButton, Widget itemWidget){
+    if(itemLayoutBuilder!=null){
+      return itemLayoutBuilder!(context, index, selectionButton, itemWidget);
+    }
+
+    return InkWell(
+      onTap: (){
+        if(controller.isSelected(controller.items[index])){
+          controller.selectedValue = null;
+        }else{
+          controller.selectedValue = controller.items[index];
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: Row(
+          spacing: 5,
+          children: [
+            selectionButton,
+            itemWidget,
+          ],
+        ),
+      ),
     );
   }
 
@@ -147,7 +174,8 @@ class SingleSelectionListView<Value> extends StatelessWidget {
     
     return CustomRadioButton(
       isSelected: isSelected,
-      onTap: (bool isSelected){         
+      onTap: (bool isSelected){     
+        log("onTap of radio button: $index");
         controller.selectedValue = isSelected ? controller.items[index] : null;
       },
     );

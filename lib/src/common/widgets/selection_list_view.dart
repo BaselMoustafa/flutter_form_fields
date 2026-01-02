@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import '../../controllers/selection_field_controller.dart';
@@ -30,7 +29,7 @@ class SelectionListView<SelectionController extends SelectionFieldController> ex
 
   final Widget Function(BuildContext context, int index) itemBuilder;
   final Widget Function(BuildContext context, int index) selectionButtonBuilder;
-  final Widget Function(BuildContext context, int index,Widget selectionButton, Widget itemWidget)? itemLayoutBuilder;
+  final Widget Function(BuildContext context, int index,Widget selectionButton, Widget itemWidget) itemLayoutBuilder;
   final Widget Function(BuildContext context, int index)? separatorBuilder;
 
   final Widget? emptyListWidget;
@@ -150,13 +149,10 @@ class _SelectionListViewState extends State<SelectionListView> {
   }
 
   void _refresh() {
-    if (! mounted) {
-      setState(() {});
-    }
+    setState(() {});
   }
 
   void _afterFirstBuild(Duration _) {
-    
     widget.controller.initForSelection();
     if (_controller is GetStateManagementMixin) {
       final controller = _controller as GetStateManagementMixin;
@@ -181,17 +177,7 @@ class _SelectionListViewState extends State<SelectionListView> {
     final selectionButton = widget.selectionButtonBuilder(context, index);
     final itemWidget = widget.itemBuilder(context, index);
 
-    return InkWell(
-
-      child: widget.itemLayoutBuilder?.call(context, index, selectionButton, itemWidget) 
-        ?? Row(
-          spacing: 5,
-          children: [
-            itemWidget,
-            selectionButton,
-          ],
-        ),
-    );
+    return widget.itemLayoutBuilder.call(context, index, selectionButton, itemWidget) ;
   }
 
   Widget _separatorBuilder(BuildContext context, int index) {
