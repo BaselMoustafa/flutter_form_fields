@@ -9,6 +9,10 @@ import 'form_field_examples/int_text_form_field_example.dart';
 import 'form_field_examples/num_range_text_form_field_example.dart';
 import 'form_field_examples/num_text_form_field_example.dart';
 import 'package:flutter/material.dart';
+
+import 'form_field_examples/single_selection_form_field_example.dart';
+import 'form_field_examples/get_once_single_selection_form_field_example.dart';
+import 'form_field_examples/get_paginated_single_selection_form_field_example.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -73,6 +77,18 @@ class HomeScreen extends StatelessWidget {
             _GoToExampleScreenButton(
               title: 'String Form Field (Integer Only)', 
               screen: IntOnlyStringFormFieldExample()
+            ),
+            _GoToExampleScreenButton(
+              title: 'Single Selection Form Field', 
+              screen: SingleSelectionFormFieldExample()
+            ),
+            _GoToExampleScreenButton(
+              title: 'Get Once Single Selection Form Field', 
+              screen: GetOnceSingleSelectionFormFieldExample()
+            ),
+            _GoToExampleScreenButton(
+              title: 'Get Paginated Single Selection Form Field', 
+              screen: GetPaginatedSingleSelectionFormFieldExample()
             ),
           ],
         ),
