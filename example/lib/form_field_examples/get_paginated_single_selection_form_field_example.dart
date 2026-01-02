@@ -27,6 +27,12 @@ class _GetPaginatedSingleSelectionFormFieldExampleState
     _cubit = GetProductsCubit();
     _controller = PaginatedSingleSelectionFieldController<Product>(
       areEqual: (a, b) => a.id == b.id,
+      initialValue: Product(
+        id: 11,
+        name: "Product 11",
+        price: 110,
+        description: "Description 11",
+      ),
     );
   }
 
