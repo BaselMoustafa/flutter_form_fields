@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../controllers/selection_field_controller.dart';
 import '../get_items_state.dart';
 import '../models/selection_list_view_properties.dart';
+import 'loading_widget.dart';
 
 class SelectionListView<SelectionController extends SelectionFieldController> extends StatefulWidget {
   const SelectionListView({
@@ -124,7 +125,7 @@ class _SelectionListViewState extends State<SelectionListView> {
     }
 
     else if (getItemsState is GetItemsStateLoading) {
-      return widget.loadingWidgetBuilder ?? CircularProgressIndicator();
+      return widget.loadingWidgetBuilder ?? LoadingWidget();
     }
 
     else if (getItemsState is GetItemsStateFailed) {
@@ -171,7 +172,7 @@ class _SelectionListViewState extends State<SelectionListView> {
 
   Widget _itemBuilder(BuildContext context, int index) {
     if (index == _items.length) {
-      return widget.paginationIndicatorWidget ?? CircularProgressIndicator();
+      return widget.paginationIndicatorWidget ?? LoadingWidget();
     }
 
     final selectionButton = widget.selectionButtonBuilder(context, index);
