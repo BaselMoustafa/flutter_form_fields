@@ -65,6 +65,7 @@ class _SelectionListViewState extends State<SelectionListView> {
     super.initState();
     _scrollController = widget.properties?.controller ?? ScrollController();
     _scrollController.addListener(_onScrollChanged);
+    widget.controller.addListener(_refresh);
     WidgetsBinding.instance.addPostFrameCallback(_afterFirstBuild);
   }
 
@@ -74,6 +75,7 @@ class _SelectionListViewState extends State<SelectionListView> {
     if (widget.properties?.controller==null) {
       _scrollController.dispose();
     }
+    widget.controller.removeListener(_refresh);
     super.dispose();
   }
 
@@ -147,7 +149,15 @@ class _SelectionListViewState extends State<SelectionListView> {
     return null;
   }
 
+  void _refresh() {
+    if (! mounted) {
+      setState(() {});
+    }
+  }
+
   void _afterFirstBuild(Duration _) {
+    
+    widget.controller.initForSelection();
     if (_controller is GetStateManagementMixin) {
       final controller = _controller as GetStateManagementMixin;
       final getItemsState = controller.getItemsState;
@@ -171,14 +181,17 @@ class _SelectionListViewState extends State<SelectionListView> {
     final selectionButton = widget.selectionButtonBuilder(context, index);
     final itemWidget = widget.itemBuilder(context, index);
 
-    return widget.itemLayoutBuilder?.call(context, index, selectionButton, itemWidget) 
-      ?? Row(
-        spacing: 5,
-        children: [
-          itemWidget,
-          selectionButton,
-        ],
-      );
+    return InkWell(
+
+      child: widget.itemLayoutBuilder?.call(context, index, selectionButton, itemWidget) 
+        ?? Row(
+          spacing: 5,
+          children: [
+            itemWidget,
+            selectionButton,
+          ],
+        ),
+    );
   }
 
   Widget _separatorBuilder(BuildContext context, int index) {

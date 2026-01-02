@@ -147,7 +147,7 @@ class SingleSelectionListView<Value> extends StatelessWidget {
     
     return CustomRadioButton(
       isSelected: isSelected,
-      onTap: (bool isSelected){
+      onTap: (bool isSelected){         
         controller.selectedValue = isSelected ? controller.items[index] : null;
       },
     );

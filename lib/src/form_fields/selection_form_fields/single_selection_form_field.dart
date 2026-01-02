@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
 import '../../../foo_form_field.dart';
-import '../../common/widgets/selection_button.dart';
-import '../../controllers/single_selection_field_controller.dart';
 
 class SingleSelectionFormField<Entity> extends StatelessWidget {
   
@@ -17,10 +15,10 @@ class SingleSelectionFormField<Entity> extends StatelessWidget {
     super.key,
     required this.itemBuilder,
     required this.controller,
-    required this.builder, 
-    required this.properties, 
-    required this.decoration, 
     required this.onTap,
+    this.builder, 
+    this.properties, 
+    this.decoration, 
   });
 
   @override
@@ -44,9 +42,7 @@ class SingleSelectionFormField<Entity> extends StatelessWidget {
       remainingWidgetBuilder: (remainingItemsCount) {
         return Text("+ $remainingItemsCount");
       },
-      selectedItems:controller.items.map(
-        (Entity entity)=> itemBuilder(entity)
-      ).toList(),
+      selectedItems:controller.value==null?[]:[itemBuilder(controller.value!)],
     );
   }
 

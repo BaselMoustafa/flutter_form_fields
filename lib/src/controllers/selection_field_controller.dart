@@ -47,7 +47,7 @@ abstract class SelectionFieldController<SelectedValue,Entity> extends ValueField
     excute<void>(
       needToNotifyListener: true,
       toExecute: (FormFieldState<SelectedValue> formFieldState) {
-        _selectedValue = null;
+        _selectedValue = value;
       },
     );
   }

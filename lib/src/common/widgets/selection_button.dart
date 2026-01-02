@@ -27,6 +27,12 @@ class _SelectionButtonState extends State<SelectionButton> {
 
   @override
   Widget build(BuildContext context) {
+    return Wrap(
+      children: [
+        ...widget.selectedItems,
+        widget.remainingWidgetBuilder(_remainingCount.value),
+      ],
+    );
     return Flow(
       delegate: _MaxLinesFlowDelegate(
         maxLines: widget.maxLines,
