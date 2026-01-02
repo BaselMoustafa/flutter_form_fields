@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../../controllers/selection_field_controller.dart';
@@ -52,7 +53,19 @@ class _SelectionListViewState extends State<SelectionListView> {
   
   List get _items  => widget.controller.items;
 
-  bool get _withPaginationIndicator => widget.paginationIndicatorWidget != null;
+  bool get _withPaginationIndicator{
+    
+    if (widget.controller is PaginationStateManagementMixin) {
+      final controller = widget.controller as PaginationStateManagementMixin;
+      if (controller.getItemsState is GetItemsStateSuccess) {
+        final getItemsState = controller.getItemsState as GetItemsStateSuccess;
+        if (getItemsState.hasMore) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
   int get _itemCount => _items.length + (_withPaginationIndicator ? 1 : 0);
 
@@ -121,7 +134,13 @@ class _SelectionListViewState extends State<SelectionListView> {
 
   Widget? handleGetItemsState(GetItemsState getItemsState) {
     if (getItemsState is GetItemsStateInitial) {
-      return Text("You have not initialized the selection list view yet and this is not supposed to happen !!!!");
+      return Text(
+        "You have not initialized the selection list view yet and this is not supposed to happen !!!!",
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 16,
+        ),
+      );
     }
 
     else if (getItemsState is GetItemsStateLoading) {
@@ -182,7 +201,8 @@ class _SelectionListViewState extends State<SelectionListView> {
   }
 
   Widget _separatorBuilder(BuildContext context, int index) {
-    if (index == _items.length) {
+    if (index == _items.length-1) {
+      log("pagination indicator separator builder");
       return const SizedBox(height: 10);
     }
 

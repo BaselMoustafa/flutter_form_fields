@@ -46,7 +46,6 @@ class SingleSelectionListView<Value> extends StatelessWidget {
     Widget Function(BuildContext context, int index)? separatorBuilder,
     Widget? emptyListWidget,
     Widget? loadingWidgetBuilder,
-    Widget? paginationIndicatorWidget,
     Widget Function(BuildContext context, String errorMessage)? errorWidgetBuilder,
     SelectionListViewProperties? properties,
   }) => SingleSelectionListView._(
@@ -57,9 +56,9 @@ class SingleSelectionListView<Value> extends StatelessWidget {
     separatorBuilder: separatorBuilder,
     emptyListWidget: emptyListWidget,
     loadingWidgetBuilder: loadingWidgetBuilder,
-    paginationIndicatorWidget: paginationIndicatorWidget,
     errorWidgetBuilder: errorWidgetBuilder,
     properties: properties,
+    paginationIndicatorWidget: null,
     get: null,
     getMore: null,
   );
@@ -73,7 +72,6 @@ class SingleSelectionListView<Value> extends StatelessWidget {
     Widget Function(BuildContext context, int index)? separatorBuilder,
     Widget? emptyListWidget,
     Widget? loadingWidgetBuilder,
-    Widget? paginationIndicatorWidget,
     Widget Function(BuildContext context, String errorMessage)? errorWidgetBuilder,
     SelectionListViewProperties? properties,
   }) => SingleSelectionListView._(
@@ -84,9 +82,9 @@ class SingleSelectionListView<Value> extends StatelessWidget {
     separatorBuilder: separatorBuilder,
     emptyListWidget: emptyListWidget,
     loadingWidgetBuilder: loadingWidgetBuilder,
-    paginationIndicatorWidget: paginationIndicatorWidget,
     errorWidgetBuilder: errorWidgetBuilder,
     properties: properties,
+    paginationIndicatorWidget: null,
     get: get,
     getMore: null,
   );
