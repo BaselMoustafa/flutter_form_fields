@@ -21,6 +21,8 @@ abstract class SelectionFieldController<SelectedValue,Entity> extends ValueField
     required super.areEqual,
   });
 
+  bool isSelected(Entity value);
+
   SelectedValue? get selectedValue => _selectedValue;
 
   set selectedValue(SelectedValue? newSelectedValue) {

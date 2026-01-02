@@ -9,7 +9,12 @@ abstract class BaseSingleSelectionFieldController<Value> extends SelectionFieldC
     super.forcedErrorText,
     required super.areEqual,
   });
-  
+
+  @override
+  bool isSelected(Value value) {
+    if (selectedValue == null) return false;
+    return areEqual(value, selectedValue as Value);
+  }
 }
 
 class SingleSelectionFieldController<Value> extends BaseSingleSelectionFieldController<Value> {

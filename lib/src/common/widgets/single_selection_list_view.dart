@@ -1,0 +1,157 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import '../../controllers/single_selection_field_controller.dart';
+import '../models/selection_list_view_properties.dart';
+import 'custom_radio_button.dart';
+import 'selection_list_view.dart';
+
+class SingleSelectionListView<Value> extends StatelessWidget {
+
+  final BaseSingleSelectionFieldController<Value> controller;
+  final Widget Function(BuildContext context, int index) itemBuilder;
+
+  final FutureOr<void> Function(BuildContext context)? get;
+  final FutureOr<void> Function(BuildContext context)? getMore;
+
+  final Widget Function(BuildContext context, int index)? selectionButtonBuilder;
+  final Widget Function(BuildContext context, int index, Widget selectionButton, Widget itemWidget)? itemLayoutBuilder;
+  final Widget Function(BuildContext context, int index)? separatorBuilder;
+  final Widget? emptyListWidget;
+  final Widget? loadingWidgetBuilder;
+  final Widget? paginationIndicatorWidget;
+  final Widget Function(BuildContext context, String errorMessage)? errorWidgetBuilder;
+  final SelectionListViewProperties? properties;
+
+  const SingleSelectionListView._({
+    super.key,
+    required this.controller,
+    required this.itemBuilder,
+    required this.selectionButtonBuilder,
+    required this.itemLayoutBuilder,
+    required this.separatorBuilder,
+    required this.emptyListWidget,
+    required this.loadingWidgetBuilder,
+    required this.paginationIndicatorWidget,
+    required this.errorWidgetBuilder,
+    required this.properties,
+    required this.get,
+    required this.getMore,
+  });
+
+  factory SingleSelectionListView({
+    required SingleSelectionFieldController<Value> controller,
+    required Widget Function(BuildContext context, int index) itemBuilder,
+    Widget Function(BuildContext context, int index)? selectionButtonBuilder,
+    Widget Function(BuildContext context, int index, Widget selectionButton, Widget itemWidget)? itemLayoutBuilder,
+    Widget Function(BuildContext context, int index)? separatorBuilder,
+    Widget? emptyListWidget,
+    Widget? loadingWidgetBuilder,
+    Widget? paginationIndicatorWidget,
+    Widget Function(BuildContext context, String errorMessage)? errorWidgetBuilder,
+    SelectionListViewProperties? properties,
+  }) => SingleSelectionListView._(
+    controller: controller,
+    itemBuilder: itemBuilder,
+    selectionButtonBuilder: selectionButtonBuilder,
+    itemLayoutBuilder: itemLayoutBuilder,
+    separatorBuilder: separatorBuilder,
+    emptyListWidget: emptyListWidget,
+    loadingWidgetBuilder: loadingWidgetBuilder,
+    paginationIndicatorWidget: paginationIndicatorWidget,
+    errorWidgetBuilder: errorWidgetBuilder,
+    properties: properties,
+    get: null,
+    getMore: null,
+  );
+
+  factory SingleSelectionListView.getOnce({
+    required GetOnceSingleSelectionFieldController<Value> controller,
+    required Widget Function(BuildContext context, int index) itemBuilder,
+    required FutureOr<void> Function(BuildContext context) get,
+    Widget Function(BuildContext context, int index)? selectionButtonBuilder,
+    Widget Function(BuildContext context, int index, Widget selectionButton, Widget itemWidget)? itemLayoutBuilder,
+    Widget Function(BuildContext context, int index)? separatorBuilder,
+    Widget? emptyListWidget,
+    Widget? loadingWidgetBuilder,
+    Widget? paginationIndicatorWidget,
+    Widget Function(BuildContext context, String errorMessage)? errorWidgetBuilder,
+    SelectionListViewProperties? properties,
+  }) => SingleSelectionListView._(
+    controller: controller,
+    itemBuilder: itemBuilder,
+    selectionButtonBuilder: selectionButtonBuilder,
+    itemLayoutBuilder: itemLayoutBuilder,
+    separatorBuilder: separatorBuilder,
+    emptyListWidget: emptyListWidget,
+    loadingWidgetBuilder: loadingWidgetBuilder,
+    paginationIndicatorWidget: paginationIndicatorWidget,
+    errorWidgetBuilder: errorWidgetBuilder,
+    properties: properties,
+    get: get,
+    getMore: null,
+  );
+
+  factory SingleSelectionListView.paginated({
+    required PaginatedSingleSelectionFieldController<Value> controller,
+    required FutureOr<void> Function(BuildContext context) get,
+    required FutureOr<void> Function(BuildContext context) getMore,
+    required Widget Function(BuildContext context, int index) itemBuilder,
+    Widget Function(BuildContext context, int index)? selectionButtonBuilder,
+    Widget Function(BuildContext context, int index, Widget selectionButton, Widget itemWidget)? itemLayoutBuilder,
+    Widget Function(BuildContext context, int index)? separatorBuilder,
+    Widget? emptyListWidget,
+    Widget? loadingWidgetBuilder,
+    Widget? paginationIndicatorWidget,
+    Widget Function(BuildContext context, String errorMessage)? errorWidgetBuilder,
+    SelectionListViewProperties? properties,
+  }) => SingleSelectionListView._(
+    controller: controller,
+    itemBuilder: itemBuilder,
+    selectionButtonBuilder: selectionButtonBuilder,
+    itemLayoutBuilder: itemLayoutBuilder,
+    separatorBuilder: separatorBuilder,
+    emptyListWidget: emptyListWidget,
+    loadingWidgetBuilder: loadingWidgetBuilder,
+    paginationIndicatorWidget: paginationIndicatorWidget,
+    errorWidgetBuilder: errorWidgetBuilder,
+    properties: properties,
+    get: get,
+    getMore: getMore,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return SelectionListView(
+      controller: controller, 
+      get: get, 
+      getMore: getMore, 
+      itemBuilder: itemBuilder, 
+      selectionButtonBuilder: _selectionButtonBuilder, 
+      itemLayoutBuilder: itemLayoutBuilder, 
+      separatorBuilder: separatorBuilder, 
+      emptyListWidget: emptyListWidget, 
+      loadingWidgetBuilder: loadingWidgetBuilder, 
+      paginationIndicatorWidget: paginationIndicatorWidget, 
+      errorWidgetBuilder: errorWidgetBuilder, 
+      properties: properties, 
+    );
+  }
+
+  Widget _selectionButtonBuilder(BuildContext context, int index){
+
+    if(selectionButtonBuilder!=null){
+      return selectionButtonBuilder!(context, index);
+    }
+
+    bool isSelected = controller.isSelected(controller.items[index]);
+    
+    return CustomRadioButton(
+      isSelected: isSelected,
+      onTap: (bool isSelected){
+        controller.selectedValue = isSelected ? controller.items[index] : null;
+      },
+    );
+  }
+
+}
+

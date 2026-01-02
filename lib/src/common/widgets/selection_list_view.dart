@@ -21,19 +21,16 @@ class SelectionListView<SelectionController extends SelectionFieldController> ex
     required this.paginationIndicatorWidget,
     required this.errorWidgetBuilder,
     required this.properties,
-    required this.onSelectionChanged,
   });
 
   final SelectionController controller;
-
-  final void Function(int index)? onSelectionChanged;
 
   final FutureOr<void> Function(BuildContext context)? get;
   final FutureOr<void> Function(BuildContext context)? getMore;
 
   final Widget Function(BuildContext context, int index) itemBuilder;
   final Widget Function(BuildContext context, int index) selectionButtonBuilder;
-  final Widget Function(BuildContext context, int index)? itemLayoutBuilder;
+  final Widget Function(BuildContext context, int index,Widget selectionButton, Widget itemWidget)? itemLayoutBuilder;
   final Widget Function(BuildContext context, int index)? separatorBuilder;
 
   final Widget? emptyListWidget;
@@ -67,13 +64,13 @@ class _SelectionListViewState extends State<SelectionListView> {
   void initState() {
     super.initState();
     _scrollController = widget.properties?.controller ?? ScrollController();
-    widget.controller.addListener(_onScrollChanged);
+    _scrollController.addListener(_onScrollChanged);
     WidgetsBinding.instance.addPostFrameCallback(_afterFirstBuild);
   }
 
   @override
   void dispose() {
-    widget.controller.removeListener(_onScrollChanged);
+    _scrollController.removeListener(_onScrollChanged);
     if (widget.properties?.controller==null) {
       _scrollController.dispose();
     }
@@ -121,9 +118,6 @@ class _SelectionListViewState extends State<SelectionListView> {
   }
 
   Widget? handleGetItemsState(GetItemsState getItemsState) {
-    final controller = _controller as GetStateManagementMixin;
-    final getItemsState = controller.getItemsState;
-
     if (getItemsState is GetItemsStateInitial) {
       return Text("You have not initialized the selection list view yet and this is not supposed to happen !!!!");
     }
@@ -174,12 +168,15 @@ class _SelectionListViewState extends State<SelectionListView> {
       return widget.paginationIndicatorWidget ?? CircularProgressIndicator();
     }
 
-    return widget.itemLayoutBuilder?.call(context, index) 
+    final selectionButton = widget.selectionButtonBuilder(context, index);
+    final itemWidget = widget.itemBuilder(context, index);
+
+    return widget.itemLayoutBuilder?.call(context, index, selectionButton, itemWidget) 
       ?? Row(
         spacing: 5,
         children: [
-          widget.itemBuilder(context, index),
-          widget.selectionButtonBuilder(context, index),
+          itemWidget,
+          selectionButton,
         ],
       );
   }
@@ -189,6 +186,6 @@ class _SelectionListViewState extends State<SelectionListView> {
       return const SizedBox(height: 10);
     }
 
-    return widget.separatorBuilder?.call(context, index) ?? const SizedBox(height: 10);
+    return widget.separatorBuilder?.call(context, index,) ?? const SizedBox(height: 10);
   }
 }
