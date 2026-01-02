@@ -39,7 +39,6 @@ class _SingleSelectionFormFieldExampleState extends State<SingleSelectionFormFie
               selectionListView: SingleSelectionListView(
                 itemBuilder: (context,index) => Text(_controller.items[index].name),
                 controller: _controller,
-                separatorBuilder: (context, index) =>SizedBox(height: 200,),
               ),
             ),
           );

@@ -32,12 +32,21 @@ class SelectionBottomSheet<Entity> extends StatelessWidget {
     }
 
     return BottomSheet(
-      enableDrag: false,
+      enableDrag: true,
       onClosing: (){},
       builder: (BuildContext context) {
         return Column(
           spacing: 10,
           children: [
+            SizedBox(height: 15),
+            Container(
+              height: 5,
+              width: 100,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade500,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             Expanded(
               child: selectionListView,
             ),

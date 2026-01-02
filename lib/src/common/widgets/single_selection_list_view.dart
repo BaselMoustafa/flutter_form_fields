@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../../controllers/single_selection_field_controller.dart';
 import '../models/selection_list_view_properties.dart';
@@ -152,9 +151,9 @@ class SingleSelectionListView<Value> extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
-          spacing: 5,
+          spacing: 10,
           children: [
             selectionButton,
             itemWidget,
@@ -175,7 +174,6 @@ class SingleSelectionListView<Value> extends StatelessWidget {
     return CustomRadioButton(
       isSelected: isSelected,
       onTap: (bool isSelected){     
-        log("onTap of radio button: $index");
         controller.selectedValue = isSelected ? controller.items[index] : null;
       },
     );

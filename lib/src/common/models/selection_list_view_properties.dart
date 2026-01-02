@@ -21,7 +21,12 @@ class SelectionListViewProperties {
   final HitTestBehavior hitTestBehavior;
 
   factory SelectionListViewProperties.defaultProperties() {
-    return SelectionListViewProperties();
+    return SelectionListViewProperties(
+      padding: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 15
+      )
+    );
   }
 
   SelectionListViewProperties({

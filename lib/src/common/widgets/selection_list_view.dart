@@ -185,6 +185,15 @@ class _SelectionListViewState extends State<SelectionListView> {
       return const SizedBox(height: 10);
     }
 
-    return widget.separatorBuilder?.call(context, index,) ?? const SizedBox(height: 10);
+     if(widget.separatorBuilder!=null){
+      return widget.separatorBuilder!(context, index);
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Divider(
+        height: 1,
+        color: Colors.grey.shade500,
+      ),
+    );
   }
 }

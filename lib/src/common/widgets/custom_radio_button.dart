@@ -39,7 +39,7 @@ class _WidgetDesign extends StatelessWidget {
     return Container(
       height: 20,
       width: 20,
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(color: PackageColors.primary(context)),
