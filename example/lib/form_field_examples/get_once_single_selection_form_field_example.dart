@@ -54,20 +54,17 @@ class _GetOnceSingleSelectionFormFieldExampleState
         child: ExampleScreen(
           title: "Get Once Single Selection Form Field",
           fieldBuilder: () => SingleSelectionFormField<Supplier>(
-            itemBuilder: (item) => Text('${item.name} (${item.email})'),
+            itemBuilder: (context, item) => Text('${item.name} (${item.email})'),
             controller: _controller,
             onTap: (context) {
-              showModalBottomSheet(
+              showSingleSelectionBottomSheet(
                 context: context,
-                builder: (context) => SelectionBottomSheet.singleSelection(
+                selectionListView: SingleSelectionListView.getOnce(
                   controller: _controller,
-                  selectionListView: SingleSelectionListView.getOnce(
-                    controller: _controller,
-                    itemBuilder: (context, index) => Text(
-                      '${_controller.items[index].name} (${_controller.items[index].email})',
-                    ),
-                    get: (context) => _cubit.getSuppliers(),
+                  itemBuilder: (context, index) => Text(
+                    '${_controller.items[index].name} (${_controller.items[index].email})',
                   ),
+                  get: (context) => _cubit.getSuppliers(),
                 ),
               );
             },

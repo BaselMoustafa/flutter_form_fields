@@ -4,6 +4,18 @@ import '../../../foo_form_field.dart';
 import '../../controllers/selection_field_controller.dart';
 import 'custom_button.dart';
 
+void showSingleSelectionBottomSheet<Entity>({
+  required BuildContext context,
+  required SingleSelectionListView<Entity> selectionListView,
+}) {
+  showModalBottomSheet(
+    context: context,
+    builder: (context) => SelectionBottomSheet.singleSelection(
+      selectionListView: selectionListView,
+    ),
+  );
+} 
+
 class SelectionBottomSheet<Entity> extends StatelessWidget {
 
   final SelectionFieldController controller;
@@ -18,12 +30,11 @@ class SelectionBottomSheet<Entity> extends StatelessWidget {
 
   static SelectionBottomSheet<Entity> singleSelection<Entity>({
     required SingleSelectionListView<Entity> selectionListView,
-    required BaseSingleSelectionFieldController<Entity> controller,
     Widget Function(BuildContext context, Widget selectionListView)? builder,
   }) => SelectionBottomSheet._(
+    controller: selectionListView.controller,
     selectionListView: selectionListView,
     builder: builder,
-    controller: controller,
   );
 
   @override

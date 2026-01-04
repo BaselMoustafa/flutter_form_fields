@@ -68,21 +68,18 @@ class _GetPaginatedSingleSelectionFormFieldExampleState
         child: ExampleScreen(
           title: "Get Paginated Single Selection Form Field",
           fieldBuilder: () => SingleSelectionFormField<Product>(
-            itemBuilder: (item) => Text('${item.name} - \$${item.price.toStringAsFixed(2)}'),
+            itemBuilder: (context,item) => Text('${item.name} - \$${item.price.toStringAsFixed(2)}'),
             controller: _controller,
             onTap: (context) {
-              showModalBottomSheet(
+              showSingleSelectionBottomSheet(
                 context: context,
-                builder: (context) => SelectionBottomSheet.singleSelection(
+                selectionListView: SingleSelectionListView.paginated(
                   controller: _controller,
-                  selectionListView: SingleSelectionListView.paginated(
-                    controller: _controller,
-                    itemBuilder: (context, index) => Text(
-                      '${_controller.items[index].name} - \$${_controller.items[index].price.toStringAsFixed(2)}',
-                    ),
-                    get: (context) => _cubit.getProducts(),
-                    getMore: (context) => _cubit.getMoreProducts(),
+                  itemBuilder: (context, index) => Text(
+                    '${_controller.items[index].name} - \$${_controller.items[index].price.toStringAsFixed(2)}',
                   ),
+                  get: (context) => _cubit.getProducts(),
+                  getMore: (context) => _cubit.getMoreProducts(),
                 ),
               );
             },
