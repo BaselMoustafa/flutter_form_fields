@@ -6,6 +6,7 @@ import 'package:foo_form_field/foo_form_field.dart';
 
 import '../cubits/get_suppliers_cubit.dart';
 import '../models/supplier.dart';
+import '../widgets/controller_test_buttons.dart';
 import '../widgets/example_screen.dart';
 
 class GetOnceSingleSelectionFormFieldExample extends StatefulWidget {
@@ -74,7 +75,15 @@ class _GetOnceSingleSelectionFormFieldExampleState
               onSaved: (value) => log("Value Saved: $value"),
             ),
           ),
-          children: [],
+          children: [
+            ControllerTestButtons(
+              title: "Get Once Single Selection Controller Test Buttons",
+              controller: _controller,
+              firstDummyValue: Supplier(id: 1, name: "Supplier 1", email: "supplier1@example.com"),
+              secondDummyValue: Supplier(id: 2, name: "Supplier 2", email: "supplier2@example.com"),
+              valueToString: (value) => value.name,
+            ),
+          ],
         ),
       ),
     );

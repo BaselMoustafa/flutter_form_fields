@@ -46,6 +46,9 @@ class _SingleSelectionFormFieldExampleState extends State<SingleSelectionFormFie
       fieldBuilder: () => SingleSelectionFormField<SellingOrderStatus>(
         itemBuilder: (context,item) => Text(item.name),
         controller: _controller,
+        decoration: InputDecoration(
+          label: Text("Selling Order Status"),
+        ),
         onTap: (context) {
           showSingleSelectionBottomSheet(
             context: context,
