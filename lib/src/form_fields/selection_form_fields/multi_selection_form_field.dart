@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../foo_form_field.dart';
-import '../../controllers/multi_selection_field_controller.dart';
 
 class MultiSelectionFormField<Entity extends Object> extends StatelessWidget {
   
   final BaseMultiSelectionFieldController<Entity> controller;
-  final Widget Function(BuildContext context, Entity item) itemBuilder;
+  final Widget Function(BuildContext context, int index , Entity item) itemBuilder;
+  final Widget Function(BuildContext context, int index)? separatorBuilder;
   final FooFormFieldProperties<List<Entity>>? properties;
   final InputDecoration? decoration;
   final void Function(BuildContext context) onTap;
@@ -19,6 +19,7 @@ class MultiSelectionFormField<Entity extends Object> extends StatelessWidget {
     this.builder, 
     this.properties, 
     this.decoration, 
+    this.separatorBuilder,
   });
 
   @override
@@ -37,14 +38,16 @@ class MultiSelectionFormField<Entity extends Object> extends StatelessWidget {
       return builder!.call(context,value);
     }
 
-    final selectedItems = value?.map((item) => itemBuilder(context, item)).toList() ?? [];
+    final selectedItems = controller.value??[];
+    final selectedItemWidgets = <Widget>[];
+    for (var i = 0; i < selectedItems.length; i++) {
+      selectedItemWidgets.add(itemBuilder(context, i, selectedItems[i]));
+    }
 
     return SelectionButton(
-      onTap: () => onTap(context),
-      remainingWidgetBuilder: (remainingItemsCount) {
-        return Text("+ $remainingItemsCount");
-      },
-      selectedItems: selectedItems,
+      onTap: () => onTap(context), 
+      selectedItems: selectedItemWidgets, 
+      separatorBuilder: separatorBuilder,
     );
   }
 

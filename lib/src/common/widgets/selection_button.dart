@@ -5,18 +5,12 @@ class SelectionButton extends StatefulWidget {
     super.key,
     required this.selectedItems,
     required this.onTap,
-    required this.remainingWidgetBuilder,
-    this.maxLines = 1,
-    this.spacing = 8,
-    this.runSpacing = 8,
+    this.separatorBuilder,
   });
 
-  final int maxLines;
-  final double spacing;
-  final double runSpacing;
   final List<Widget> selectedItems;
   final VoidCallback onTap;
-  final Widget Function(int remainingItemsCount) remainingWidgetBuilder;
+  final Widget Function(BuildContext context,int index)? separatorBuilder;
 
   @override
   State<SelectionButton> createState() => _SelectionButtonState();
@@ -28,8 +22,26 @@ class _SelectionButtonState extends State<SelectionButton> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: widget.selectedItems,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: _displayedItems,
     );
+  }
+  
+  List<Widget> get _displayedItems{
+    final List<Widget> displayedItems = [];
+    for (var i = 0; i < widget.selectedItems.length; i++) {
+      displayedItems.add(widget.selectedItems[i]);
+      if (i < widget.selectedItems.length - 1) {
+        displayedItems.add(
+          _separatorBuilder(context, i)
+        );
+      }
+    }
+    return displayedItems;
+  }
+
+  Widget _separatorBuilder(BuildContext context, int index){
+    return widget.separatorBuilder?.call(context, index) ?? Text(" , ");
   }
 
   @override

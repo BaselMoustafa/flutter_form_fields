@@ -45,7 +45,14 @@ class _MultiSelectionFormFieldExampleState extends State<MultiSelectionFormField
     return ExampleScreen(
       title: "Multi Selection Form Field",
       fieldBuilder: () => MultiSelectionFormField<SellingOrderStatus>(
-        itemBuilder: (context,item) => Text(item.name),
+        separatorBuilder: (context,index) => Text("----"),
+        itemBuilder: (context,index,item) => Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(item.name),
+          ),
+        ),
+        
         controller: _controller,
         decoration: InputDecoration(
           label: Text("Selling Order Status"),

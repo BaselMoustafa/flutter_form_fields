@@ -55,7 +55,7 @@ class _GetOnceMultiSelectionFormFieldExampleState
         child: ExampleScreen(
           title: "Get Once Multi Selection Form Field",
           fieldBuilder: () => MultiSelectionFormField<Supplier>(
-            itemBuilder: (context, item) => Text('${item.name} (${item.email})'),
+            itemBuilder: (context,index,item) => Text('${item.name} (${item.email})'),
             controller: _controller,
             onTap: (context) {
               showMultiSelectionBottomSheet(

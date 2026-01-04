@@ -77,7 +77,7 @@ class _GetPaginatedMultiSelectionFormFieldExampleState
         child: ExampleScreen(
           title: "Get Paginated Multi Selection Form Field",
           fieldBuilder: () => MultiSelectionFormField<Product>(
-            itemBuilder: (context,item) => Text('${item.name} - \$${item.price.toStringAsFixed(2)}'),
+            itemBuilder: (context,index,item) => Text('${item.name} - \$${item.price.toStringAsFixed(2)}'),
             controller: _controller,
             onTap: (context) {
               showMultiSelectionBottomSheet(

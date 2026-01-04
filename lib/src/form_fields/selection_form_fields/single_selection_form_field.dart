@@ -38,9 +38,6 @@ class SingleSelectionFormField<Entity extends Object> extends StatelessWidget {
 
     return SelectionButton(
       onTap: () => onTap(context),
-      remainingWidgetBuilder: (remainingItemsCount) {
-        return Text("+ $remainingItemsCount");
-      },
       selectedItems:controller.value==null?[]:[itemBuilder(context, controller.value as Entity)],
     );
   }
