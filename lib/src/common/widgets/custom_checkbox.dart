@@ -39,15 +39,16 @@ class _WidgetDesign extends StatelessWidget {
     return Container(
       height: 20,
       width: 20,
-      padding: const EdgeInsets.all(2),
+      padding: const EdgeInsets.all(1),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
         border: Border.all(color: PackageColors.primary(context)),
+        color: isSelected ? PackageColors.primary(context) : null,
       ),
       child: isSelected ? Icon(
-        Icons.check,
-        size: 14,
-        color: PackageColors.primary(context),
+        Icons.done,
+        size: 16,
+        color: Colors.white,
       ) : null,
     );
   }
